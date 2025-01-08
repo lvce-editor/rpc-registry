@@ -1,7 +1,7 @@
 /* @jest-environment jsdom */
 import { expect, test } from '@jest/globals'
-import * as Main from '../src/parts/Main/Main.ts'
+import * as Index from '../src/index.ts'
 
-test('main', () => {
-  expect(typeof Main.main).toBe('function')
+test('index', () => {
+  expect(typeof Index.get).toBe('function')
 })
