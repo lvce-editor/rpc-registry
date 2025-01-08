@@ -1,4 +1,3 @@
-/* @jest-environment jsdom */
 import { expect, test } from '@jest/globals'
 import * as Index from '../src/index.ts'
 
