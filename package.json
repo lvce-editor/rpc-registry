@@ -13,7 +13,8 @@
   },
   "prettier": {
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "printWidth": 180
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.1",
