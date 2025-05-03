@@ -9,7 +9,7 @@ import { root } from './root.js'
  * @type {import('rollup').RollupOptions}
  */
 const options = {
-  input: join(root, 'packages/rpc/src/index.ts'),
+  input: join(root, 'packages/rpc-registry/src/index.ts'),
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,
