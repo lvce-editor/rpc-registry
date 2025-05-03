@@ -7,7 +7,9 @@
     "type-check": "tsc -b",
     "lint": "echo ok",
     "build": "node packages/build/src/build.js",
-    "#lint": "eslint ."
+    "#lint": "eslint .",
+    "postinstall": "lerna bootstrap --ci",
+
   },
   "keywords": [],
   "author": "Lvce Editor",
