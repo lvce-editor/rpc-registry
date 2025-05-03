@@ -28,7 +28,10 @@
     "rollup": "^4.40.1",
     "ts-jest": "^29.3.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.1"
+    "typescript-eslint": "^8.31.1",
+    "@lerna/legacy-package-management": "^8.2.2",
+    "@lvce-editor/eslint-config": "^1.39.0",
+    "lerna": "^8.2.2"
   },
   "optionalDependencies": {
     "@lvce-editor/rpc": "^2.2.0"
