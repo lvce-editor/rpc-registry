@@ -12,6 +12,10 @@ export interface RendererWorkerApi {
   readonly 'ConfirmPrompt.prompt': (confirmText: string, options: ConfirmPromptOptions) => Promise<boolean>
   readonly 'ContextMenu.show': (x: number, y: number, id: any, ...args: readonly any[]) => Promise<void>
   readonly 'ElectronDialog.showMessageBox': (options: any) => Promise<any>
+  readonly 'ElectronWindow.close': () => Promise<void>
+  readonly 'ElectronWindow.maximize': () => Promise<void>
+  readonly 'ElectronWindow.minimize': () => Promise<void>
+  readonly 'ElectronWindow.unmaximize': () => Promise<void>
   readonly 'ErrorHandling.showErrorDialog': (errorInfo: any) => Promise<void>
   readonly 'Explorer.cancelTypeAhead': () => Promise<void>
   readonly 'Explorer.handleKeyDown': (key: string) => Promise<void>
