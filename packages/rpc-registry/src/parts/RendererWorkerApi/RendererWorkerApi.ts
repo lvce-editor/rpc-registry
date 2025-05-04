@@ -4,6 +4,8 @@ import type { SearchResult } from '../SearchResult/SearchResult.ts'
 
 export interface RendererWorkerApi {
   readonly 'BulkReplacement.applyBulkReplacement': (edits: readonly BulkReplacementEdit[]) => Promise<void>
+  readonly 'ClipBoard.readNativeFiles': () => Promise<readonly string[]>
+  readonly 'ClipBoard.writeNativeFiles': (type: string, files: readonly string[]) => Promise<void>
   readonly 'ClipBoard.writeText': (text: string) => Promise<void>
   readonly 'ColorTheme.getColorThemeNames': () => Promise<readonly string[]>
   readonly 'ColorTheme.setColorTheme': (id: string) => Promise<void>
@@ -11,6 +13,8 @@ export interface RendererWorkerApi {
   readonly 'ContextMenu.show': (x: number, y: number, id: any, ...args: readonly any[]) => Promise<void>
   readonly 'ElectronDialog.showMessageBox': (options: any) => Promise<any>
   readonly 'ErrorHandling.showErrorDialog': (errorInfo: any) => Promise<void>
+  readonly 'Explorer.cancelTypeAhead': () => Promise<void>
+  readonly 'Explorer.handleKeyDown': (key: string) => Promise<void>
   readonly 'ExtensionHost.executeCommand': (id: string) => Promise<void>
   readonly 'ExtensionHost.getCommands': () => Promise<readonly any[]>
   readonly 'ExtensionHost.searchFileWithFetch': (uri: string) => Promise<readonly string[]>
@@ -21,14 +25,29 @@ export interface RendererWorkerApi {
   readonly 'ExtensionHostTextSearch.textSearchFetch': (scheme: string, root: string, query: string, options: any, assetDir: string) => Promise<readonly SearchResult[]>
   readonly 'ExtensionHostTextSearch.textSearchHtml': (scheme: string, root: string, query: string) => Promise<readonly SearchResult[]>
   readonly 'ExtensionHostTextSearch.textSearchMemory': (scheme: string, root: string, query: string, options: any, assetDir: string) => Promise<readonly SearchResult[]>
+  readonly 'FileSystem.copy': (oldUri: string, newUri: string) => Promise<void>
+  readonly 'FileSystem.createFile': (uri: string) => Promise<void>
+  readonly 'FileSystem.getPathSeparator': (root: string) => Promise<string>
+  readonly 'FileSystem.getRealPath': (root: string) => Promise<string>
+  readonly 'FileSystem.mkdir': (uri: string) => Promise<void>
+  readonly 'FileSystem.readDirWithFileTypes': (uri: string) => Promise<readonly any[]>
   readonly 'FileSystem.readFile': (uri: string) => Promise<string>
-  readonly 'Focus.setFocus': (focusKey: number) => Promise<void>
+  readonly 'FileSystem.remove': (uri: string) => Promise<void>
+  readonly 'FileSystem.rename': (oldUri: string, newUri: string) => Promise<void>
+  readonly 'FileSystem.stat': (root: string) => Promise<any>
+  readonly 'FileSystem.writeFile': (uri: string, content: string) => Promise<void>
+  readonly 'FileSystemHandle.getFileHandles': (fileIds: readonly number[]) => Promise<readonly FileSystemHandle[]>
+  readonly 'FileSystemHandle.getFilePathElectron': (file: File) => Promise<string>
+  readonly 'Focus.setFocus': (focusId: number) => Promise<void>
   readonly 'GetWindowId.getWindowId': () => Promise<number>
   readonly 'IconTheme.getFileIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getFolderIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getIcons': (request: readonly any[]) => Promise<readonly string[]>
   readonly 'KeyBindingsInitial.getKeyBindings': () => Promise<readonly any[]>
   readonly 'Main.openUri': (uri: string, focus?: boolean, props?: any) => Promise<void>
+  readonly 'MouseActions.get': (uid: number, button: number, modifiers: any) => Promise<any>
+  readonly 'OpenNativeFolder.openNativeFolder': (path: string) => Promise<void>
+  readonly 'Preferences.get': (key: string) => Promise<any>
   readonly 'Process.getChromeVersion': () => Promise<string>
   readonly 'Process.getElectronVersion': () => Promise<string>
   readonly 'Process.getNodeVersion': () => Promise<string>
