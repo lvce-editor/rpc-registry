@@ -25,9 +25,13 @@ export interface RendererWorkerApi {
   readonly 'ExtensionHostTextSearch.textSearchFetch': (scheme: string, root: string, query: string, options: any, assetDir: string) => Promise<readonly SearchResult[]>
   readonly 'ExtensionHostTextSearch.textSearchHtml': (scheme: string, root: string, query: string) => Promise<readonly SearchResult[]>
   readonly 'ExtensionHostTextSearch.textSearchMemory': (scheme: string, root: string, query: string, options: any, assetDir: string) => Promise<readonly SearchResult[]>
+  readonly 'ExtensionManagement.disable': (id: string) => Promise<void>
   readonly 'ExtensionManagement.getAllExtensions': () => Promise<readonly any[]>
+  readonly 'ExtensionManagement.getExtension': (id: string) => Promise<any>
+  readonly 'ExtensionManagement.uninstall': (id: string) => Promise<void>
   readonly 'FileSystem.copy': (oldUri: string, newUri: string) => Promise<void>
   readonly 'FileSystem.createFile': (uri: string) => Promise<void>
+  readonly 'FileSystem.getFolderSize': (uri: string) => Promise<number>
   readonly 'FileSystem.getPathSeparator': (root: string) => Promise<string>
   readonly 'FileSystem.getRealPath': (root: string) => Promise<string>
   readonly 'FileSystem.mkdir': (uri: string) => Promise<void>
@@ -46,6 +50,7 @@ export interface RendererWorkerApi {
   readonly 'IconTheme.getIcons': (request: readonly any[]) => Promise<readonly string[]>
   readonly 'KeyBindingsInitial.getKeyBindings': () => Promise<readonly any[]>
   readonly 'Main.openUri': (uri: string, focus?: boolean, props?: any) => Promise<void>
+  readonly 'Markdown.renderMarkdown': (markdown: string, options: any) => Promise<string>
   readonly 'MouseActions.get': (uid: number, button: number, modifiers: any) => Promise<any>
   readonly 'OpenNativeFolder.openNativeFolder': (path: string) => Promise<void>
   readonly 'Preferences.get': (key: string) => Promise<any>
