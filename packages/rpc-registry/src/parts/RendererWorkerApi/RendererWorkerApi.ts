@@ -61,6 +61,8 @@ export interface RendererWorkerApi {
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (port: MessagePort, initialCommand: string, rpcId: number) => Promise<void>
   readonly 'Viewlet.closeWidget': (id: number | string) => Promise<void>
   readonly 'Viewlet.openWidget': (widgetId: string) => Promise<string>
+  readonly 'WebView.registerInterceptor': (id: number, port: MessagePort) => Promise<void>
+  readonly 'WebView.unregisterInterceptor': (id: number) => Promise<void>
   readonly 'Workspace.getPath': () => Promise<string>
   readonly 'Workspace.setPath': (uri: string) => Promise<void>
 }
