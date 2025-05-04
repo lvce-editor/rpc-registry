@@ -17,6 +17,7 @@ export interface RendererWorkerApi {
   readonly 'IconTheme.getFileIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getFolderIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getIcons': (request: readonly any[]) => Promise<readonly string[]>
+  readonly 'KeyBindingsInitial.getKeyBindings': () => Promise<readonly any[]>
   readonly 'Main.openUri': (uri: string, focus?: boolean, props?: any) => Promise<void>
   readonly 'Process.getChromeVersion': () => Promise<string>
   readonly 'Process.getElectronVersion': () => Promise<string>
