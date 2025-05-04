@@ -25,6 +25,7 @@ export interface RendererWorkerApi {
   readonly 'ExtensionHostTextSearch.textSearchFetch': (scheme: string, root: string, query: string, options: any, assetDir: string) => Promise<readonly SearchResult[]>
   readonly 'ExtensionHostTextSearch.textSearchHtml': (scheme: string, root: string, query: string) => Promise<readonly SearchResult[]>
   readonly 'ExtensionHostTextSearch.textSearchMemory': (scheme: string, root: string, query: string, options: any, assetDir: string) => Promise<readonly SearchResult[]>
+  readonly 'ExtensionManagement.getAllExtensions': () => Promise<readonly any[]>
   readonly 'FileSystem.copy': (oldUri: string, newUri: string) => Promise<void>
   readonly 'FileSystem.createFile': (uri: string) => Promise<void>
   readonly 'FileSystem.getPathSeparator': (root: string) => Promise<string>
