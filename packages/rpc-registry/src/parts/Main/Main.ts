@@ -1,5 +1,6 @@
 export * from '../RpcRegistry/RpcRegistry.ts'
-export * as RendererWorker from '../RendererWorker/RendererWorker.ts'
 export * as ExtensionHost from '../ExtensionHost/ExtensionHost.ts'
-export * as SearchProcess from '../SearchProcess/SearchProcess.ts'
 export * as MainProcess from '../MainProcess/MainProcess.ts'
+export * as RendererWorker from '../RendererWorker/RendererWorker.ts'
+export * as SearchProcess from '../SearchProcess/SearchProcess.ts'
+export * as SharedProcess from '../SharedProcess/SharedProcess.ts'
