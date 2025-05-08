@@ -10,4 +10,10 @@ export default [
       'n/no-unsupported-features/node-builtins': 'off',
     },
   },
+  {
+    files: ['**/package.json'],
+    rules: {
+      'package-json/require-description': 'off',
+    },
+  },
 ]
