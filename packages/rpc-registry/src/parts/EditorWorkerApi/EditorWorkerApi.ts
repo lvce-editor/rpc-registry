@@ -1,10 +1,6 @@
-interface PositionAtCursor {
-  readonly x: number
-  readonly y: number
-  readonly rowIndex: number
-  readonly columnIndex: number
-}
+import type { PositionAtCursor } from '../PositionAtCursor/PositionAtCursor.ts'
 
 export interface EditorWorkerApi {
   readonly 'Editor.getPositionAtCursor': (uid: number) => Promise<PositionAtCursor>
+  readonly 'Editor.getWordAt2': (uid: number, rowIndex: number, columnIndex: number) => Promise<string>
 }
