@@ -15,7 +15,7 @@ export const create = <Api extends Record<string, any>>(rpcId: number): RpcFacto
     invokeAndTransfer(method, ...params) {
       const rpc = RpcRegistry.get(RpcId.RendererWorker)
       // @ts-ignore
-      return rpc.invoke(method, ...params)
+      return rpc.invokeAndTransfer(method, ...params)
     },
     set(rpc) {
       RpcRegistry.set(rpcId, rpc)
