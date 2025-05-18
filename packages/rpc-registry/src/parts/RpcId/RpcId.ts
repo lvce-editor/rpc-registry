@@ -8,3 +8,4 @@ export const SearchProcessElectron = 2
 export const SharedProcess = 1
 export const SourceControlWorker = 66
 export const EmbedsProcess = 207
+export const EmbedsWorker = 208
