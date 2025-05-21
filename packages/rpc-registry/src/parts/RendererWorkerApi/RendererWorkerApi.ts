@@ -69,6 +69,7 @@ export interface RendererWorkerApi {
   readonly 'SearchProcess.invoke': (command: string, ...args: readonly any[]) => Promise<any>
   readonly 'SendMessagePortToElectron.sendMessagePortToElectron': (port: MessagePort, command: string) => Promise<void>
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (port: MessagePort, initialCommand: string, rpcId: number) => Promise<void>
+  readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
   readonly 'Viewlet.closeWidget': (id: number | string) => Promise<void>
   readonly 'Viewlet.openWidget': (widgetId: string) => Promise<string>
   readonly 'WebView.getWebViewInfo2': (id: string) => Promise<any>
