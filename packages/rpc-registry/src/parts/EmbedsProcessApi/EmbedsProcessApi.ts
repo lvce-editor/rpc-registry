@@ -1,8 +1,25 @@
 export interface EmbedsProcessApi {
   readonly 'ElectronWebContents.dispose': (id: any) => Promise<void>
   readonly 'ElectronWebContentsView.attachEventListeners': (webContentsId: any) => Promise<void>
+  readonly 'ElectronWebContentsView.backward': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.cancelNavigation': (id: any) => Promise<any>
+  readonly 'ElectronWebContentsView.copyImageAt': (id: any, x: number, y: number) => Promise<void>
   readonly 'ElectronWebContentsView.createWebContentsView': (webContentsId: any) => Promise<any>
   readonly 'ElectronWebContentsView.disposeWebContentsView': (webContentsId: any) => Promise<void>
+  readonly 'ElectronWebContentsView.focus': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.forward': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.getDomTree': (id: any) => Promise<string>
+  readonly 'ElectronWebContentsView.getStats': (id: any, keyBindings: any) => Promise<any>
+  readonly 'ElectronWebContentsView.hide': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.insertCss': (id: any, css: string) => Promise<void>
+  readonly 'ElectronWebContentsView.insertJavaScript': (id: any, code: string) => Promise<any>
+  readonly 'ElectronWebContentsView.inspectElement': (id: any, x: number, y: number) => Promise<void>
+  readonly 'ElectronWebContentsView.openDevtools': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.reload': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.resizeBrowserView': (id: any, x: number, y: number, width: number, height: number) => Promise<void>
+  readonly 'ElectronWebContentsView.setIframeSrc': (id: any, iframeSrc: string) => Promise<void>
+  readonly 'ElectronWebContentsView.setIframeSrcFallback': (id: any, code: any, error: any) => Promise<void>
+  readonly 'ElectronWebContentsView.show': (id: any) => Promise<void>
   readonly 'ElectronWebContentsViewFunctions.getStats': (id: any, ...args: readonly any[]) => Promise<any>
   readonly 'ElectronWebContentsViewFunctions.resizeBrowserView': (id: any, ...args: readonly any[]) => Promise<void>
   readonly 'ElectronWebContentsViewFunctions.setBackgroundColor': (webContentsId: any, backgroundColor: string) => Promise<void>
