@@ -9,3 +9,5 @@ export const SharedProcess = 1
 export const SourceControlWorker = 66
 export const EmbedsProcess = 207
 export const EmbedsWorker = 208
+export const FileSystemWorker = 209
+export const FileSystemProcess = 210
