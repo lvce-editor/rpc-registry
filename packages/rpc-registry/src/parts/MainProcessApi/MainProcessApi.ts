@@ -11,4 +11,5 @@ export interface MainProcessApi {
   readonly 'ElectronWebContentsViewFunctions.setIframeSrc': (id: any, ...args: readonly any[]) => Promise<void>
   readonly 'ElectronWebContentsViewFunctions.setIframeSrcFallback': (id: any, ...args: readonly any[]) => Promise<void>
   readonly 'ElectronWebContentsViewFunctions.show': (id: any, ...args: readonly any[]) => Promise<void>
+  readonly 'Trash.trash': (path: string) => Promise<void>
 }
