@@ -106,6 +106,7 @@ export interface RendererWorkerApi {
   readonly 'IframeInspector.focusPrevious': () => Promise<void>
   readonly 'IframeInspector.selectIndex': (index: number) => Promise<void>
   readonly 'KeyBindingsInitial.getKeyBindings': () => Promise<readonly any[]>
+  readonly 'Layout.hideSideBar': () => Promise<void>
   readonly 'Main.openUri': (uri: string, focus?: boolean, props?: any) => Promise<void>
   readonly 'Markdown.renderMarkdown': (markdown: string, options: any) => Promise<string>
   readonly 'Menu.selectItem': (text: string) => Promise<void>
@@ -148,6 +149,7 @@ export interface RendererWorkerApi {
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (port: MessagePort, initialCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToFileSystemProcess.sendMessagePortToFileSystemProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
+  readonly 'SideBar.openViewlet': (id: string) => Promise<void>
   readonly 'Source Control.acceptInput': () => Promise<void>
   readonly 'Source Control.handleClickSourceControlButtons': (index: number, name: string) => Promise<void>
   readonly 'Source Control.handleInput': (text: string) => Promise<void>
