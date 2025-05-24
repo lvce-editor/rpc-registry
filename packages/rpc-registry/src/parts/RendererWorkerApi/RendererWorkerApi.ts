@@ -9,6 +9,14 @@ export interface RendererWorkerApi {
   readonly 'About.handleClickCopy': () => Promise<void>
   readonly 'About.handleClickOk': () => Promise<void>
   readonly 'About.showAbout': () => Promise<void>
+  readonly 'ActivityBar.focus': () => Promise<void>
+  readonly 'ActivityBar.focusFirst': () => Promise<void>
+  readonly 'ActivityBar.focusLast': () => Promise<void>
+  readonly 'ActivityBar.focusNext': () => Promise<void>
+  readonly 'ActivityBar.focusPrevious': () => Promise<void>
+  readonly 'ActivityBar.handleClick': (index: number) => Promise<void>
+  readonly 'ActivityBar.handleContextMenu': () => Promise<void>
+  readonly 'ActivityBar.selectCurrent': () => Promise<void>
   readonly 'BulkReplacement.applyBulkReplacement': (edits: readonly BulkReplacementEdit[]) => Promise<void>
   readonly 'ClipBoard.readNativeFiles': () => Promise<readonly string[]>
   readonly 'ClipBoard.writeNativeFiles': (type: string, files: readonly string[]) => Promise<void>
@@ -54,6 +62,9 @@ export interface RendererWorkerApi {
   readonly 'Explorer.selectIndices': (indices: readonly number[]) => Promise<void>
   readonly 'Explorer.selectUp': () => Promise<void>
   readonly 'Explorer.updateEditingValue': (value: string) => Promise<void>
+  readonly 'ExtensionDetail.open': (eextensionId: string) => Promise<void>
+  readonly 'ExtensionDetail.selectFeature': (name: string) => Promise<void>
+  readonly 'ExtensionDetail.selectTab': (name: string) => Promise<void>
   readonly 'ExtensionHost.executeCommand': (id: string) => Promise<void>
   readonly 'ExtensionHost.getCommands': () => Promise<readonly any[]>
   readonly 'ExtensionHost.searchFileWithFetch': (uri: string) => Promise<readonly string[]>
@@ -89,6 +100,11 @@ export interface RendererWorkerApi {
   readonly 'IconTheme.getFileIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getFolderIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getIcons': (request: readonly any[]) => Promise<readonly string[]>
+  readonly 'IframeInspector.focusFirst': () => Promise<void>
+  readonly 'IframeInspector.focusLast': () => Promise<void>
+  readonly 'IframeInspector.focusNext': () => Promise<void>
+  readonly 'IframeInspector.focusPrevious': () => Promise<void>
+  readonly 'IframeInspector.selectIndex': (index: number) => Promise<void>
   readonly 'KeyBindings.addKeyBinding': () => Promise<void>
   readonly 'KeyBindings.changeWhenExpression': () => Promise<void>
   readonly 'KeyBindings.clearInput': () => Promise<void>
@@ -125,6 +141,7 @@ export interface RendererWorkerApi {
   readonly 'Main.openUri': (uri: string, focus?: boolean, props?: any) => Promise<void>
   readonly 'Main.splitRight': () => Promise<void>
   readonly 'Markdown.renderMarkdown': (markdown: string, options: any) => Promise<string>
+  readonly 'Menu.selectItem': (text: string) => Promise<void>
   readonly 'MouseActions.get': (uid: number, button: number, modifiers: any) => Promise<any>
   readonly 'OpenNativeFolder.openNativeFolder': (path: string) => Promise<void>
   readonly 'Preferences.get': (key: string) => Promise<any>
@@ -164,6 +181,10 @@ export interface RendererWorkerApi {
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (port: MessagePort, initialCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToFileSystemProcess.sendMessagePortToFileSystemProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
+  readonly 'Source Control.acceptInput': () => Promise<void>
+  readonly 'Source Control.handleClickSourceControlButtons': (index: number, name: string) => Promise<void>
+  readonly 'Source Control.handleInput': (text: string) => Promise<void>
+  readonly 'Source Control.selectIndex': (index: number) => Promise<void>
   readonly 'TitleBarMenuBar.closeMenu': () => Promise<void>
   readonly 'TitleBarMenuBar.focus': () => Promise<void>
   readonly 'TitleBarMenuBar.focusFirst': () => Promise<void>
