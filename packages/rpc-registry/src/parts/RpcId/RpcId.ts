@@ -11,3 +11,4 @@ export const EmbedsProcess = 207
 export const EmbedsWorker = 208
 export const FileSystemWorker = 209
 export const FileSystemProcess = 210
+export const MarkdownWorker = 300
