@@ -190,6 +190,7 @@ export interface RendererWorkerApi {
   readonly 'Source Control.handleClickSourceControlButtons': (index: number, name: string) => Promise<void>
   readonly 'Source Control.handleInput': (text: string) => Promise<void>
   readonly 'Source Control.selectIndex': (index: number) => Promise<void>
+  readonly 'StatusBar.updateStatusBarItems': () => Promise<void>
   readonly 'TitleBarMenuBar.closeMenu': () => Promise<void>
   readonly 'TitleBarMenuBar.focus': () => Promise<void>
   readonly 'TitleBarMenuBar.focusFirst': () => Promise<void>
