@@ -100,6 +100,7 @@ export interface RendererWorkerApi {
   readonly 'IconTheme.getFileIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getFolderIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getIcons': (request: readonly any[]) => Promise<readonly string[]>
+  readonly 'IconTheme.setIconTheme': (id: string) => Promise<readonly string[]>
   readonly 'IframeInspector.focusFirst': () => Promise<void>
   readonly 'IframeInspector.focusLast': () => Promise<void>
   readonly 'IframeInspector.focusNext': () => Promise<void>
