@@ -1,4 +1,4 @@
-export interface FileSystemProcessApi {
+export interface FileSystemWorkerApi {
   readonly 'FileSystem.copy': (oldUri: string, newUri: string) => Promise<void>
   readonly 'FileSystem.getPathSeparator': () => Promise<string>
   readonly 'FileSystem.getRealPath': (uri: string) => Promise<string>
