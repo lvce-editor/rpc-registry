@@ -79,4 +79,21 @@ export interface RendererWorkerApi {
   readonly 'WebView.unregisterInterceptor': (id: number) => Promise<void>
   readonly 'Workspace.getPath': () => Promise<string>
   readonly 'Workspace.setPath': (uri: string) => Promise<void>
+  readonly 'TitleBarMenuBar.toggleMenu': () => Promise<void>
+  readonly 'TitleBarMenuBar.toggleIndex': (index: number) => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeyEscape': () => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeySpace': () => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeyHome': () => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeyEnd': () => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeyArrowUp': () => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeyArrowRight': () => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeyArrowLeft': () => Promise<void>
+  readonly 'TitleBarMenuBar.handleKeyArrowDown': () => Promise<void>
+  readonly 'TitleBarMenuBar.focusPrevious': () => Promise<void>
+  readonly 'TitleBarMenuBar.focusNext': () => Promise<void>
+  readonly 'TitleBarMenuBar.focusLast': () => Promise<void>
+  readonly 'TitleBarMenuBar.focusIndex': () => Promise<void>
+  readonly 'TitleBarMenuBar.focusFirst': () => Promise<void>
+  readonly 'TitleBarMenuBar.focus': () => Promise<void>
+  readonly 'TitleBarMenuBar.closeMenu': () => Promise<void>
 }
