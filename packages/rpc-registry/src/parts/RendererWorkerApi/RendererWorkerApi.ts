@@ -130,6 +130,7 @@ export interface RendererWorkerApi {
   readonly 'KeyBindings.stopRecordingKeys': () => Promise<void>
   readonly 'KeyBindings.toggleRecordingKeys': () => Promise<void>
   readonly 'KeyBindingsInitial.getKeyBindings': () => Promise<readonly any[]>
+  readonly 'Layout.hideSideBar': () => Promise<void>
   readonly 'Layout.showPanel': (id: string) => Promise<void>
   readonly 'Main.closeActiveEditor': () => Promise<void>
   readonly 'Main.closeAllEditors': () => Promise<void>
@@ -184,6 +185,7 @@ export interface RendererWorkerApi {
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (port: MessagePort, initialCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToFileSystemProcess.sendMessagePortToFileSystemProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
+  readonly 'SideBar.openViewlet': (id: string) => Promise<void>
   readonly 'Source Control.acceptInput': () => Promise<void>
   readonly 'Source Control.handleClickSourceControlButtons': (index: number, name: string) => Promise<void>
   readonly 'Source Control.handleInput': (text: string) => Promise<void>
