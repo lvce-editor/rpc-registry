@@ -81,6 +81,8 @@ export interface RendererWorkerApi {
   readonly 'ExtensionManagement.getAllExtensions': () => Promise<readonly any[]>
   readonly 'ExtensionManagement.getExtension': (id: string) => Promise<any>
   readonly 'ExtensionManagement.uninstall': (id: string) => Promise<void>
+  readonly 'ExtensionMeta.addNodeExtension': (absolutePath: string) => Promise<void>
+  readonly 'ExtensionMeta.addWebExtension': (absolutePath: string) => Promise<void>
   readonly 'FileSystem.copy': (oldUri: string, newUri: string) => Promise<void>
   readonly 'FileSystem.createFile': (uri: string) => Promise<void>
   readonly 'FileSystem.getFolderSize': (uri: string) => Promise<number>
