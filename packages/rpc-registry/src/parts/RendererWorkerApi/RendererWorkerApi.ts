@@ -25,6 +25,8 @@ export interface RendererWorkerApi {
   readonly 'ColorTheme.setColorTheme': (id: string) => Promise<void>
   readonly 'ConfirmPrompt.prompt': (confirmText: string, options: ConfirmPromptOptions) => Promise<boolean>
   readonly 'ContextMenu.show': (x: number, y: number, id: any, ...args: readonly any[]) => Promise<void>
+  readonly 'EditorCompletion.selectCurrentIndex': () => Promise<void>
+  readonly 'EditorCompletion.selectIndex': (index: number) => Promise<void>
   readonly 'ElectronDialog.showMessageBox': (options: any) => Promise<any>
   readonly 'ElectronWindow.close': () => Promise<void>
   readonly 'ElectronWindow.maximize': () => Promise<void>
