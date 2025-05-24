@@ -131,6 +131,10 @@ export interface RendererWorkerApi {
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (port: MessagePort, initialCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToFileSystemProcess.sendMessagePortToFileSystemProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
+  readonly 'Source Control.acceptInput': () => Promise<void>
+  readonly 'Source Control.handleClickSourceControlButtons': (index: number, name: string) => Promise<void>
+  readonly 'Source Control.handleInput': (text: string) => Promise<void>
+  readonly 'Source Control.selectIndex': (index: number) => Promise<void>
   readonly 'TitleBarMenuBar.closeMenu': () => Promise<void>
   readonly 'TitleBarMenuBar.focus': () => Promise<void>
   readonly 'TitleBarMenuBar.focusFirst': () => Promise<void>
