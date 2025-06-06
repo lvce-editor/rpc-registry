@@ -15,3 +15,4 @@ export const MarkdownWorker = 300
 export const CompletionWorker = 301
 export const ColorPickerWorker = 302
 export const SourceActionWorker = 303
+export const ErrorWorker = 3308
