@@ -19,6 +19,7 @@ export interface RendererWorkerApi {
   readonly 'ActivityBar.selectCurrent': () => Promise<void>
   readonly 'BulkReplacement.applyBulkReplacement': (edits: readonly BulkReplacementEdit[]) => Promise<void>
   readonly 'ClipBoard.readNativeFiles': () => Promise<readonly string[]>
+  readonly 'ClipBoard.readText': () => Promise<string>
   readonly 'ClipBoard.writeNativeFiles': (type: string, files: readonly string[]) => Promise<void>
   readonly 'ClipBoard.writeText': (text: string) => Promise<void>
   readonly 'ColorTheme.getColorThemeNames': () => Promise<readonly string[]>
@@ -152,6 +153,8 @@ export interface RendererWorkerApi {
   readonly 'FindWidget.focusNext': () => Promise<void>
   readonly 'FindWidget.handleInput': (value: string) => Promise<void>
   readonly 'Focus.setFocus': (focusId: number) => Promise<void>
+  readonly 'Format.format': (editor: any) => Promise<any>
+  readonly 'GetEditorSourceActions.getEditorSourceActions': () => Promise<any>
   readonly 'GetWindowId.getWindowId': () => Promise<number>
   readonly 'IconTheme.getFileIcon': (options: any) => Promise<string>
   readonly 'IconTheme.getFolderIcon': (options: any) => Promise<string>
@@ -162,6 +165,7 @@ export interface RendererWorkerApi {
   readonly 'IframeInspector.focusNext': () => Promise<void>
   readonly 'IframeInspector.focusPrevious': () => Promise<void>
   readonly 'IframeInspector.selectIndex': (index: number) => Promise<void>
+  readonly 'IpcParent.create': (options: any) => Promise<void>
   readonly 'KeyBindings.addKeyBinding': () => Promise<void>
   readonly 'KeyBindings.changeWhenExpression': () => Promise<void>
   readonly 'KeyBindings.clearInput': () => Promise<void>
@@ -240,7 +244,7 @@ export interface RendererWorkerApi {
   readonly 'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
   readonly 'SendMessagePortToFileSystemProcess.sendMessagePortToFileSystemProcess': (port: MessagePort, outerCommand: string, rpcId: number) => Promise<void>
   readonly 'SideBar.openViewlet': (id: string) => Promise<void>
-  readonly 'SideBar.show': (id: string) => Promise<void>
+  readonly 'SideBar.show': (id: string, focus?: boolean) => Promise<void>
   readonly 'Source Control.acceptInput': () => Promise<void>
   readonly 'Source Control.handleClickSourceControlButtons': (index: number, name: string) => Promise<void>
   readonly 'Source Control.handleInput': (text: string) => Promise<void>
