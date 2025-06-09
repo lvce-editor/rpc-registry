@@ -1,4 +1,5 @@
 export * from '../RpcRegistry/RpcRegistry.ts'
+export * as DebugWorker from '../DebugWorker/DebugWorker.ts'
 export * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 export * as EmbedsProcess from '../EmbedsProcess/EmbedsProcess.ts'
 export * as ErrorWorker from '../ErrorWorker/ErrorWorker.ts'
