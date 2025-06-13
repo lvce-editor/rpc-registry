@@ -2,4 +2,4 @@ import type { SyntaxHighlightingWorkerApi } from '../SyntaxHighlightingWorkerApi
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 import * as RpcId from '../RpcId/RpcId.ts'
 
-export const { invoke, invokeAndTransfer, set } = RpcFactory.create<SyntaxHighlightingWorkerApi>(RpcId.MarkdownWorker)
+export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<SyntaxHighlightingWorkerApi>(RpcId.MarkdownWorker)
