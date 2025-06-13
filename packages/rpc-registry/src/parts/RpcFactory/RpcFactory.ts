@@ -19,5 +19,9 @@ export const create = <Api extends Record<string, any>>(rpcId: number): RpcFacto
     set(rpc) {
       RpcRegistry.set(rpcId, rpc)
     },
+    async dispose() {
+      const rpc = RpcRegistry.get(rpcId)
+      await rpc.dispose()
+    },
   }
 }
