@@ -1,4 +1,5 @@
 export type { Rpc } from '@lvce-editor/rpc'
+export * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 export * as DebugWorker from '../DebugWorker/DebugWorker.ts'
 export * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 export * as EmbedsProcess from '../EmbedsProcess/EmbedsProcess.ts'
