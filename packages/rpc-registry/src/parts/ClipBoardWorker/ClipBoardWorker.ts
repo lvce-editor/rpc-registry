@@ -1,4 +1,4 @@
-import { ClipBoardWorkerApi } from '../ClipBoardWorkerApi/ClipBoardWorkerApi.ts'
+import type { ClipBoardWorkerApi } from '../ClipBoardWorkerApi/ClipBoardWorkerApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 import * as RpcId from '../RpcId/RpcId.ts'
 
