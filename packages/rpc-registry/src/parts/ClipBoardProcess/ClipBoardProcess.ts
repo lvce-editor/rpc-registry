@@ -1,4 +1,4 @@
-import { ClipBoardProcessApi } from '../ClipBoardProcessApi/ClipBoardProcessApi.ts'
+import type { ClipBoardProcessApi } from '../ClipBoardProcessApi/ClipBoardProcessApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 import * as RpcId from '../RpcId/RpcId.ts'
 
