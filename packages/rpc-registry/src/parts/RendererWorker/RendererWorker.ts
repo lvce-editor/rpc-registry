@@ -41,6 +41,11 @@ export const confirm = async (message: string): Promise<boolean> => {
   return result
 }
 
+export const getIcons = async (requests: readonly any[]): Promise<readonly string[]> => {
+  const icons = await invoke('IconTheme.getIcons', requests)
+  return icons
+}
+
 export const activateByEvent = (event: string): Promise<void> => {
   return invoke('ExtensionHostManagement.activateByEvent', event)
 }
