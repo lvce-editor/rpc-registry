@@ -4,6 +4,11 @@ import * as RpcId from '../RpcId/RpcId.ts'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<RendererWorkerApi>(RpcId.RendererWorker)
 
+export const getFileHandles = async (fileIds: readonly number[]): Promise<readonly FileSystemHandle[]> => {
+  const files = await invoke('FileSystemHandle.getFileHandles', fileIds)
+  return files
+}
+
 export const sendMessagePortToEditorWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   // @ts-ignore
