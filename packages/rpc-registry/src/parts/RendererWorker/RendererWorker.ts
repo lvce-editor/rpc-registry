@@ -4,6 +4,10 @@ import * as RpcId from '../RpcId/RpcId.ts'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<RendererWorkerApi>(RpcId.RendererWorker)
 
+export const getFilePathElectron = async (file: File): Promise<string> => {
+  return invoke('FileSystemHandle.getFilePathElectron', file)
+}
+
 export const getFileHandles = async (fileIds: readonly number[]): Promise<readonly FileSystemHandle[]> => {
   const files = await invoke('FileSystemHandle.getFileHandles', fileIds)
   return files
