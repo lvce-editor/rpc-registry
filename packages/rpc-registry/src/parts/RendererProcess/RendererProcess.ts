@@ -6,10 +6,15 @@ export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<Ren
 
 export const readClipBoardText = async (): Promise<any> => {
   // @ts-ignore
-  return await RendererProcess.invoke('ClipBoard.readText')
+  return await invoke('ClipBoard.readText')
 }
 
 export const readClipBoard = async (): Promise<any> => {
   // @ts-ignore
-  return await RendererProcess.invoke('ClipBoard.read')
+  return await invoke('ClipBoard.read')
+}
+
+export const writeClipBoard = async (options: any): Promise<void> => {
+  // @ts-ignore
+  await invoke('ClipBoard.write', options)
 }
