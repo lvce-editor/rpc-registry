@@ -19,6 +19,13 @@ export const readFile = async (uri: string): Promise<string> => {
   return invoke('FileSystem.readFile', uri)
 }
 
+export const getFileIcon = async (options: any): Promise<string> => {
+  return invoke('IconTheme.getFileIcon', options)
+}
+export const getFolderIcon = async (options: any): Promise<string> => {
+  return invoke('IconTheme.getFolderIcon', options)
+}
+
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort2'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, RpcId.DebugWorker)
