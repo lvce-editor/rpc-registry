@@ -50,3 +50,7 @@ export const sendMessagePortToRendererProcess = async (port: MessagePort): Promi
   // @ts-ignore
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, command, RpcId.DebugWorker)
 }
+
+export const getPreference = async (key: string): Promise<any> => {
+  return await invoke('Preferences.get', key)
+}
