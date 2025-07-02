@@ -8,3 +8,8 @@ export const readClipBoardText = (): Promise<any> => {
   // @ts-ignore
   return await RendererProcess.invoke('ClipBoard.readText')
 }
+
+export const readClipBoard = (): Promise<any> => {
+  // @ts-ignore
+  return await RendererProcess.invoke('ClipBoard.read')
+}
