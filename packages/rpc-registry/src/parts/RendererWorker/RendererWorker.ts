@@ -22,3 +22,9 @@ export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): P
 export const activateByEvent = (event: string): Promise<void> => {
   return invoke('ExtensionHostManagement.activateByEvent', event)
 }
+
+export const sendMessagePortToRendererProcess = async (port: MessagePort): Promise<void> => {
+  const command = 'HandleMessagePort.handleMessagePort'
+  // @ts-ignore
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, command, RpcId.DebugWorker)
+}
