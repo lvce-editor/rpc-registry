@@ -39,6 +39,10 @@ export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): P
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, RpcId.DebugWorker)
 }
 
+export const sendMessagePortToSearchProcess = async (port: MessagePort): Promise<void> => {
+  await invokeAndTransfer('SendMessagePortToElectron.sendMessagePortToElectron', port, 'HandleMessagePortForSearchProcess.handleMessagePortForSearchProcess')
+}
+
 export const confirm = async (message: string): Promise<boolean> => {
   // @ts-ignore
   const result = await invoke('Confirmprompt.prompt', message)
