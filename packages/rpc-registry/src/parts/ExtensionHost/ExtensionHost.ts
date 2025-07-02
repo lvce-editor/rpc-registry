@@ -11,5 +11,5 @@ export const executeReferenceProvider = async (id: number, offset: number): Prom
 
 export const executeFileReferenceProvider = async (id: number): Promise<readonly any[]> => {
   // @ts-ignore
-  return invoke('ExtensionHostReference.executeFileReferenceProvider')
+  return invoke('ExtensionHostReference.executeFileReferenceProvider', id)
 }
