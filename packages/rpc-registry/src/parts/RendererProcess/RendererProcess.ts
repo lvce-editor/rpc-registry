@@ -18,3 +18,8 @@ export const writeClipBoard = async (options: any): Promise<void> => {
   // @ts-ignore
   await invoke('ClipBoard.write', options)
 }
+
+export const writeImage = async (blob: any): Promise<void> => {
+  // @ts-ignore
+  return await invoke('ClipBoard.writeImage', blob)
+}
