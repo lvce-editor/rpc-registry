@@ -20,7 +20,7 @@ export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): P
 // TODO add tests for this
 export const activateByEvent = async (event: string): Promise<void> => {
   // @ts-ignore
-  await invoke('ActivateByEvent.activateByEvent', event)
+  await invoke('ExtensionHostManagement.activateByEvent', event)
 }
 
 export const applyEdit = async (editorUid: number, changes: readonly Change[]): Promise<void> => {
