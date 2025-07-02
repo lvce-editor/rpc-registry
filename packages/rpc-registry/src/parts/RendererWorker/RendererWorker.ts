@@ -23,6 +23,10 @@ export const readFile = async (uri: string): Promise<string> => {
   return invoke('FileSystem.readFile', uri)
 }
 
+export const setFocus = (key: number): Promise<void> => {
+  return invoke('Focus.setFocus', key)
+}
+
 export const getFileIcon = async (options: any): Promise<string> => {
   return invoke('IconTheme.getFileIcon', options)
 }
