@@ -67,3 +67,12 @@ export const sendMessagePortToRendererProcess = async (port: MessagePort): Promi
 export const getPreference = async (key: string): Promise<any> => {
   return await invoke('Preferences.get', key)
 }
+
+export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePort): Promise<void> => {
+  await invokeAndTransfer(
+    // @ts-ignore
+    'SendMessagePortToSyntaxHighlightingWorker.sendMessagePortToSyntaxHighlightingWorker',
+    port,
+    'HandleMessagePort.handleMessagePort2',
+  )
+}
