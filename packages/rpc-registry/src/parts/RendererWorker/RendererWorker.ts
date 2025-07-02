@@ -35,6 +35,12 @@ export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): P
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, RpcId.DebugWorker)
 }
 
+export const confirm = async (message: string): Promise<boolean> => {
+  // @ts-ignore
+  const result = await invoke('Confirmprompt.prompt', message)
+  return result
+}
+
 export const activateByEvent = (event: string): Promise<void> => {
   return invoke('ExtensionHostManagement.activateByEvent', event)
 }
