@@ -25,7 +25,7 @@ export const activateByEvent = async (event: string): Promise<void> => {
 
 export const applyEdit = async (editorUid: number, changes: readonly Change[]): Promise<void> => {
   // @ts-ignore
-  await EditorWorker.invoke('Editor.applyEdit2', editorUid, changes)
+  await invoke('Editor.applyEdit2', editorUid, changes)
 }
 
 export const closeWidget = async (editorUid: number, widgetId: number, widgetName: string, focusId: number): Promise<void> => {
