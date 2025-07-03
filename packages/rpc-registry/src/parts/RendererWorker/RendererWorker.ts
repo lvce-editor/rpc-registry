@@ -72,6 +72,10 @@ export const getFolderIcon = async (options: any): Promise<string> => {
   return invoke('IconTheme.getFolderIcon', options)
 }
 
+export const closeWidget = async (widgetName: string): Promise<void> => {
+  return invoke('Viewlet.closeWidget', widgetName)
+}
+
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort2'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, RpcId.DebugWorker)
