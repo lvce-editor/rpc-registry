@@ -20,6 +20,13 @@ export const getNodeVersion = async (): Promise<string> => {
   return invoke('Process.getNodeVersion')
 }
 
+export const getChromeVersion = async (): Promise<string> => {
+  return invoke('Process.getChromeVersion')
+}
+export const getV8Version = async (): Promise<string> => {
+  return invoke('Process.getV8Version')
+}
+
 export const getFileHandles = async (fileIds: readonly number[]): Promise<readonly FileSystemHandle[]> => {
   const files = await invoke('FileSystemHandle.getFileHandles', fileIds)
   return files
