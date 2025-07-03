@@ -85,3 +85,7 @@ export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePor
     'HandleMessagePort.handleMessagePort2',
   )
 }
+
+export const handleDebugScriptParsed = async (script: any): Promise<void> => {
+  await invoke('Run And Debug.handleScriptParsed', script)
+}
