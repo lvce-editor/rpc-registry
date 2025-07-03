@@ -129,3 +129,8 @@ export const handleDebugScriptParsed = async (script: any): Promise<void> => {
 export const getWindowId = async (): Promise<number> => {
   return invoke('GetWindowId.getWindowId')
 }
+
+export const getBlob = async (uri: string): Promise<Blob> => {
+  // @ts-ignore
+  return invoke('FileSystem.getBlob', uri)
+}
