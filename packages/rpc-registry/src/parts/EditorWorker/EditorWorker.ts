@@ -49,6 +49,11 @@ export const getPositionAtCursor = async (parentUid: number): Promise<PositionAt
   return position
 }
 
+export const getOffsetAtCursor = async (editorId: number): Promise<number> => {
+  // @ts-ignore
+  return await invoke('Editor.getOffsetAtCursor', editorId)
+}
+
 export const getSelections = async (editorUid: number): Promise<readonly number[]> => {
   const selections = await invoke('Editor.getSelections2', editorUid)
   return selections
