@@ -112,3 +112,7 @@ export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePor
 export const handleDebugScriptParsed = async (script: any): Promise<void> => {
   await invoke('Run And Debug.handleScriptParsed', script)
 }
+
+export const getWindowId = async (): Promise<number> => {
+  return invoke('GetWindowId.getWindowId')
+}
