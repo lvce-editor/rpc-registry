@@ -76,6 +76,10 @@ export const confirm = async (message: string): Promise<boolean> => {
   return result
 }
 
+export const writeClipBoardText = async (text: string): Promise<void> => {
+  await invoke('ClipBoard.writeText', /* text */ text)
+}
+
 export const handleDebugResumed = async (params: any): Promise<void> => {
   await invoke('Run And Debug.handleResumed', params)
 }
