@@ -58,6 +58,11 @@ export const activateByEvent = (event: string): Promise<void> => {
   return invoke('ExtensionHostManagement.activateByEvent', event)
 }
 
+export const getActiveEditorId = (): Promise<number> => {
+  // @ts-ignore
+  return invoke('GetActiveEditor.getActiveEditorId')
+}
+
 export const sendMessagePortToRendererProcess = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   // @ts-ignore
