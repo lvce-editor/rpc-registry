@@ -36,6 +36,10 @@ export const getWebViewSecret = async (key: string): Promise<string> => {
   return invoke('WebView.getSecret', key)
 }
 
+export const setWebViewPort = async (uid: number, port: MessagePort, origin: string, portType: any): Promise<void> => {
+  return invokeAndTransfer('WebView.setPort', uid, port, origin, portType)
+}
+
 export const setFocus = (key: number): Promise<void> => {
   return invoke('Focus.setFocus', key)
 }
