@@ -80,6 +80,10 @@ export const writeClipBoardText = async (text: string): Promise<void> => {
   await invoke('ClipBoard.writeText', /* text */ text)
 }
 
+export const showMessageBox = async (options: any): Promise<void> => {
+  return invoke('ElectronDialog.showMessageBox', options)
+}
+
 export const handleDebugResumed = async (params: any): Promise<void> => {
   await invoke('Run And Debug.handleResumed', params)
 }
