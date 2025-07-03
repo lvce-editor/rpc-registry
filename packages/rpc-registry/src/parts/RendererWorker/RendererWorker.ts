@@ -81,6 +81,11 @@ export const activateByEvent = (event: string): Promise<void> => {
   return invoke('ExtensionHostManagement.activateByEvent', event)
 }
 
+export const setAdditionalFocus = (focusKey: number): Promise<void> => {
+  // @ts-ignore
+  return invoke('Focus.setAdditionalFocus', focusKey)
+}
+
 export const getActiveEditorId = (): Promise<number> => {
   // @ts-ignore
   return invoke('GetActiveEditor.getActiveEditorId')
