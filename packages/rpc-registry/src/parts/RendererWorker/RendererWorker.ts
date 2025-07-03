@@ -25,6 +25,10 @@ export const getFileHandles = async (fileIds: readonly number[]): Promise<readon
   return files
 }
 
+export const setWorkspacePath = async (path: string): Promise<void> => {
+  await invoke('Workspace.setPath', path)
+}
+
 export const sendMessagePortToEditorWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   // @ts-ignore
