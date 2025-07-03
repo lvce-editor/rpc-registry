@@ -73,6 +73,10 @@ export const getPreference = async (key: string): Promise<any> => {
   return await invoke('Preferences.get', key)
 }
 
+export const handleDebugPaused = async (params: any): Promise<void> => {
+  await invoke('Run And Debug.handlePaused', params)
+}
+
 export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer(
     // @ts-ignore
