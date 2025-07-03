@@ -8,6 +8,10 @@ export const getFilePathElectron = async (file: File): Promise<string> => {
   return invoke('FileSystemHandle.getFilePathElectron', file)
 }
 
+export const showContextMenu = async (x: number, y: number, id: number, ...args: readonly any[]): Promise<void> => {
+  return invoke('ContextMenu.show', x, y, id, ...args)
+}
+
 export const getElectronVersion = async (): Promise<string> => {
   return invoke('Process.getElectronVersion')
 }
