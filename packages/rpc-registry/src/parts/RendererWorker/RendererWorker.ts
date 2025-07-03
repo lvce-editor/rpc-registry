@@ -23,6 +23,11 @@ export const readFile = async (uri: string): Promise<string> => {
   return invoke('FileSystem.readFile', uri)
 }
 
+export const getWebViewSecret = async (key: string): Promise<string> => {
+  // @ts-ignore
+  return invoke('WebView.getSecret', key)
+}
+
 export const setFocus = (key: number): Promise<void> => {
   return invoke('Focus.setFocus', key)
 }
