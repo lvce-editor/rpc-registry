@@ -8,6 +8,14 @@ export const getFilePathElectron = async (file: File): Promise<string> => {
   return invoke('FileSystemHandle.getFilePathElectron', file)
 }
 
+export const getElectronVersion = async (): Promise<string> => {
+  return invoke('Process.getElectronVersion')
+}
+
+export const getNodeVersion = async (): Promise<string> => {
+  return invoke('Process.getNodeVersion')
+}
+
 export const getFileHandles = async (fileIds: readonly number[]): Promise<readonly FileSystemHandle[]> => {
   const files = await invoke('FileSystemHandle.getFileHandles', fileIds)
   return files
