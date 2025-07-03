@@ -30,6 +30,12 @@ export const setFocus = (key: number): Promise<void> => {
 export const getFileIcon = async (options: any): Promise<string> => {
   return invoke('IconTheme.getFileIcon', options)
 }
+
+export const handleDebugChange = async (params: any): Promise<void> => {
+  // @ts-ignore
+  return invoke('Run And Debug.handleChange', params)
+}
+
 export const getFolderIcon = async (options: any): Promise<string> => {
   return invoke('IconTheme.getFolderIcon', options)
 }
