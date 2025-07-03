@@ -84,6 +84,10 @@ export const handleDebugResumed = async (params: any): Promise<void> => {
   await invoke('Run And Debug.handleResumed', params)
 }
 
+export const openWidget = async (name: string): Promise<void> => {
+  await invoke('Viewlet.openWidget', name)
+}
+
 export const getIcons = async (requests: readonly any[]): Promise<readonly string[]> => {
   const icons = await invoke('IconTheme.getIcons', requests)
   return icons
