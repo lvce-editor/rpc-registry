@@ -173,7 +173,7 @@ export const getPreference = async (key: string): Promise<any> => {
   return await invoke('Preferences.get', key)
 }
 
-export const getAllExtensions = async (key: string): Promise<readonly any[]> => {
+export const getAllExtensions = async (): Promise<readonly any[]> => {
   return invoke('ExtensionManagement.getAllExtensions')
 }
 
