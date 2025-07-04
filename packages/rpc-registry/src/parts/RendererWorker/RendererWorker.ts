@@ -99,6 +99,10 @@ export const confirm = async (message: string): Promise<boolean> => {
   return result
 }
 
+export const getRecentlyOpened = async (message: string): Promise<readonly string[]> => {
+  return invoke(/* RecentlyOpened.getRecentlyOpened */ 'RecentlyOpened.getRecentlyOpened')
+}
+
 export const writeClipBoardText = async (text: string): Promise<void> => {
   await invoke('ClipBoard.writeText', /* text */ text)
 }
