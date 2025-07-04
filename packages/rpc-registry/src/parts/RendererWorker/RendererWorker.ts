@@ -76,9 +76,9 @@ export const closeWidget = async (widgetName: string): Promise<void> => {
   return invoke('Viewlet.closeWidget', widgetName)
 }
 
-export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
+export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort2'
-  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, RpcId.DebugWorker)
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, rpcId)
 }
 
 export const sendMessagePortToSearchProcess = async (port: MessagePort): Promise<void> => {
