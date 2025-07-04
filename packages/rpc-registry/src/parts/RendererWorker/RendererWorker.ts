@@ -16,6 +16,11 @@ export const getElectronVersion = async (): Promise<string> => {
   return invoke('Process.getElectronVersion')
 }
 
+export const setColorTheme = async (id: string): Promise<string> => {
+  // @ts-ignore
+  return invoke(/* ColorTheme.setColorTheme */ 'ColorTheme.setColorTheme', /* colorThemeId */ id)
+}
+
 export const getNodeVersion = async (): Promise<string> => {
   return invoke('Process.getNodeVersion')
 }
