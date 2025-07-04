@@ -166,3 +166,8 @@ export const getBlob = async (uri: string): Promise<Blob> => {
   // @ts-ignore
   return invoke('FileSystem.getBlob', uri)
 }
+
+export const showErrorDialog = async (errorInfo: any): Promise<void> => {
+  // @ts-ignore
+  await invoke('ErrorHandling.showErrorDialog', errorInfo)
+}
