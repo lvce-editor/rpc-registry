@@ -169,6 +169,10 @@ export const getPreference = async (key: string): Promise<any> => {
   return await invoke('Preferences.get', key)
 }
 
+export const getAllExtensions = async (key: string): Promise<readonly any[]> => {
+  return invoke('ExtensionManagement.getAllExtensions')
+}
+
 export const rerenderEditor = async (key: string): Promise<void> => {
   // @ts-ignore
   return invoke('Editor.rerender', key)
