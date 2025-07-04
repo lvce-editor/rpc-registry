@@ -204,7 +204,7 @@ export const getBlob = async (uri: string): Promise<Blob> => {
   return invoke('FileSystem.getBlob', uri)
 }
 
-export const getExtensionCommands = async (uri: string): Promise<readonly any[]> => {
+export const getExtensionCommands = async (): Promise<readonly any[]> => {
   return invoke('ExtensionHost.getCommands')
 }
 
