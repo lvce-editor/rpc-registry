@@ -67,6 +67,9 @@ export const setFocus = (key: number): Promise<void> => {
 export const getFileIcon = async (options: any): Promise<string> => {
   return invoke('IconTheme.getFileIcon', options)
 }
+export const getColorThemeNames = async (): Promise<readonly string[]> => {
+  return invoke('ColorTheme.getColorThemeNames')
+}
 
 export const handleDebugChange = async (params: any): Promise<void> => {
   // @ts-ignore
