@@ -101,9 +101,9 @@ export const sendMessagePortToSearchProcess = async (port: MessagePort): Promise
   await invokeAndTransfer('SendMessagePortToElectron.sendMessagePortToElectron', port, 'HandleMessagePortForSearchProcess.handleMessagePortForSearchProcess')
 }
 
-export const confirm = async (message: string): Promise<boolean> => {
+export const confirm = async (message: string, options?: any): Promise<boolean> => {
   // @ts-ignore
-  const result = await invoke('Confirmprompt.prompt', message)
+  const result = await invoke('Confirmprompt.prompt', message, options)
   return result
 }
 
