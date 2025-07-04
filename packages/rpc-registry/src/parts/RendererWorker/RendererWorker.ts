@@ -4,6 +4,10 @@ import * as RpcId from '../RpcId/RpcId.ts'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<RendererWorkerApi>(RpcId.RendererWorker)
 
+export const searchFileHtml = async (uri: string): Promise<readonly string[]> => {
+  return invoke('ExtensionHost.searchFileWithHtml', uri)
+}
+
 export const getFilePathElectron = async (file: File): Promise<string> => {
   return invoke('FileSystemHandle.getFilePathElectron', file)
 }
