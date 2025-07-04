@@ -145,6 +145,10 @@ export const handleDebugPaused = async (params: any): Promise<void> => {
   await invoke('Run And Debug.handlePaused', params)
 }
 
+export const openUri = async (uri: string, focus?: boolean, options?: any): Promise<void> => {
+  await invoke('Main.openUri', uri, focus, options)
+}
+
 export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer(
     // @ts-ignore
