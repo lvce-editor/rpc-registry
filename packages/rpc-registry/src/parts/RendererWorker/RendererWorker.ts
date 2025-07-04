@@ -95,6 +95,11 @@ export const writeClipBoardText = async (text: string): Promise<void> => {
   await invoke('ClipBoard.writeText', /* text */ text)
 }
 
+export const searchFileMemory = async (uri: string): Promise<void> => {
+  // @ts-ignore
+  return invoke('ExtensionHost.searchFileWithMemory', uri)
+}
+
 export const showMessageBox = async (options: any): Promise<void> => {
   return invoke('ElectronDialog.showMessageBox', options)
 }
