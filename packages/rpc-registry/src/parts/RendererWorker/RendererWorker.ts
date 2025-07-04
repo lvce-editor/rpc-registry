@@ -107,7 +107,7 @@ export const confirm = async (message: string, options?: any): Promise<boolean> 
   return result
 }
 
-export const getRecentlyOpened = async (message: string): Promise<readonly string[]> => {
+export const getRecentlyOpened = async (): Promise<readonly string[]> => {
   return invoke(/* RecentlyOpened.getRecentlyOpened */ 'RecentlyOpened.getRecentlyOpened')
 }
 
