@@ -80,8 +80,8 @@ export const getFolderIcon = async (options: any): Promise<string> => {
   return invoke('IconTheme.getFolderIcon', options)
 }
 
-export const closeWidget = async (widgetName: string): Promise<void> => {
-  return invoke('Viewlet.closeWidget', widgetName)
+export const closeWidget = async (widgetId: string | number): Promise<void> => {
+  return invoke('Viewlet.closeWidget', widgetId)
 }
 
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
