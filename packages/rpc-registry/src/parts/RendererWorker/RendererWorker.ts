@@ -49,6 +49,14 @@ export const setWorkspacePath = async (path: string): Promise<void> => {
   await invoke('Workspace.setPath', path)
 }
 
+export const registerWebViewInterceptor = async (id: number, port: MessagePort): Promise<void> => {
+  await invokeAndTransfer('WebView.registerInterceptor', id, port)
+}
+
+export const unregisterWebViewInterceptor = async (id: number): Promise<void> => {
+  await invoke('WebView.unregisterInterceptor', id)
+}
+
 export const sendMessagePortToEditorWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   // @ts-ignore
