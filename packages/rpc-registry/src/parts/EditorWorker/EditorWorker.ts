@@ -66,3 +66,7 @@ export const getWordAtOffset2 = async (editorUid: number): Promise<string> => {
 export const getWordBefore = async (editorUid: number, rowIndex: number, columnIndex: number): Promise<string> => {
   return invoke('Editor.getWordBefore2', editorUid, rowIndex, columnIndex)
 }
+
+export const updateDebugInfo = async (info: any): Promise<void> => {
+  await invoke('Editor.updateDebugInfo', info)
+}
