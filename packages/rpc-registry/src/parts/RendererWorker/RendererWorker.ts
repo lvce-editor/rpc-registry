@@ -20,6 +20,10 @@ export const getElectronVersion = async (): Promise<string> => {
   return invoke('Process.getElectronVersion')
 }
 
+export const applyBulkReplacement = async (bulkEdits: readonly any[]): Promise<void> => {
+  await invoke('BulkReplacement.applyBulkReplacement', bulkEdits)
+}
+
 export const setColorTheme = async (id: string): Promise<string> => {
   // @ts-ignore
   return invoke(/* ColorTheme.setColorTheme */ 'ColorTheme.setColorTheme', /* colorThemeId */ id)
