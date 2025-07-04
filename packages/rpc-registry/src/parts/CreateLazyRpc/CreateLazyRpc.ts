@@ -21,8 +21,8 @@ export const createLazyRpc = (rpcId: number): LazyRpc => {
     },
     async invoke(method: string, ...params: readonly any[]): Promise<any> {
       await ensureRpc()
-      // @ts-ignore
-      return invoke(method, ...params)
+      const rpc = RpcRegistry.get(rpcId)
+      return rpc.invoke(method, ...params)
     },
   }
 }
