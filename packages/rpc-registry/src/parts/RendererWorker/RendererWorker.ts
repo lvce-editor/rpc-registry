@@ -116,6 +116,10 @@ export const searchFileMemory = async (uri: string): Promise<void> => {
   return invoke('ExtensionHost.searchFileWithMemory', uri)
 }
 
+export const searchFileFetch = async (uri: string): Promise<readonly string[]> => {
+  return invoke('ExtensionHost.searchFileWithFetch', uri)
+}
+
 export const showMessageBox = async (options: any): Promise<void> => {
   return invoke('ElectronDialog.showMessageBox', options)
 }
