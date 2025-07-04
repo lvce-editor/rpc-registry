@@ -187,6 +187,10 @@ export const getBlob = async (uri: string): Promise<Blob> => {
   return invoke('FileSystem.getBlob', uri)
 }
 
+export const getExtensionCommands = async (uri: string): Promise<readonly any[]> => {
+  return invoke('ExtensionHost.getCommands')
+}
+
 export const showErrorDialog = async (errorInfo: any): Promise<void> => {
   // @ts-ignore
   await invoke('ErrorHandling.showErrorDialog', errorInfo)
