@@ -126,6 +126,10 @@ export const getActiveEditorId = (): Promise<number> => {
   return invoke('GetActiveEditor.getActiveEditorId')
 }
 
+export const getWorkspacePath = (): Promise<string> => {
+  return invoke('Workspace.getPath')
+}
+
 export const sendMessagePortToRendererProcess = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   // @ts-ignore
