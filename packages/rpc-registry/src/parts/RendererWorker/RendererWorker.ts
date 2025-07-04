@@ -220,3 +220,32 @@ export const showErrorDialog = async (errorInfo: any): Promise<void> => {
   // @ts-ignore
   await invoke('ErrorHandling.showErrorDialog', errorInfo)
 }
+
+export const getFolderSize = async (uri: string): Promise<number> => {
+  // @ts-ignore
+  return await invoke('FileSystem.getFolderSize', uri)
+}
+
+export const getExtension = async (id: string): Promise<any> => {
+  // @ts-ignore
+  return invoke('ExtensionManagement.getExtension', id)
+}
+
+export const getMarkdownDom = async (html: string): Promise<any> => {
+  // @ts-ignore
+  return invoke('Markdown.getVirtualDom', html)
+}
+
+export const openNativeFolder = async (uri: string): Promise<void> => {
+  // @ts-ignore
+  await invoke('OpenNativeFolder.openNativeFolder', uri)
+}
+
+export const uninstallExtension = async (id: string): Promise<void> => {
+  return invoke('ExtensionManagement.uninstall', id)
+}
+
+export const installExtension = async (id: string): Promise<void> => {
+  // @ts-ignore
+  return invoke('ExtensionManagement.install', id)
+}
