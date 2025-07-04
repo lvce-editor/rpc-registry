@@ -111,6 +111,10 @@ export const getRecentlyOpened = async (): Promise<readonly string[]> => {
   return invoke(/* RecentlyOpened.getRecentlyOpened */ 'RecentlyOpened.getRecentlyOpened')
 }
 
+export const getKeyBindings = async (): Promise<readonly any[]> => {
+  return invoke('KeyBindingsInitial.getKeyBindings')
+}
+
 export const writeClipBoardText = async (text: string): Promise<void> => {
   await invoke('ClipBoard.writeText', /* text */ text)
 }
