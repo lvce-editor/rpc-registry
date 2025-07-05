@@ -57,10 +57,10 @@ export const unregisterWebViewInterceptor = async (id: number): Promise<void> =>
   await invoke('WebView.unregisterInterceptor', id)
 }
 
-export const sendMessagePortToEditorWorker = async (port: MessagePort): Promise<void> => {
+export const sendMessagePortToEditorWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   // @ts-ignore
-  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToEditorWorker', port, command, RpcId.DebugWorker)
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToEditorWorker', port, command, rpcId)
 }
 
 export const readFile = async (uri: string): Promise<string> => {
