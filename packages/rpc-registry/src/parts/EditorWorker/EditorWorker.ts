@@ -78,5 +78,5 @@ export const getUri = async (editorUid: number): Promise<string> => {
 
 export const getLanguageId = async (editorUid: number): Promise<string> => {
   // @ts-ignore
-  return invoke('Editor.getLangageId', editorUid)
+  return invoke('Editor.getLanguageId', editorUid)
 }
