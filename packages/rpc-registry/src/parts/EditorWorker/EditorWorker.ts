@@ -70,3 +70,13 @@ export const getWordBefore = async (editorUid: number, rowIndex: number, columnI
 export const updateDebugInfo = async (info: any): Promise<void> => {
   await invoke('Editor.updateDebugInfo', info)
 }
+
+export const getUri = async (editorUid: number): Promise<string> => {
+  // @ts-ignore
+  return invoke('Editor.getUri', editorUid)
+}
+
+export const getLanguageId = async (editorUid: number): Promise<string> => {
+  // @ts-ignore
+  return invoke('Editor.getLangageId', editorUid)
+}
