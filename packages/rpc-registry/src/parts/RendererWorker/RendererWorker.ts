@@ -249,6 +249,11 @@ export const getMarkdownDom = async (html: string): Promise<any> => {
   return invoke('Markdown.getVirtualDom', html)
 }
 
+export const renderMarkdown = async (markdown: string, options: any): Promise<any> => {
+  // @ts-ignore
+  return invoke('Markdown.renderMarkdown', markdown, options)
+}
+
 export const openNativeFolder = async (uri: string): Promise<void> => {
   // @ts-ignore
   await invoke('OpenNativeFolder.openNativeFolder', uri)
