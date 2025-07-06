@@ -55,3 +55,8 @@ export const copy = async (oldUri: string, newUri: string): Promise<void> => {
   // @ts-ignore
   return invoke('FileSystem.copy', oldUri, newUri)
 }
+
+export const getFolderSize = async (uri: string): Promise<void> => {
+  // @ts-ignore
+  return invoke('FileSystem.getFolderSize', uri)
+}
