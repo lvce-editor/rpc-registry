@@ -64,7 +64,7 @@ export const sendMessagePortToEditorWorker = async (port: MessagePort, rpcId: nu
 }
 
 export const sendMessagePortToMarkdownWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort'
+  const command = 'Markdown.handleMessagePort'
   // @ts-ignore
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToMarkdownWorker', port, command, rpcId)
 }
