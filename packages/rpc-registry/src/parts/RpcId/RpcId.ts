@@ -20,3 +20,4 @@ export const ErrorWorker = 3308
 export const SyntaxHighlightingWorker = 3309
 export const ClipBoardWorker = 3400
 export const ClipBoardProcess = 3401
+export const ExtensionDetailWorker = 3402
