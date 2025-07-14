@@ -60,3 +60,8 @@ export const getFolderSize = async (uri: string): Promise<void> => {
   // @ts-ignore
   return invoke('FileSystem.getFolderSize', uri)
 }
+
+export const exists = async (uri: string): Promise<boolean> => {
+  // @ts-ignore
+  return invoke('FileSystem.exists', uri)
+}
