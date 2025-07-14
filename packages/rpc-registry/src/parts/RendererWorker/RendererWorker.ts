@@ -144,6 +144,11 @@ export const writeClipBoardText = async (text: string): Promise<void> => {
   await invoke('ClipBoard.writeText', /* text */ text)
 }
 
+export const writeClipBoardImage = async (blob: any): Promise<void> => {
+  // @ts-ignore
+  await invoke('ClipBoard.writeImage', /* text */ blob)
+}
+
 export const searchFileMemory = async (uri: string): Promise<void> => {
   // @ts-ignore
   return invoke('ExtensionHost.searchFileWithMemory', uri)
