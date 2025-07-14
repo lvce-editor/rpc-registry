@@ -44,3 +44,8 @@ export const rename = async (oldUri: string, newUri: string): Promise<void> => {
 export const copy = async (oldUri: string, newUri: string): Promise<void> => {
   return invoke('FileSystem.copy', oldUri, newUri)
 }
+
+export const exists = async (uri: string): Promise<boolean> => {
+  // @ts-ignore
+  return invoke('FileSystem.exists', uri)
+}
