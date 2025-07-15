@@ -29,6 +29,10 @@ export const createFile = async (uri: string): Promise<void> => {
   return invoke('FileSystem.writeFile', uri, '')
 }
 
+export const readFile = async (uri: string): Promise<string> => {
+  return invoke('FileSystem.readFile', uri)
+}
+
 export const writeFile = async (uri: string, content: string): Promise<void> => {
   return invoke('FileSystem.writeFile', uri, content)
 }
