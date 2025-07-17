@@ -80,3 +80,8 @@ export const getLanguageId = async (editorUid: number): Promise<string> => {
   // @ts-ignore
   return invoke('Editor.getLanguageId', editorUid)
 }
+
+export const getProblems = async (): Promise<readonly any[]> => {
+  // @ts-ignore
+  return invoke('Editor.getProblems')
+}
