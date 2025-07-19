@@ -287,10 +287,10 @@ export const installExtension = async (id: string): Promise<void> => {
 
 export const openExtensionSearch = async (): Promise<void> => {
   // @ts-ignore
-  return invoke('SideBar.openViewlet', 'SearchExtensions')
+  return invoke('SideBar.openViewlet', 'Extensions')
 }
 
 export const setExtensionsSearchValue = async (value: string): Promise<void> => {
   // @ts-ignore
-  return invoke('ExtensionSearch.setValue', value)
+  return invoke('Extensions.handleInput', searchValue)
 }
