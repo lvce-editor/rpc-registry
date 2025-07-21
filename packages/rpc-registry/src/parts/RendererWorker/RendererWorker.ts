@@ -299,3 +299,8 @@ export const openExternal = async (uri: string): Promise<void> => {
   // @ts-ignore
   await invoke('Open.openExternal', uri)
 }
+
+export const openUrl = async (uri: string): Promise<void> => {
+  // @ts-ignore
+  await invoke('Open.openUrl', uri)
+}
