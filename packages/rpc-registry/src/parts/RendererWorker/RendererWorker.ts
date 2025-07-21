@@ -294,3 +294,8 @@ export const setExtensionsSearchValue = async (value: string): Promise<void> => 
   // @ts-ignore
   return invoke('Extensions.handleInput', searchValue)
 }
+
+export const openExternal = async (uri: string): Promise<void> => {
+  // @ts-ignore
+  await invoke('Open.openExternal', uri)
+}
