@@ -58,3 +58,8 @@ export const getFolderSize = async (uri: string): Promise<number> => {
   // @ts-ignore
   return invoke('FileSystem.getFolderSize', uri)
 }
+
+export const readFileAsBlob = async (uri: string): Promise<Blob> => {
+  // @ts-ignore
+  return invoke('FileSystem.readFileAsBlob', uri)
+}
