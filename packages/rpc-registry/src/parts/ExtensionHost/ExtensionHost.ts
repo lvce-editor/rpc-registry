@@ -15,7 +15,7 @@ export const executeFileReferenceProvider = async (id: number): Promise<readonly
   return invoke('ExtensionHostReference.executeFileReferenceProvider', id)
 }
 
-export const getRuntimeStatus = async (extensionId: number): Promise<RuntimeStatus> => {
+export const getRuntimeStatus = async (extensionId: string): Promise<RuntimeStatus> => {
   // @ts-ignore
   return invoke('ExtensionHost.getRuntimeStatus', extensionId)
 }
