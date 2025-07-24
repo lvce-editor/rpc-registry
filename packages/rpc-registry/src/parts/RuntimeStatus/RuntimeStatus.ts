@@ -3,4 +3,5 @@ export interface RuntimeStatus {
   readonly activationEvent: string
   readonly status: number
   readonly activationTime: number
+  readonly importTime: number
 }
