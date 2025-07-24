@@ -104,6 +104,11 @@ export const disableExtension = async (id: string): Promise<void> => {
   return invoke('ExtensionManagement.disable', id)
 }
 
+export const enableExtension = async (id: string): Promise<void> => {
+  // @ts-ignore
+  return invoke('ExtensionManagement.enable', id)
+}
+
 export const handleDebugChange = async (params: any): Promise<void> => {
   // @ts-ignore
   return invoke('Run And Debug.handleChange', params)
