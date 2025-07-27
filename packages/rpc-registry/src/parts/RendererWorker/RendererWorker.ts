@@ -309,3 +309,8 @@ export const openUrl = async (uri: string): Promise<void> => {
   // @ts-ignore
   await invoke('Open.openUrl', uri)
 }
+
+export const getAllPreferences = async (): Promise<any> => {
+  // @ts-ignore
+  return invoke('Preferences.getAll')
+}
