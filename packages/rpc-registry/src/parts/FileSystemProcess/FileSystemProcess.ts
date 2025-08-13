@@ -12,6 +12,11 @@ export const readFile = async (uri: string): Promise<string> => {
   return invoke('FileSystem.readFile', uri)
 }
 
+export const appendFile = async (uri: string, text: string): Promise<string> => {
+  // @ts-ignore
+  return invoke('FileSystem.appendFile', uri, text)
+}
+
 export const readDirWithFileTypes = async (uri: string): Promise<readonly any[]> => {
   return invoke('FileSystem.readDirWithFileTypes', uri)
 }

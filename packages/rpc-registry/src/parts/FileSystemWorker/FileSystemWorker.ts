@@ -63,3 +63,8 @@ export const readFileAsBlob = async (uri: string): Promise<Blob> => {
   // @ts-ignore
   return invoke('FileSystem.readFileAsBlob', uri)
 }
+
+export const appendFile = async (uri: string, text: string): Promise<string> => {
+  // @ts-ignore
+  return invoke('FileSystem.appendFile', uri, text)
+}
