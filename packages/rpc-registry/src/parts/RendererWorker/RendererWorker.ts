@@ -320,3 +320,8 @@ export const getAllPreferences = async (): Promise<any> => {
   // @ts-ignore
   return invoke('Preferences.getAll')
 }
+
+export const showSaveFilePicker = async (): Promise<string> => {
+  // @ts-ignore
+  return invoke('FilePicker.showSaveFilePicker')
+}
