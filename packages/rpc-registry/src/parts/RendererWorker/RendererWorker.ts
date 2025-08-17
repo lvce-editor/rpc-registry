@@ -325,3 +325,8 @@ export const showSaveFilePicker = async (): Promise<string> => {
   // @ts-ignore
   return invoke('FilePicker.showSaveFilePicker')
 }
+
+export const getLogsDir = async (): Promise<string> => {
+  // @ts-ignore
+  return invoke('PlatformPaths.getLogsDir')
+}
