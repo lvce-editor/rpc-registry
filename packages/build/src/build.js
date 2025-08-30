@@ -1,9 +1,8 @@
 import { execa } from 'execa'
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { bundleJs } from './bundleJs.js'
-import { root } from './root.js'
 import { generateApiTypes } from './generateApiTypes.js'
+import { root } from './root.js'
 
 const dist = join(root, '.tmp', 'dist')
 
