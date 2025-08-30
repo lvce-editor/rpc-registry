@@ -139,7 +139,7 @@ export const sendMessagePortToSearchProcess = async (port: MessagePort): Promise
 
 export const confirm = async (message: string, options?: any): Promise<boolean> => {
   // @ts-ignore
-  const result = await invoke('Confirmprompt.prompt', message, options)
+  const result = await invoke('ConfirmPrompt.prompt', message, options)
   return result
 }
 
