@@ -4,9 +4,9 @@
   "description": "Rpc Registry",
   "license": "MIT",
   "author": "Lvce Editor",
+  "sideEffects": false,
   "type": "module",
   "main": "src/index.ts",
-  "sideEffects": false,
   "scripts": {
     "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
     "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch"
