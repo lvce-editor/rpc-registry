@@ -1,26 +1,30 @@
-export const ClipBoardProcess = 3401
-export const ClipBoardWorker = 3400
-export const ColorPickerWorker = 302
-export const CompletionWorker = 301
-export const DebugWorker = 55
-export const EditorWorker = 99
-export const EmbedsProcess = 207
-export const EmbedsWorker = 208
-export const ErrorWorker = 3308
-export const ExtensionDetailWorker = 3402
-export const ExtensionHostWorker = 44
-export const FileSystemProcess = 210
-export const FileSystemWorker = 209
-export const MainProcess = -5
-export const MarkdownWorker = 300
-export const OutputWorker = 7001
-export const ProblemsWorker = 3403
-export const RendererProcess = 1670
-export const RendererWorker = 1
-export const SearchProcess = 77
-export const SearchProcessElectron = 2
-export const SharedProcess = 1
-export const SourceActionWorker = 303
-export const SourceControlWorker = 66
-export const SyntaxHighlightingWorker = 3309
-export const TestWorker = 9001
+import { RpcId } from '@lvce-editor/constants'
+
+export const {
+  ClipBoardProcess,
+  ClipBoardWorker,
+  ColorPickerWorker,
+  CompletionWorker,
+  DebugWorker,
+  EditorWorker,
+  EmbedsProcess,
+  EmbedsWorker,
+  ErrorWorker,
+  ExtensionDetailWorker,
+  ExtensionHostWorker,
+  FileSystemProcess,
+  FileSystemWorker,
+  MainProcess,
+  MarkdownWorker,
+  OutputWorker,
+  ProblemsWorker,
+  RendererProcess,
+  RendererWorker,
+  SearchProcess,
+  SearchProcessElectron,
+  SharedProcess,
+  SourceActionWorker,
+  SourceControlWorker,
+  SyntaxHighlightingWorker,
+  TestWorker,
+} = RpcId
