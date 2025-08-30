@@ -1,6 +1,6 @@
+import { RpcId } from '@lvce-editor/constants'
 import type { SearchProcessApi } from '../SearchProcessApi/SearchProcessApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
-import * as RpcId from '../RpcId/RpcId.ts'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<SearchProcessApi>(RpcId.SearchProcess)
 
