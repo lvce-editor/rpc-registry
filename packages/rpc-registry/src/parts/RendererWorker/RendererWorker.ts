@@ -106,11 +106,12 @@ export const getColorThemeNames = async (): Promise<readonly string[]> => {
   return invoke('ColorTheme.getColorThemeNames')
 }
 
-export const disableExtension = async (id: string): Promise<void> => {
+export const disableExtension = async (id: string): Promise<Error | undefined> => {
+  // @ts-ignore
   return invoke('ExtensionManagement.disable', id)
 }
 
-export const enableExtension = async (id: string): Promise<void> => {
+export const enableExtension = async (id: string): Promise<Error | undefined> => {
   // @ts-ignore
   return invoke('ExtensionManagement.enable', id)
 }
