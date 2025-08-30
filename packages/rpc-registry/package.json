@@ -37,6 +37,7 @@
     }
   },
   "dependencies": {
+    "@lvce-editor/constants": "^1.0.0",
     "@lvce-editor/rpc": "^4.14.0"
   },
   "devDependencies": {
