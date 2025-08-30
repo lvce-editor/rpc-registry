@@ -1,9 +1,8 @@
 import { execa } from 'execa'
-import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { bundleJs } from './bundleJs.js'
-import { root } from './root.js'
 import { generateApiTypes } from './generateApiTypes.js'
+import { root } from './root.js'
 
 const dist = join(root, '.tmp', 'dist')
 
@@ -53,7 +52,13 @@ const getVersion = async () => {
 await rm(dist, { recursive: true, force: true })
 await mkdir(dist, { recursive: true })
 
-await bundleJs()
+await execa(`npx`, ['tsc', '-b'], {
+  cwd: join(root, 'packages', 'rpc-registry'),
+})
+const dirents = await readdir(join(root, '.tmp', 'tsc-dist'), { recursive: true })
+const toRemove = dirents.filter((dirent) => dirent.endsWith('.d.ts'))
+await Promise.all(toRemove.map((item) => rm(join(root, '.tmp', 'tsc-dist', item))))
+await cp(join(root, '.tmp', 'tsc-dist', 'src'), join(root, '.tmp', 'dist', 'dist'), { recursive: true })
 
 const version = await getVersion()
 
