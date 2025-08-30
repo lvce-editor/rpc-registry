@@ -4,6 +4,7 @@
   "description": "Rpc Registry",
   "license": "MIT",
   "author": "Lvce Editor",
+  "sideEffects": false,
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
