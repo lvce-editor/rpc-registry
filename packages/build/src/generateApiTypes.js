@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { root } from './root.js'
 
 const getActualContent = (content) => {
-  return content.replace(`import { Rpc } from '@lvce-editor/rpc';`, `import { Rpc, MockRpc } from '@lvce-editor/rpc';`)
+  return content.replace(`import { Rpc } from '@lvce-editor/rpc';`, `import { Rpc, MockRpc } from '@lvce-editor/rpc';`).replace(`Rpc,\n`, `Rpc,\nMockRpc\n`)
 }
 
 export const generateApiTypes = async () => {
