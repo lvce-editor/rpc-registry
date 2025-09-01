@@ -1,9 +1,10 @@
+import type { MockRpc} from '@lvce-editor/rpc';
 import { RpcId } from '@lvce-editor/constants'
+import { createMockRpc } from '@lvce-editor/rpc'
 import type { Change } from '../Change/Change.ts'
 import type { EditorWorkerApi } from '../EditorWorkerApi/EditorWorkerApi.ts'
 import type { PositionAtCursor } from '../PositionAtCursor/PositionAtCursor.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
-import { MockRpc, createMockRpc } from '@lvce-editor/rpc'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<EditorWorkerApi>(RpcId.EditorWorker)
 
