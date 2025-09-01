@@ -1,4 +1,4 @@
-export type { Rpc } from '@lvce-editor/rpc'
+export type { Rpc, MockRpc } from '@lvce-editor/rpc'
 export * as ClipBoardProcess from '../ClipBoardProcess/ClipBoardProcess.ts'
 export * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 export * as DebugWorker from '../DebugWorker/DebugWorker.ts'
