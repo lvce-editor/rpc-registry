@@ -1,6 +1,7 @@
 import { RpcId } from '@lvce-editor/constants'
 import type { RendererWorkerApi } from '../RendererWorkerApi/RendererWorkerApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
+import { createMockRpc } from '@lvce-editor/rpc'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<RendererWorkerApi>(RpcId.RendererWorker)
 
@@ -330,4 +331,10 @@ export const showSaveFilePicker = async (): Promise<string> => {
 export const getLogsDir = async (): Promise<string> => {
   // @ts-ignore
   return invoke('PlatformPaths.getLogsDir')
+}
+
+export const registerMockRpc = (commandMap: Record<string, any>): void => {
+  const mockRpc = createMockRpc({ commandMap })
+  set(mockRpc)
+  return
 }
