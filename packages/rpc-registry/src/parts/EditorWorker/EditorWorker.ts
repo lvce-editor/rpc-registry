@@ -3,6 +3,7 @@ import type { Change } from '../Change/Change.ts'
 import type { EditorWorkerApi } from '../EditorWorkerApi/EditorWorkerApi.ts'
 import type { PositionAtCursor } from '../PositionAtCursor/PositionAtCursor.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
+import { MockRpc, createMockRpc } from '@lvce-editor/rpc'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<EditorWorkerApi>(RpcId.EditorWorker)
 
@@ -89,4 +90,10 @@ export const getLanguageId = async (editorUid: number): Promise<string> => {
 export const getProblems = async (): Promise<readonly any[]> => {
   // @ts-ignore
   return invoke('Editor.getProblems')
+}
+
+export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
+  const mockRpc = createMockRpc({ commandMap })
+  set(mockRpc)
+  return mockRpc
 }

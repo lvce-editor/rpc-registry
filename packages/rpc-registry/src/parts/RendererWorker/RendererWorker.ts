@@ -1,4 +1,4 @@
-import type { MockRpc } from '@lvce-editor/rpc';
+import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import type { RendererWorkerApi } from '../RendererWorkerApi/RendererWorkerApi.ts'
