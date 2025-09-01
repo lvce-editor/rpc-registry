@@ -1,7 +1,8 @@
+import type { MockRpc } from '@lvce-editor/rpc';
 import { RpcId } from '@lvce-editor/constants'
+import { createMockRpc } from '@lvce-editor/rpc'
 import type { RendererWorkerApi } from '../RendererWorkerApi/RendererWorkerApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
-import { createMockRpc, MockRpc } from '@lvce-editor/rpc'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<RendererWorkerApi>(RpcId.RendererWorker)
 
