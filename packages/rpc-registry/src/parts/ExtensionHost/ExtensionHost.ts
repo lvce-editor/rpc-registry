@@ -1,8 +1,9 @@
+import type { MockRpc } from '@lvce-editor/rpc';
 import { RpcId } from '@lvce-editor/constants'
+import { createMockRpc } from '@lvce-editor/rpc'
 import type { ExtensionHostWorkerApi } from '../ExtensionHostWorkerApi/ExtensionHostWorkerApi.ts'
 import type { RuntimeStatus } from '../RuntimeStatus/RuntimeStatus.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
-import { createMockRpc, MockRpc } from '@lvce-editor/rpc'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<ExtensionHostWorkerApi>(RpcId.ExtensionHostWorker)
 
