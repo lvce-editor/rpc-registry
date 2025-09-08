@@ -1,7 +1,8 @@
+import type { MockRpc} from '@lvce-editor/rpc';
 import { RpcId } from '@lvce-editor/constants'
+import { createMockRpc } from '@lvce-editor/rpc'
 import type { FileSystemProcessApi } from '../FileSystemProcessApi/FileSystemProcessApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
-import { MockRpc, createMockRpc } from '@lvce-editor/rpc'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<FileSystemProcessApi>(RpcId.FileSystemProcess)
 
