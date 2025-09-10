@@ -77,6 +77,12 @@ export const sendMessagePortToMarkdownWorker = async (port: MessagePort, rpcId: 
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToMarkdownWorker', port, command, rpcId)
 }
 
+export const sendMessagePortToIconThemeWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
+  const command = 'IconTheme.handleMessagePort'
+  // @ts-ignore
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToIconThemeWorker', port, command, rpcId)
+}
+
 export const sendMessagePortToFileSystemWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'FileSystem.handleMessagePort'
   // @ts-ignore
