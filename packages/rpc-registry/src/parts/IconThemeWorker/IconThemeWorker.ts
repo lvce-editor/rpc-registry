@@ -1,11 +1,9 @@
 import type { MockRpc } from '@lvce-editor/rpc'
 import { createMockRpc } from '@lvce-editor/rpc'
-import type { EditorWorkerApi } from '../EditorWorkerApi/EditorWorkerApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
+import { RpcId } from '@lvce-editor/constants'
 
-const id = 7009
-
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<EditorWorkerApi>(id)
+export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<{}>(RpcId.IconThemeWorker)
 
 export const getIcons = async (iconRequests: readonly any[]): Promise<readonly any[]> => {
   // @ts-ignore
