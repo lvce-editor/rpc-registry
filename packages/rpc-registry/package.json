@@ -2,6 +2,10 @@
   "name": "@lvce-editor/rpc-registry",
   "version": "0.0.0-dev",
   "description": "Rpc Registry",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvce-editor/rpc-registry.git"
+  },
   "license": "MIT",
   "author": "Lvce Editor",
   "sideEffects": false,
