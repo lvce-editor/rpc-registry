@@ -1,6 +1,7 @@
 import { RpcId } from '@lvce-editor/constants'
 import type { FileSystemWorkerApi } from '../FileSystemWorkerApi/FileSystemWorkerApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
+import { createMockRpc, MockRpc } from '@lvce-editor/rpc'
 
 export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<FileSystemWorkerApi>(RpcId.FileSystemWorker)
 
@@ -67,4 +68,10 @@ export const readFileAsBlob = async (uri: string): Promise<Blob> => {
 export const appendFile = async (uri: string, text: string): Promise<string> => {
   // @ts-ignore
   return invoke('FileSystem.appendFile', uri, text)
+}
+
+export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
+  const mockRpc = createMockRpc({ commandMap })
+  set(mockRpc)
+  return mockRpc
 }
