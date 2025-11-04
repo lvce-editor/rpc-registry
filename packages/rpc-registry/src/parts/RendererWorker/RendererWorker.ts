@@ -1,5 +1,5 @@
 import type { MockRpc } from '@lvce-editor/rpc'
-import { RpcId } from '@lvce-editor/constants'
+import { InputSource, RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import type { RendererWorkerApi } from '../RendererWorkerApi/RendererWorkerApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
@@ -312,7 +312,7 @@ export const openExtensionSearch = async (): Promise<void> => {
 
 export const setExtensionsSearchValue = async (searchValue: string): Promise<void> => {
   // @ts-ignore
-  return invoke('Extensions.handleInput', searchValue)
+  return invoke('Extensions.handleInput', searchValue, InputSource.Script)
 }
 
 export const openExternal = async (uri: string): Promise<void> => {
