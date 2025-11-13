@@ -2,7 +2,7 @@
 import type { RpcFactoryResult } from '../RpcFactoryResult/RpcFactoryResult.ts'
 import * as RpcRegistry from '../RpcRegistry/RpcRegistry.ts'
 
-export const create = <Api extends Record<string, any>>(rpcId: number): RpcFactoryResult<Api> => {
+export const create = (rpcId: number): RpcFactoryResult => {
   return {
     // @ts-ignore
     invoke(method, ...params) {

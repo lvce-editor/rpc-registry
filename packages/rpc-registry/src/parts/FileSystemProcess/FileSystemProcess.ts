@@ -1,10 +1,9 @@
 import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
-import type { FileSystemProcessApi } from '../FileSystemProcessApi/FileSystemProcessApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<FileSystemProcessApi>(RpcId.FileSystemProcess)
+export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.FileSystemProcess)
 
 export const remove = async (uri: string): Promise<void> => {
   return invoke('FileSystem.remove', uri)
