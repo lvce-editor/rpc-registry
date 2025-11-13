@@ -19,7 +19,7 @@ export const showContextMenu = async (x: number, y: number, id: number, ...args:
 
 export const showContextMenu2 = async (uid: number, menuId: any, x: number, y: number, args: any): Promise<void> => {
   // @ts-ignore
-  await RendererWorker.invoke('ContextMenu.show2', uid, menuId, x, y, args)
+  await invoke('ContextMenu.show2', uid, menuId, x, y, args)
 }
 
 export const getElectronVersion = async (): Promise<string> => {
