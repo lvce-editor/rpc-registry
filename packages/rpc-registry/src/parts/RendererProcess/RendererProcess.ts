@@ -1,8 +1,7 @@
 import { RpcId } from '@lvce-editor/constants'
-import type { RendererProcessApi } from '../RendererProcessApi/RendererProcessApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<RendererProcessApi>(RpcId.RendererProcess)
+export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.RendererProcess)
 
 export const readClipBoardText = async (): Promise<any> => {
   // @ts-ignore

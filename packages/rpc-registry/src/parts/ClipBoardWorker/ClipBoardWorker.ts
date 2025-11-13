@@ -1,8 +1,7 @@
 import { RpcId } from '@lvce-editor/constants'
-import type { ClipBoardWorkerApi } from '../ClipBoardWorkerApi/ClipBoardWorkerApi.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<ClipBoardWorkerApi>(RpcId.ClipBoardWorker)
+export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.ClipBoardWorker)
 
 export const writeText = async (text: string): Promise<void> => {
   // @ts-ignore

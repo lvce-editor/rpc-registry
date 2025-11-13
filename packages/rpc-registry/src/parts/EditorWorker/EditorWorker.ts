@@ -2,11 +2,10 @@ import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import type { Change } from '../Change/Change.ts'
-import type { EditorWorkerApi } from '../EditorWorkerApi/EditorWorkerApi.ts'
 import type { PositionAtCursor } from '../PositionAtCursor/PositionAtCursor.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create<EditorWorkerApi>(RpcId.EditorWorker)
+export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.EditorWorker)
 
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort2'
