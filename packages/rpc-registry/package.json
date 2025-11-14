@@ -42,6 +42,7 @@
     }
   },
   "dependencies": {
+    "@lvce-editor/assert": "^1.4.0",
     "@lvce-editor/constants": "^1.31.0",
     "@lvce-editor/rpc": "^4.20.0"
   },

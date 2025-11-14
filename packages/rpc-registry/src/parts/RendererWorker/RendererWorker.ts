@@ -1,4 +1,5 @@
 import type { MockRpc } from '@lvce-editor/rpc'
+import * as Assert from '@lvce-editor/assert'
 import { InputSource, RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
@@ -18,6 +19,10 @@ export const showContextMenu = async (x: number, y: number, id: number, ...args:
 }
 
 export const showContextMenu2 = async (uid: number, menuId: any, x: number, y: number, args: any): Promise<void> => {
+  Assert.number(uid)
+  Assert.number(menuId)
+  Assert.number(x)
+  Assert.number(y)
   // @ts-ignore
   await invoke('ContextMenu.show2', uid, menuId, x, y, args)
 }
