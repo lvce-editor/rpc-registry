@@ -173,6 +173,10 @@ export const writeClipBoardText = async (text: string): Promise<void> => {
   await invoke('ClipBoard.writeText', /* text */ text)
 }
 
+export const readClipBoardText = async (): Promise<string> => {
+  return invoke('ClipBoard.readText')
+}
+
 export const writeClipBoardImage = async (blob: any): Promise<void> => {
   // @ts-ignore
   await invoke('ClipBoard.writeImage', /* text */ blob)
