@@ -232,6 +232,12 @@ export const sendMessagePortToRendererProcess = async (port: MessagePort): Promi
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, command, RpcId.DebugWorker)
 }
 
+export const sendMessagePortToTextMeasurementWorker = async (port: MessagePort): Promise<void> => {
+  const command = 'TextMeasurement.handleMessagePort'
+  // @ts-ignore
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, command, 0)
+}
+
 export const getPreference = async (key: string): Promise<any> => {
   return await invoke('Preferences.get', key)
 }
