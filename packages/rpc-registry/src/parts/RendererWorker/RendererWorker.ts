@@ -241,7 +241,7 @@ export const sendMessagePortToTextMeasurementWorker = async (port: MessagePort):
 export const sendMessagePortToSourceControlWorker = async (port: MessagePort): Promise<void> => {
   const command = 'SourceControl.handleMessagePort'
   // @ts-ignore
-  await invokeAndTransfer('SendMessagePortToSourceControlWorker.sendMessagePortToSourceControlWorker', port, command, 0)
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSourceControlWorker', port, command, 0)
 }
 
 export const getPreference = async (key: string): Promise<any> => {
