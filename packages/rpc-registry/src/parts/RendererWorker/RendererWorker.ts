@@ -145,6 +145,10 @@ export const getFolderIcon = async (options: any): Promise<string> => {
   return invoke('IconTheme.getFolderIcon', options)
 }
 
+export const handleWorkspaceRefresh = async (): Promise<void> => {
+  return invoke('Layout.handleWorkspaceRefresh')
+}
+
 export const closeWidget = async (widgetId: string | number): Promise<void> => {
   return invoke('Viewlet.closeWidget', widgetId)
 }
