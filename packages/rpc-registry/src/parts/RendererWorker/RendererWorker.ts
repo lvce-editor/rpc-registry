@@ -14,6 +14,9 @@ export const getFilePathElectron = async (file: File): Promise<string> => {
   return invoke('FileSystemHandle.getFilePathElectron', file)
 }
 
+/**
+ * @deprecated
+ */
 export const showContextMenu = async (x: number, y: number, id: number, ...args: readonly any[]): Promise<void> => {
   return invoke('ContextMenu.show', x, y, id, ...args)
 }
