@@ -372,6 +372,10 @@ export const getLogsDir = async (): Promise<string> => {
   return invoke('PlatformPaths.getLogsDir')
 }
 
+export const measureTextBlockHeight = async (actualInput: string, fontFamily: string, fontSize: number, lineHeightPx: number, width: number): Promise<number> => {
+  return invoke(`MeasureTextHeight.measureTextBlockHeight`, actualInput, fontFamily, fontSize, lineHeightPx, width)
+}
+
 export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
   const mockRpc = createMockRpc({ commandMap })
   set(mockRpc)
