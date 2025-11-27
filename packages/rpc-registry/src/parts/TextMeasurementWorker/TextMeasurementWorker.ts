@@ -10,3 +10,15 @@ export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
   set(mockRpc)
   return mockRpc
 }
+
+export const measureTextWidth = async (
+  text: string,
+  fontWeight: number,
+  fontSize: number,
+  fontFamily: string,
+  letterSpacing: number,
+  isMonoSpaceFont: boolean,
+  charWidth: number,
+): Promise<number> => {
+  return invoke('TextMeasurement.measureTextWidth', text, fontWeight, fontSize, fontFamily, letterSpacing, isMonoSpaceFont, charWidth)
+}
