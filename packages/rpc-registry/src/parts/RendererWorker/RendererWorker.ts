@@ -257,7 +257,7 @@ export const sendMessagePortToFileSystemProcess = async (port: MessagePort, rpcI
 }
 
 export const sendMessagePortToExtensionManagementWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
-  const command = 'ExtensionManagement.handleMessagePort'
+  const command = 'Extensions.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker', port, command, rpcId)
 }
 
