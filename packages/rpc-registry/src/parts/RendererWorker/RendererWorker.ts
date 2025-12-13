@@ -256,6 +256,11 @@ export const sendMessagePortToFileSystemProcess = async (port: MessagePort, rpcI
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, rpcId)
 }
 
+export const sendMessagePortToExtensionManagementWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
+  const command = 'ExtensionManagement.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.SendMessagePortToExtensionManagementWorker', port, command, rpcId)
+}
+
 export const getPreference = async (key: string): Promise<any> => {
   return await invoke('Preferences.get', key)
 }
