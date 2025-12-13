@@ -4,7 +4,7 @@ import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
 const id = 9006
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(id)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(id)
 
 export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
   const mockRpc = createMockRpc({ commandMap })

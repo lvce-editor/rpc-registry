@@ -4,7 +4,7 @@ import { InputSource, RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.RendererWorker)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.RendererWorker)
 
 export const searchFileHtml = async (uri: string): Promise<readonly string[]> => {
   return invoke('ExtensionHost.searchFileWithHtml', uri)

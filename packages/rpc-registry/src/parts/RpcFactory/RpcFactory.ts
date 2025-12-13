@@ -4,6 +4,10 @@ import * as RpcRegistry from '../RpcRegistry/RpcRegistry.ts'
 
 export const create = (rpcId: number): RpcFactoryResult => {
   return {
+    async dispose() {
+      const rpc = RpcRegistry.get(rpcId)
+      await rpc.dispose()
+    },
     // @ts-ignore
     invoke(method, ...params) {
       const rpc = RpcRegistry.get(rpcId)
@@ -18,10 +22,6 @@ export const create = (rpcId: number): RpcFactoryResult => {
     },
     set(rpc) {
       RpcRegistry.set(rpcId, rpc)
-    },
-    async dispose() {
-      const rpc = RpcRegistry.get(rpcId)
-      await rpc.dispose()
     },
   }
 }
