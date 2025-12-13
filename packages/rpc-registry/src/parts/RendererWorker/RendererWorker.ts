@@ -252,7 +252,7 @@ export const sendMessagePortToSourceControlWorker = async (port: MessagePort): P
 }
 
 export const sendMessagePortToSharedProcess = async (port: MessagePort): Promise<void> => {
-  const command = 'SharedProcess.handleMessagePort'
+  const command = 'HandleElectronMessagePort.handleElectronMessagePort'
   // @ts-ignore
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, 0)
 }
