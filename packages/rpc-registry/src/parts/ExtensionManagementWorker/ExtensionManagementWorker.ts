@@ -11,3 +11,19 @@ export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
   set(mockRpc)
   return mockRpc
 }
+
+export const enable = (id: string): Promise<void> => {
+  return invoke(`Extensions.enable`, id)
+}
+
+export const disable = (id: string): Promise<void> => {
+  return invoke(`Extensions.disable`, id)
+}
+
+export const install = (id: string): Promise<void> => {
+  return invoke(`Extensions.install`, id)
+}
+
+export const uninstall = (id: string): Promise<void> => {
+  return invoke(`Extensions.uninstall`, id)
+}
