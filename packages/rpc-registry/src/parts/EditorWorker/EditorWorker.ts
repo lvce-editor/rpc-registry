@@ -5,7 +5,7 @@ import type { Change } from '../Change/Change.ts'
 import type { PositionAtCursor } from '../PositionAtCursor/PositionAtCursor.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.EditorWorker)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.EditorWorker)
 
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort2'
