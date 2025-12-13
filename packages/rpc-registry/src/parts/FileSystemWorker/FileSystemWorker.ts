@@ -3,7 +3,7 @@ import { RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.FileSystemWorker)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.FileSystemWorker)
 
 export const remove = async (dirent: string): Promise<void> => {
   return invoke('FileSystem.remove', dirent)

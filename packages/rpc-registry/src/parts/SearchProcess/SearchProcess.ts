@@ -1,7 +1,7 @@
 import { RpcId } from '@lvce-editor/constants'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.SearchProcess)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.SearchProcess)
 
 // TODO add tests for this
 export const search = async (options: any): Promise<any> => {

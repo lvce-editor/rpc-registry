@@ -4,7 +4,7 @@ import { createMockRpc } from '@lvce-editor/rpc'
 import type { RuntimeStatus } from '../RuntimeStatus/RuntimeStatus.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { invoke, invokeAndTransfer, set, dispose } = RpcFactory.create(RpcId.ExtensionHostWorker)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.ExtensionHostWorker)
 
 export const executeReferenceProvider = async (id: number, offset: number): Promise<readonly any[]> => {
   // @ts-ignore
