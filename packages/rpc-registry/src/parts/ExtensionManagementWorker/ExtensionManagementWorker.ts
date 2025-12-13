@@ -1,10 +1,9 @@
 import type { MockRpc } from '@lvce-editor/rpc'
+import { RpcId } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-const id = 9006
-
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(id)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.ExtensionManagementWorker)
 
 export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
   const mockRpc = createMockRpc({ commandMap })
