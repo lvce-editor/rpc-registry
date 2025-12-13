@@ -20,6 +20,10 @@ export const disable = (id: string): Promise<void> => {
   return invoke(`Extensions.disable`, id)
 }
 
+export const getExtension = (id: string): Promise<any> => {
+  return invoke(`Extensions.getExtension`, id)
+}
+
 export const install = (id: string): Promise<void> => {
   return invoke(`Extensions.install`, id)
 }
