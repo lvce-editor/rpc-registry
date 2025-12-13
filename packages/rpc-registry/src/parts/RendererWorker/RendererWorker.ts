@@ -251,6 +251,12 @@ export const sendMessagePortToSourceControlWorker = async (port: MessagePort): P
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSourceControlWorker', port, command, 0)
 }
 
+export const sendMessagePortToSharedProcess = async (port: MessagePort): Promise<void> => {
+  const command = 'SharedProcess.handleMessagePort'
+  // @ts-ignore
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, 0)
+}
+
 export const sendMessagePortToFileSystemProcess = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'HandleMessagePortForFileSystemProcess.handleMessagePortForFileSystemProcess'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, rpcId)
