@@ -21,6 +21,11 @@ export const createLazyRpc = (rpcId: number): LazyRpc => {
       const rpc = RpcRegistry.get(rpcId)
       return rpc.invoke(method, ...params)
     },
+    async invokeAndTransfer(method: string, ...params: readonly any[]): Promise<any> {
+      await ensureRpc()
+      const rpc = RpcRegistry.get(rpcId)
+      return rpc.invokeAndTransfer(method, ...params)
+    },
     setFactory(value: () => Promise<Rpc>): void {
       factory = value
     },
