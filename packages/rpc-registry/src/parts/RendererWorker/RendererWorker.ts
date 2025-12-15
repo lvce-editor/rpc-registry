@@ -262,6 +262,11 @@ export const sendMessagePortToFileSystemProcess = async (port: MessagePort, rpcI
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, rpcId)
 }
 
+export const sendMessagePortToIframeWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
+  const command = 'Iframes.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToIframeWorker', port, command, rpcId)
+}
+
 export const sendMessagePortToExtensionManagementWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'Extensions.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker', port, command, rpcId)
