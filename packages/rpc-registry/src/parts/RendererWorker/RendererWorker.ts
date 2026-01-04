@@ -215,8 +215,8 @@ export const getIcons = async (requests: readonly any[]): Promise<readonly strin
   return icons
 }
 
-export const activateByEvent = (event: string): Promise<void> => {
-  return invoke('ExtensionHostManagement.activateByEvent', event)
+export const activateByEvent = (event: string, assetDir: string, platform: number): Promise<void> => {
+  return invoke('ExtensionHostManagement.activateByEvent', event, assetDir, platform)
 }
 
 export const setAdditionalFocus = (focusKey: number): Promise<void> => {
