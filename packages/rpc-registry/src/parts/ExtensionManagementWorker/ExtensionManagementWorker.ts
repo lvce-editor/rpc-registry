@@ -30,6 +30,10 @@ export const getExtension = (id: string): Promise<any> => {
   return invoke(`Extensions.getExtension`, id)
 }
 
+export const getLanguages = (platform: number, assetDir:string): Promise<any> => {
+  return invoke('Languages.getLanguages', platform, assetDir)
+}
+
 export const install = (id: string): Promise<void> => {
   return invoke(`Extensions.install`, id)
 }
