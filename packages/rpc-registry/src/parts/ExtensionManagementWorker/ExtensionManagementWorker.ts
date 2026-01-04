@@ -31,7 +31,7 @@ export const getExtension = (id: string): Promise<any> => {
 }
 
 export const getLanguages = (platform: number, assetDir: string): Promise<any> => {
-  return invoke('Languages.getLanguages', platform, assetDir)
+  return invoke('Extensions.getLanguages', platform, assetDir)
 }
 
 export const install = (id: string): Promise<void> => {
