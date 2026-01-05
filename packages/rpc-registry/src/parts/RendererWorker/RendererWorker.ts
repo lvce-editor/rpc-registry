@@ -358,6 +358,26 @@ export const installExtension = async (id: string): Promise<void> => {
   return invoke('ExtensionManagement.install', id)
 }
 
+export const minimizeWindow = async (): Promise<void> => {
+  // @ts-ignore
+  return invoke('ElectronWindow.minimize')
+}
+
+export const unmaximizeWindow = async (): Promise<void> => {
+  // @ts-ignore
+  return invoke('ElectronWindow.unmaximize')
+}
+
+export const maximizeWindow = async (): Promise<void> => {
+  // @ts-ignore
+  return invoke('ElectronWindow.maximize')
+}
+
+export const closeWindow = async (): Promise<void> => {
+  // @ts-ignore
+  return invoke('ElectronWindow.close')
+}
+
 export const openExtensionSearch = async (): Promise<void> => {
   // @ts-ignore
   return invoke('SideBar.openViewlet', 'Extensions')
