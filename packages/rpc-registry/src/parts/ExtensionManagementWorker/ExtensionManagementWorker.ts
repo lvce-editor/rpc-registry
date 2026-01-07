@@ -16,14 +16,15 @@ export const enable = (id: string): Promise<void> => {
 }
 
 export const enable2 = (id: string, platform: number): Promise<void> => {
-  return invoke(`Extensions.enable`, id, platform)
+  return invoke(`Extensions.enable2`, id, platform)
 }
 
 export const disable = (id: string): Promise<void> => {
   return invoke(`Extensions.disable`, id)
 }
+
 export const disable2 = (id: string, platform: number): Promise<void> => {
-  return invoke(`Extensions.disable`, id, platform)
+  return invoke(`Extensions.disable2`, id, platform)
 }
 
 export const getExtension = (id: string): Promise<any> => {
