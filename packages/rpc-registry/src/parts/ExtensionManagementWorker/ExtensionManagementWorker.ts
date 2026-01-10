@@ -42,3 +42,7 @@ export const install = (id: string): Promise<void> => {
 export const uninstall = (id: string): Promise<void> => {
   return invoke(`Extensions.uninstall`, id)
 }
+
+export const invalidateExtensionsCache = (): Promise<void> => {
+  return invoke(`Extensions.invalidateExtensionsCache`)
+}
