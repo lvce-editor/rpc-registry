@@ -158,6 +158,11 @@ export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rp
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, rpcId)
 }
 
+export const sendMessagePortToFileSearchWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
+  const command = 'HandleMessagePort.handleMessagePort2'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToFileSearchWorker', port, command, rpcId)
+}
+
 export const sendMessagePortToSearchProcess = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer('SendMessagePortToElectron.sendMessagePortToElectron', port, 'HandleMessagePortForSearchProcess.handleMessagePortForSearchProcess')
 }
