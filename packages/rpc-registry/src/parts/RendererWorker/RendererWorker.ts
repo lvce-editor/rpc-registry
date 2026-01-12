@@ -159,7 +159,7 @@ export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rp
 }
 
 export const sendMessagePortToFileSearchWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort2'
+  const command = 'QuickPick.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToFileSearchWorker', port, command, rpcId)
 }
 
