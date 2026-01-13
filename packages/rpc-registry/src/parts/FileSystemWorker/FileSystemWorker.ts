@@ -14,7 +14,6 @@ export const readDirWithFileTypes = async (uri: string): Promise<readonly any[]>
 }
 
 export const getPathSeparator = async (root: string): Promise<string> => {
-  // @ts-ignore
   return invoke('FileSystem.getPathSeparator', root)
 }
 
@@ -51,23 +50,27 @@ export const copy = async (oldUri: string, newUri: string): Promise<void> => {
 }
 
 export const exists = async (uri: string): Promise<boolean> => {
-  // @ts-ignore
   return invoke('FileSystem.exists', uri)
 }
 
 export const getFolderSize = async (uri: string): Promise<number> => {
-  // @ts-ignore
   return invoke('FileSystem.getFolderSize', uri)
 }
 
 export const readFileAsBlob = async (uri: string): Promise<Blob> => {
-  // @ts-ignore
   return invoke('FileSystem.readFileAsBlob', uri)
 }
 
 export const appendFile = async (uri: string, text: string): Promise<string> => {
-  // @ts-ignore
   return invoke('FileSystem.appendFile', uri, text)
+}
+
+export const watchFile = async (watchId: number, uri: string, rpcId: number): Promise<void> => {
+  await invoke('FileSystem.watchFile', watchId, uri, rpcId)
+}
+
+export const unwatchFile = async (watchId: number): Promise<void> => {
+  await invoke('FileSystem.unwatchFile', watchId)
 }
 
 export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
