@@ -29,6 +29,11 @@ export const applyEdit = async (editorUid: number, changes: readonly Change[]): 
   await invoke('Editor.applyEdit2', editorUid, changes)
 }
 
+export const applyDocumentEdits = async (editorUid: number, changes: readonly Change[]): Promise<void> => {
+  // @ts-ignore
+  await invoke('Editor.applyDocumentEdits', editorUid, changes)
+}
+
 export const applyWorkspaceEdit = async (editorUid: number, changes: readonly any[]): Promise<void> => {
   // @ts-ignore
   await invoke('Editor.applyWorkspaceEdit', editorUid, changes)
