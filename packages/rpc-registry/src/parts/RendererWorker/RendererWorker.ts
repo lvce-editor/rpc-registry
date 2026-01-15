@@ -422,6 +422,10 @@ export const measureTextBlockHeight = async (actualInput: string, fontFamily: st
   return invoke(`MeasureTextHeight.measureTextBlockHeight`, actualInput, fontFamily, fontSize, lineHeightPx, width)
 }
 
+export const refreshOutput = async (): Promise<void> => {
+  await invoke('Output.refresh')
+}
+
 export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
   const mockRpc = createMockRpc({ commandMap })
   set(mockRpc)
