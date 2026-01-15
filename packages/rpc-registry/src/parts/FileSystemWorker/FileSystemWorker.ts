@@ -1,9 +1,7 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
-import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.FileSystemWorker)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.FileSystemWorker)
 
 export const remove = async (dirent: string): Promise<void> => {
   return invoke('FileSystem.remove', dirent)
@@ -71,10 +69,4 @@ export const watchFile = async (watchId: number, uri: string, rpcId: number): Pr
 
 export const unwatchFile = async (watchId: number): Promise<void> => {
   await invoke('FileSystem.unwatchFile', watchId)
-}
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
 }

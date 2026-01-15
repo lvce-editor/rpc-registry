@@ -1,9 +1,7 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
-import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.MarkdownWorker)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.MarkdownWorker)
 
 export const getVirtualDom = async (html: string): Promise<readonly any[]> => {
   // @ts-ignore
@@ -13,10 +11,4 @@ export const getVirtualDom = async (html: string): Promise<readonly any[]> => {
 export const render = async (markdown: string, options?: any): Promise<string> => {
   // @ts-ignore
   return invoke('Markdown.render', markdown, options)
-}
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
 }

@@ -1,10 +1,8 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import * as Assert from '@lvce-editor/assert'
 import { InputSource, RpcId } from '@lvce-editor/constants'
-import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.RendererWorker)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
 
 export const searchFileHtml = async (uri: string): Promise<readonly string[]> => {
   return invoke('ExtensionHost.searchFileWithHtml', uri)
@@ -424,10 +422,4 @@ export const measureTextBlockHeight = async (actualInput: string, fontFamily: st
 
 export const refreshOutput = async (): Promise<void> => {
   await invoke('Output.refresh')
-}
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
 }

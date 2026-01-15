@@ -1,9 +1,7 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
-import { createMockRpc } from '@lvce-editor/rpc'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.FileSystemProcess)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.FileSystemProcess)
 
 export const remove = async (uri: string): Promise<void> => {
   return invoke('FileSystem.remove', uri)
@@ -70,10 +68,4 @@ export const getFolderSize = async (uri: string): Promise<void> => {
 export const exists = async (uri: string): Promise<boolean> => {
   // @ts-ignore
   return invoke('FileSystem.exists', uri)
-}
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
 }

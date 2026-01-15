@@ -1,10 +1,8 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
-import { createMockRpc } from '@lvce-editor/rpc'
 import type { RuntimeStatus } from '../RuntimeStatus/RuntimeStatus.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.ExtensionHostWorker)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.ExtensionHostWorker)
 
 export const executeReferenceProvider = async (id: number, offset: number): Promise<readonly any[]> => {
   // @ts-ignore
@@ -24,10 +22,4 @@ export const getRuntimeStatus = async (extensionId: string): Promise<RuntimeStat
 export const getEnabledOutputProviderIds = async (): Promise<readonly string[]> => {
   const channels = await invoke('Output.getEnabledProviders')
   return channels
-}
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
 }
