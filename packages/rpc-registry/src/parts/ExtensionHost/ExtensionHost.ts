@@ -18,3 +18,17 @@ export const getRuntimeStatus = async (extensionId: string): Promise<RuntimeStat
   // @ts-ignore
   return invoke('ExtensionHost.getRuntimeStatus', extensionId)
 }
+<<<<<<< HEAD
+=======
+
+export const getEnabledOutputProviderIds = async (): Promise<readonly string[]> => {
+  const channels = await invoke('Output.getEnabledProviders')
+  return channels
+}
+
+export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
+  const mockRpc = createMockRpc({ commandMap })
+  set(mockRpc)
+  return mockRpc
+}
+>>>>>>> origin/main
