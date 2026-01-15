@@ -419,16 +419,7 @@ export const getLogsDir = async (): Promise<string> => {
 export const measureTextBlockHeight = async (actualInput: string, fontFamily: string, fontSize: number, lineHeightPx: number, width: number): Promise<number> => {
   return invoke(`MeasureTextHeight.measureTextBlockHeight`, actualInput, fontFamily, fontSize, lineHeightPx, width)
 }
-<<<<<<< HEAD
-=======
 
 export const refreshOutput = async (): Promise<void> => {
   await invoke('Output.refresh')
 }
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
-}
->>>>>>> origin/main
