@@ -1,10 +1,8 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
-import { createMockRpc } from '@lvce-editor/rpc'
 import type { RuntimeStatus } from '../RuntimeStatus/RuntimeStatus.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.ExtensionHostWorker)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.ExtensionHostWorker)
 
 export const executeReferenceProvider = async (id: number, offset: number): Promise<readonly any[]> => {
   // @ts-ignore
@@ -19,10 +17,4 @@ export const executeFileReferenceProvider = async (id: number): Promise<readonly
 export const getRuntimeStatus = async (extensionId: string): Promise<RuntimeStatus> => {
   // @ts-ignore
   return invoke('ExtensionHost.getRuntimeStatus', extensionId)
-}
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
 }

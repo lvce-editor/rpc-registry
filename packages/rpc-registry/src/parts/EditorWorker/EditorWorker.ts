@@ -1,11 +1,9 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
-import { createMockRpc } from '@lvce-editor/rpc'
 import type { Change } from '../Change/Change.ts'
 import type { PositionAtCursor } from '../PositionAtCursor/PositionAtCursor.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.EditorWorker)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.EditorWorker)
 
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort2'
@@ -99,10 +97,4 @@ export const getLanguageId = async (editorUid: number): Promise<string> => {
 export const getProblems = async (): Promise<readonly any[]> => {
   // @ts-ignore
   return invoke('Editor.getProblems')
-}
-
-export const registerMockRpc = (commandMap: Record<string, any>): MockRpc => {
-  const mockRpc = createMockRpc({ commandMap })
-  set(mockRpc)
-  return mockRpc
 }
