@@ -22,7 +22,7 @@ export const create = (rpcId: number): RpcFactoryResult => {
       // @ts-ignore
       return rpc.invokeAndTransfer(method, ...params)
     },
-    registerMockRpc({ commandMap }): DisposableMockRpc {
+    registerMockRpc(commandMap): DisposableMockRpc {
       const mockRpc = createMockRpc({ commandMap })
       RpcRegistry.set(rpcId, mockRpc)
       // @ts-ignore
