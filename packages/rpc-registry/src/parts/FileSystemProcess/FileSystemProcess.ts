@@ -1,4 +1,3 @@
-import type { MockRpc } from '@lvce-editor/rpc'
 import { RpcId } from '@lvce-editor/constants'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
