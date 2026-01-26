@@ -45,6 +45,10 @@ export const getNodeVersion = async (): Promise<string> => {
   return invoke('Process.getNodeVersion')
 }
 
+export const getBadgeCounts = async (): Promise<string> => {
+  return invoke('Layout.getBadgeCounts')
+}
+
 export const getChromeVersion = async (): Promise<string> => {
   return invoke('Process.getChromeVersion')
 }
