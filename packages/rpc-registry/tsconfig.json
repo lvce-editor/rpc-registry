@@ -18,7 +18,8 @@
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
     "rewriteRelativeImportExtensions": true,
-    "outDir": "../../.tmp/tsc-dist"
+    "outDir": "../../.tmp/tsc-dist",
+    "declaration": true
   },
   "include": ["src", "test"]
 }
