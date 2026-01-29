@@ -1,7 +1,6 @@
 import { execa } from 'execa'
-import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { generateApiTypes } from './generateApiTypes.js'
 import { root } from './root.js'
 
 const dist = join(root, '.tmp', 'dist')
@@ -55,9 +54,6 @@ await mkdir(dist, { recursive: true })
 await execa(`npx`, ['tsc', '-b'], {
   cwd: join(root, 'packages', 'rpc-registry'),
 })
-const dirents = await readdir(join(root, '.tmp', 'tsc-dist'), { recursive: true })
-const toRemove = dirents.filter((dirent) => dirent.endsWith('.d.ts'))
-await Promise.all(toRemove.map((item) => rm(join(root, '.tmp', 'tsc-dist', item))))
 await cp(join(root, '.tmp', 'tsc-dist', 'src'), join(root, '.tmp', 'dist', 'dist'), { recursive: true })
 
 const version = await getVersion()
@@ -79,5 +75,3 @@ await writeJson(join(dist, 'package.json'), packageJson)
 
 await cp(join(root, 'README.md'), join(dist, 'README.md'))
 await cp(join(root, 'LICENSE'), join(dist, 'LICENSE'))
-
-await generateApiTypes()
