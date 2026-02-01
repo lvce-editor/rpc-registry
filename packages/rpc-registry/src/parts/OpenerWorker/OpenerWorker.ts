@@ -12,8 +12,8 @@ export const openExternal = async (url: string): Promise<void> => {
   return invoke('Open.openExternal', url)
 }
 
-export const openUrl = async (url: string): Promise<void> => {
-  return invoke('Open.openUrl', url)
+export const openUrl = async (url: string, platform: number): Promise<void> => {
+  return invoke('Open.openUrl', url, platform)
 }
 
 export const readOpenedUrl = async (): Promise<string> => {
