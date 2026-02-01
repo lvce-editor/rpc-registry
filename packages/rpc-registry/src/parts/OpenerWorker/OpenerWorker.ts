@@ -18,3 +18,7 @@ export const openUrl = async (url: string, platform: number): Promise<void> => {
 export const readOpenedUrl = async (): Promise<string> => {
   return invoke('Open.readOpenedUrl')
 }
+
+export const showSaveDialog = async (title: string, options: readonly string[]): Promise<any> => {
+  return invoke('Open.showSaveDialog', title, options)
+}
