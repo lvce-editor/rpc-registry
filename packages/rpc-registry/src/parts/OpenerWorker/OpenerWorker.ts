@@ -1,8 +1,7 @@
+import { RpcId } from '@lvce-editor/constants'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-const rpcId = 4561
-
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(rpcId)
+export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(RpcId.OpenerWorker)
 
 export const enableMemoryOpener = async (): Promise<void> => {
   return invoke('Open.enableMemoryOpener')
