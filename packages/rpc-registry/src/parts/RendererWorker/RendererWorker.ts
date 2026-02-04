@@ -76,6 +76,11 @@ export const sendMessagePortToEditorWorker = async (port: MessagePort, rpcId: nu
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToEditorWorker', port, command, rpcId)
 }
 
+export const sendMessagePortToClipBoardWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
+  const command = 'ClipBoard.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToClipBoardWorker', port, command, rpcId)
+}
+
 export const sendMessagePortToOpenerWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToOpenerWorker', port, command, rpcId)
