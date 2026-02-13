@@ -75,7 +75,7 @@ export interface RendererWorkerApi {
   readonly 'Editor.toggleBlockComment': () => Promise<void>
   readonly 'Editor.toggleLineComment': () => Promise<void>
   readonly 'Editor.type': (text: string) => Promise<void>
-  readonly 'EditorCompletion.closeDetais': () => Promise<void>
+  readonly 'EditorCompletion.closeDetails': () => Promise<void>
   readonly 'EditorCompletion.openDetails': () => Promise<void>
   readonly 'EditorCompletion.selectCurrentIndex': () => Promise<void>
   readonly 'EditorCompletion.selectIndex': (index: number) => Promise<void>
@@ -117,7 +117,7 @@ export interface RendererWorkerApi {
   readonly 'Explorer.selectIndices': (indices: readonly number[]) => Promise<void>
   readonly 'Explorer.selectUp': () => Promise<void>
   readonly 'Explorer.updateEditingValue': (value: string) => Promise<void>
-  readonly 'ExtensionDetail.open': (eextensionId: string) => Promise<void>
+  readonly 'ExtensionDetail.open': (extensionId: string) => Promise<void>
   readonly 'ExtensionDetail.selectFeature': (name: string) => Promise<void>
   readonly 'ExtensionDetail.selectTab': (name: string) => Promise<void>
   readonly 'ExtensionHost.executeCommand': (id: string) => Promise<void>
