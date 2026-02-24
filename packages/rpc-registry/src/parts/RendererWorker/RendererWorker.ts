@@ -12,6 +12,10 @@ export const getFilePathElectron = async (file: File): Promise<string> => {
   return invoke('FileSystemHandle.getFilePathElectron', file)
 }
 
+export const handleModifiedStatusChange = async (uri: string, modified: boolean): Promise<void> => {
+  return invoke('Main.handleModifiedStatusChange', uri, modified)
+}
+
 /**
  * @deprecated
  */
