@@ -222,6 +222,14 @@ export const writeClipBoardText = async (text: string): Promise<void> => {
   await invoke('ClipBoard.writeText', /* text */ text)
 }
 
+export const writeFile = async (uri: string, text: string): Promise<void> => {
+  await invoke('FileSystem.writeFile', uri, text)
+}
+
+export const handleUriChange = async (uri: string, newUri: string): Promise<void> => {
+  await invoke('Main.handleUriChange', uri, newUri)
+}
+
 export const readClipBoardText = async (): Promise<string> => {
   return invoke('ClipBoard.readText')
 }
@@ -388,6 +396,10 @@ export const unmaximizeWindow = async (): Promise<void> => {
 
 export const maximizeWindow = async (): Promise<void> => {
   return invoke('ElectronWindow.maximize')
+}
+
+export const showSideBar = async (id: string, focus: boolean): Promise<void> => {
+  return invoke('SideBar.show', id, focus)
 }
 
 export const closeWindow = async (): Promise<void> => {
