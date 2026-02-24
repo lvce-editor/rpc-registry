@@ -143,6 +143,10 @@ export const enableExtension = async (id: string): Promise<Error | undefined> =>
   return invoke('ExtensionManagement.enable', id)
 }
 
+export const disposeEditor = async (uid: number): Promise<void> => {
+  return invoke('Viewlet.dispose', uid)
+}
+
 export const handleDebugChange = async (params: any): Promise<void> => {
   return invoke('Run And Debug.handleChange', params)
 }
@@ -159,9 +163,37 @@ export const closeWidget = async (widgetId: string | number): Promise<void> => {
   return invoke('Viewlet.closeWidget', widgetId)
 }
 
+export const createViewlet = async (viewletModuleId: string, editorUid: number, tabId: number, bounds: any, uri: string): Promise<void> => {
+  return invoke('Layout.createViewlet', viewletModuleId, editorUid, tabId, bounds, uri)
+}
+
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort2'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, rpcId)
+}
+
+export const getViewletModuleId = async (uri: string): Promise<string> => {
+  return invoke('Layout.getModuleId', uri)
+}
+
+export const showPanel = async (): Promise<void> => {
+  return invoke('Layout.showPanel')
+}
+
+export const showPreview = async (): Promise<void> => {
+  return invoke('Layout.showPreview')
+}
+
+export const saveEditor = async (): Promise<void> => {
+  return invoke('Editor.save')
+}
+
+export const togglePanelView = async (id: string): Promise<void> => {
+  return invoke('Panel.toggleView', id)
+}
+
+export const resizeViewlet = async (uid: number, dimensions: any): Promise<readonly any[]> => {
+  return invoke('Viewlet.resize', uid, dimensions)
 }
 
 export const sendMessagePortToFileSearchWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
