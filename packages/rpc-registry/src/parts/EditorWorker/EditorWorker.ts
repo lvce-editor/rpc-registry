@@ -72,6 +72,10 @@ export const getWordAtOffset2 = async (editorUid: number): Promise<string> => {
   return invoke('Editor.getWordAtOffset2', editorUid)
 }
 
+export const rerenderEditor = async (): Promise<void> => {
+  return invoke('Editor.rerender')
+}
+
 export const closeFind2 = async (editorUid: number): Promise<void> => {
   return invoke('Editor.closeFind2', editorUid)
 }
