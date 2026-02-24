@@ -26,3 +26,7 @@ export const measureTextWidths = async (
 ): Promise<readonly number[]> => {
   return invoke('TextMeasurement.measureTextWidths', texts, fontWeight, fontSize, fontFamily, letterSpacing, isMonoSpaceFont, charWidth)
 }
+
+export const ensureFont = async (fontName: string, fontUrl: string): Promise<void> => {
+  return invoke('TextMeasurement.ensureFont', fontName, fontUrl)
+}
