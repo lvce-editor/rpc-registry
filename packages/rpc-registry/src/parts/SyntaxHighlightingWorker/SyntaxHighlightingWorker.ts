@@ -10,3 +10,7 @@ export const tokenizeIncremental = (uid: number, languageId: string, oldLine: st
 export const getTokensViewPort = (slimEditor: any, startLineIndex: number, endLineIndex: number, hasLinesToSend: boolean, id: any, linesToSend: any): Promise<readonly any[]> => {
   return invoke('GetTokensViewport.getTokensViewport', slimEditor, startLineIndex, endLineIndex, hasLinesToSend, id, linesToSend)
 }
+
+export const loadTokenizer = (languageId: string, tokenizerPath: string): Promise<any> => {
+  return invoke('Tokenizer.load', languageId, tokenizerPath)
+}
