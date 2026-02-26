@@ -205,6 +205,11 @@ export const sendMessagePortToFileSearchWorker = async (port: MessagePort, rpcId
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToFileSearchWorker', port, command, rpcId)
 }
 
+export const sendMessagePortToQuickPickWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
+  const command = 'QuickPick.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToQuickPickWorker', port, command, rpcId)
+}
+
 export const sendMessagePortToSearchProcess = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer('SendMessagePortToElectron.sendMessagePortToElectron', port, 'HandleMessagePortForSearchProcess.handleMessagePortForSearchProcess')
 }
