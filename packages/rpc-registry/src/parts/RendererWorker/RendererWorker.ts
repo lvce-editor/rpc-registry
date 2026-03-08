@@ -218,6 +218,13 @@ export const sendMessagePortToChatNetworkWorker = async (port: MessagePort): Pro
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatNetworkWorker', port, 'HandleMessagePort.handleMessagePort')
 }
 
+export const sendMessagePortToChatToolWorker = async (port: MessagePort): Promise<void> => {
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatToolWorker', port, 'HandleMessagePort.handleMessagePort')
+}
+export const sendMessagePortToChatDebugViewWorker = async (port: MessagePort): Promise<void> => {
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatDebugViewWorker', port, 'HandleMessagePort.handleMessagePort')
+}
+
 export const confirm = async (message: string, options?: any): Promise<boolean> => {
   const result = await invoke('ConfirmPrompt.prompt', message, options)
   return result
