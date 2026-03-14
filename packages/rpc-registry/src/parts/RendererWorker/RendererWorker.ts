@@ -454,7 +454,7 @@ export const getLogsDir = async (): Promise<string> => {
   return invoke('PlatformPaths.getLogsDir')
 }
 
-export const measureTextBlockHeight = async (actualInput: string, fontFamily: string, fontSize: number, lineHeightPx: number, width: number): Promise<number> => {
+export const measureTextBlockHeight = async (actualInput: string, fontFamily: string, fontSize: number, lineHeightPx: number | string, width: number): Promise<number> => {
   return invoke(`MeasureTextHeight.measureTextBlockHeight`, actualInput, fontFamily, fontSize, lineHeightPx, width)
 }
 
