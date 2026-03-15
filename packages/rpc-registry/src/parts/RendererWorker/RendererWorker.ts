@@ -94,6 +94,10 @@ export const sendMessagePortToChatMathWorker = async (port: MessagePort, rpcId: 
   const command = 'HandleMessagePort.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatMathWorker', port, command, rpcId)
 }
+export const sendMessagePortToChatCoordinatorWorkerWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
+  const command = 'HandleMessagePort.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatCoordinatorWorker', port, command, rpcId)
+}
 
 export const sendMessagePortToMainAreaWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
