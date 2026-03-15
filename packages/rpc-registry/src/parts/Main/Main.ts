@@ -1,6 +1,8 @@
 export type { Rpc, MockRpc } from '@lvce-editor/rpc'
+export * as ChatCoordinatorWorker from '../ChatCoordinatorWorker/ChatCoordinatorWorker.ts'
 export * as ChatDebugWorker from '../ChatDebugWorker/ChatDebugWorker.ts'
 export * as ChatMathWorker from '../ChatMathWorker/ChatMathWorker.ts'
+export * as ChatMessageParsingWorker from '../ChatMessageParsingWorker/ChatMessageParsingWorker.ts'
 export * as ChatNetworkWorker from '../ChatNetworkWorker/ChatNetworkWorker.ts'
 export * as ChatStorageWorker from '../ChatStorageWorker/ChatStorageWorker.ts'
 export * as ChatToolWorker from '../ChatToolWorker/ChatToolWorker.ts'
