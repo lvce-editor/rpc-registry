@@ -235,6 +235,10 @@ export const sendMessagePortToChatNetworkWorker = async (port: MessagePort): Pro
 export const sendMessagePortToChatToolWorker = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatToolWorker', port, 'HandleMessagePort.handleMessagePort')
 }
+export const sendMessagePortToChatStorageWorker = async (port: MessagePort): Promise<void> => {
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatStorageWorker', port, 'HandleMessagePort.handleMessagePort')
+}
+
 export const sendMessagePortToChatDebugViewWorker = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatDebugViewWorker', port, 'HandleMessagePort.handleMessagePort')
 }
