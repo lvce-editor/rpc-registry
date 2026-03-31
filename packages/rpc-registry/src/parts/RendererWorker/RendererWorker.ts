@@ -111,7 +111,7 @@ export const sendMessagePortToMainAreaWorker = async (port: MessagePort, rpcId: 
 }
 
 export const sendMessagePortToTerminalProcess = async (port: MessagePort, rpcId: number): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort'
+  const command = 'HandleMessagePortForTerminalProcess.handleMessagePortForTerminalProcess'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToTerminalProcess', port, command, rpcId)
 }
 
