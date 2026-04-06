@@ -9,3 +9,7 @@ export const login = async (options: any): Promise<any> => {
 export const logout = async (options: any): Promise<any> => {
   return invoke('Auth.logout', options)
 }
+
+export const clearMocks = async (): Promise<void> => {
+  return invoke('Auth.clearMocks')
+}
