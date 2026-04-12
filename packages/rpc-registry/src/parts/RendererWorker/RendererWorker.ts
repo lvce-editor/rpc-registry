@@ -1,5 +1,8 @@
 import * as Assert from '@lvce-editor/assert'
 import { InputSource, RpcId } from '@lvce-editor/constants'
+import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
+import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
+import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
@@ -494,4 +497,28 @@ export const measureTextBlockHeight = async (actualInput: string, fontFamily: st
 
 export const refreshOutput = async (): Promise<void> => {
   await invoke('Output.refresh')
+}
+
+const send = async (port: MessagePort, sourceId = 0): Promise<void> => {
+  await sendMessagePortToOpenerWorker(port, sourceId)
+}
+
+export const initializeOpenerWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send,
+  })
+  OpenerWorker.set(rpc)
+}
+
+const send2 = async (port: MessagePort): Promise<void> => {
+  await sendMessagePortToEditorWorker(port, RpcId.TestWorker)
+}
+
+export const initializeEditorWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: send2,
+  })
+  EditorWorker.set(rpc)
 }
