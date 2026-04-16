@@ -1,5 +1,6 @@
 export type { Rpc, MockRpc } from '@lvce-editor/rpc'
 export * as AuthWorker from '../AuthWorker/AuthWorker.ts'
+export * as BlobWorker from '../BlobWorker/BlobWorker.ts'
 export * as ChatCoordinatorWorker from '../ChatCoordinatorWorker/ChatCoordinatorWorker.ts'
 export * as ChatDebugWorker from '../ChatDebugWorker/ChatDebugWorker.ts'
 export * as ChatMathWorker from '../ChatMathWorker/ChatMathWorker.ts'
