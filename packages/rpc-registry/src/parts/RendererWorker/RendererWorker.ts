@@ -400,6 +400,11 @@ export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePor
   await invokeAndTransfer('SendMessagePortToSyntaxHighlightingWorker.sendMessagePortToSyntaxHighlightingWorker', port, 'HandleMessagePort.handleMessagePort2')
 }
 
+export const sendMessagePortToBlobWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
+  const command = 'Blob.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToBlobWorker', port, command, rpcId)
+}
+
 export const handleDebugScriptParsed = async (script: any): Promise<void> => {
   await invoke('Run And Debug.handleScriptParsed', script)
 }
