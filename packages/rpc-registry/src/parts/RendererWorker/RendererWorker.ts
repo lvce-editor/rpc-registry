@@ -225,6 +225,11 @@ export const saveEditor = async (): Promise<void> => {
   return invoke('Editor.save')
 }
 
+export const sendMessagePortToFileSearchWorker2 = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
+  const command = 'FileSearch.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToFileSearchWorker', port, command, rpcId)
+}
+
 export const togglePanelView = async (id: string): Promise<void> => {
   return invoke('Panel.toggleView', id)
 }
