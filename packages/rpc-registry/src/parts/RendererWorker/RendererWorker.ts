@@ -404,6 +404,10 @@ export const sendMessagePortToBlobWorker = async (port: MessagePort, rpcId: numb
   const command = 'Blob.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToBlobWorker', port, command, rpcId)
 }
+export const sendMessagePortToDiffWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
+  const command = 'Diff.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToDiffWorker', port, command, rpcId)
+}
 
 export const handleDebugScriptParsed = async (script: any): Promise<void> => {
   await invoke('Run And Debug.handleScriptParsed', script)
