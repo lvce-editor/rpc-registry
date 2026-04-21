@@ -8,6 +8,7 @@ export * as ChatMessageParsingWorker from '../ChatMessageParsingWorker/ChatMessa
 export * as ChatNetworkWorker from '../ChatNetworkWorker/ChatNetworkWorker.ts'
 export * as ChatStorageWorker from '../ChatStorageWorker/ChatStorageWorker.ts'
 export * as ChatToolWorker from '../ChatToolWorker/ChatToolWorker.ts'
+export * as ChatViewModelWorker from '../ChatViewModelWorker/ChatViewModelWorker.ts'
 export * as ClipBoardProcess from '../ClipBoardProcess/ClipBoardProcess.ts'
 export * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 export * as DebugWorker from '../DebugWorker/DebugWorker.ts'
