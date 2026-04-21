@@ -252,6 +252,10 @@ export const sendMessagePortToSearchProcess = async (port: MessagePort): Promise
   await invokeAndTransfer('SendMessagePortToElectron.sendMessagePortToElectron', port, 'HandleMessagePortForSearchProcess.handleMessagePortForSearchProcess')
 }
 
+export const sendMessagePortToChatViewModel = async (port: MessagePort): Promise<void> => {
+  await invokeAndTransfer('SendMessagePortToElectron.sendMessagePortToChatViewModel', port, 'ViewModel.handleMessagePort')
+}
+
 export const sendMessagePortToChatNetworkWorker = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToChatNetworkWorker', port, 'HandleMessagePort.handleMessagePort')
 }
