@@ -1,5 +1,6 @@
 export type { Rpc } from '@lvce-editor/rpc'
 export * as AuthWorker from '../AuthWorker/AuthWorker.ts'
+export * as AuthProcess from '../AuthProcess/AuthProcess.ts'
 export * as BlobWorker from '../BlobWorker/BlobWorker.ts'
 export * as ChatCoordinatorWorker from '../ChatCoordinatorWorker/ChatCoordinatorWorker.ts'
 export * as ChatDebugWorker from '../ChatDebugWorker/ChatDebugWorker.ts'
