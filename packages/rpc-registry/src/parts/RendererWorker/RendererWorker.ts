@@ -129,8 +129,8 @@ export const sendMessagePortToAuthWorker = async (port: MessagePort, rpcId: numb
 }
 
 export const sendMessagePortToAuthProcess = async (port: MessagePort, rpcId: number): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort'
-  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToAuthProcess', port, command, rpcId)
+  const command = 'HandleMessagePortForAuthProcess.handleMessagePortForAuthProcess'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, rpcId)
 }
 
 export const sendMessagePortToErrorWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
