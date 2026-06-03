@@ -15,6 +15,13 @@ export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): P
     0, // TODO
   )
 }
+export const sendMessagePortToExtensionManagementWorker = async (port: MessagePort): Promise<void> => {
+  await invokeAndTransfer(
+    'SendMessagePortToExtensionManagementWorker.sendMessagePortToExtensionManagementWorker',
+    port,
+    0, // TODO
+  )
+}
 
 // TODO add tests for this
 export const activateByEvent = async (event: string): Promise<void> => {
