@@ -4,6 +4,7 @@ import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
+import * as TextMeasurementWorker from '../TextMeasurementWorker/TextMeasurementWorker.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
 
@@ -550,4 +551,16 @@ export const initializeEditorWorker = async (): Promise<void> => {
     send: send2,
   })
   EditorWorker.set(rpc)
+}
+
+const send3 = (port: MessagePort): Promise<void> => {
+  return sendMessagePortToTextMeasurementWorker(port)
+}
+
+export const initializeTextMeasurementWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: send3,
+  })
+  TextMeasurementWorker.set(rpc)
 }
