@@ -61,7 +61,7 @@ export interface ChatMessageUpdatedEvent extends ChatViewEventBase {
   readonly messageId: string
   readonly text: string
   readonly time: string
-  readonly toolCalls?: ChatMessage['toolCalls']
+  readonly toolCalls?: readonly ChatToolCall[]
   readonly type: 'chat-message-updated'
 }
 
