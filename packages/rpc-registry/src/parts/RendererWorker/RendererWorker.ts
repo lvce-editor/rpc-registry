@@ -3,9 +3,9 @@ import { InputSource, RpcId } from '@lvce-editor/constants'
 import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
+import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 import * as TextMeasurementWorker from '../TextMeasurementWorker/TextMeasurementWorker.ts'
-import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
 
