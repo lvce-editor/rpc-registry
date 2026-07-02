@@ -5,6 +5,7 @@ import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 import * as TextMeasurementWorker from '../TextMeasurementWorker/TextMeasurementWorker.ts'
+import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
 
@@ -367,6 +368,11 @@ export const sendMessagePortToTextMeasurementWorker = async (port: MessagePort):
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker', port, command, 0)
 }
 
+export const sendMessagePortToProcessExplorer = async (port: MessagePort): Promise<void> => {
+  const command = 'ProcessExplorer.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToProcessExplorer', port, command, 0)
+}
+
 export const sendMessagePortToSourceControlWorker = async (port: MessagePort): Promise<void> => {
   const command = 'SourceControl.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSourceControlWorker', port, command, 0)
@@ -563,4 +569,16 @@ export const initializeTextMeasurementWorker = async (): Promise<void> => {
     send: send3,
   })
   TextMeasurementWorker.set(rpc)
+}
+
+const send4 = (port: MessagePort): Promise<void> => {
+  return sendMessagePortToTextMeasurementWorker(port)
+}
+
+export const initializeProcessExplorer = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: send4,
+  })
+  ProcessExplorer.set(rpc)
 }
