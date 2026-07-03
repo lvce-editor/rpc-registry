@@ -1,7 +1,7 @@
 import { RpcId } from '@lvce-editor/constants'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-export const { dispose, invoke, invokeAndTransfer, set, registerMockRpc } = RpcFactory.create(RpcId.ErrorWorker)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.ErrorWorker)
 
 export interface PrettyError {
   readonly codeFrame: string | undefined
