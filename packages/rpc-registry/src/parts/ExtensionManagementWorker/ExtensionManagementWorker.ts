@@ -19,6 +19,10 @@ export const disable2 = (id: string, platform: number): Promise<void> => {
   return invoke(`Extensions.disable2`, id, platform)
 }
 
+export const disableWorkspace = (id: string): Promise<void> => {
+  return invoke('Extensions.disableWorkspace', id)
+}
+
 export const getExtension = (id: string): Promise<any> => {
   return invoke(`Extensions.getExtension`, id)
 }
