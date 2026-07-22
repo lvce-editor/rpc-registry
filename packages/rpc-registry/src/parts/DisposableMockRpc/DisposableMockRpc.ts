@@ -1,5 +1,5 @@
 import type { MockRpc } from '../MockRpc/MockRpc.ts'
 
-export interface DisposableMockRpc extends MockRpc {
+export type DisposableMockRpc = MockRpc & {
   [Symbol.dispose]: () => void
 }
