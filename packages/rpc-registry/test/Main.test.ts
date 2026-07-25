@@ -3,6 +3,10 @@ import * as Index from '../src/parts/Main/Main.ts'
 
 test('index', () => {
   expect(typeof Index.FilePermissionProcess.invoke).toBe('function')
+  expect(typeof Index.FindWidgetWorker.invoke).toBe('function')
+  expect(typeof Index.FindWidgetWorker.createInstance).toBe('function')
+  expect(typeof Index.FindWidgetWorker.disposeInstance).toBe('function')
+  expect(typeof Index.FindWidgetWorker.reset).toBe('function')
   expect(typeof Index.get).toBe('function')
 })
 

@@ -1,6 +1,7 @@
 import type { BulkReplacementEdit } from '../BulkReplacementEdit/BulkReplacementEdit.ts'
 import type { ConfirmPromptOptions } from '../ConfirmPromptOptions/ConfirmPromptOptions.ts'
 import type { SearchResult } from '../SearchResult/SearchResult.ts'
+import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from '../WidgetLifecycleRequest/WidgetLifecycleRequest.ts'
 
 export interface RendererWorkerApi {
   readonly 'About.focusNext': () => Promise<void>
@@ -273,6 +274,11 @@ export interface RendererWorkerApi {
   readonly 'WebView.registerInterceptor': (id: number, port: MessagePort) => Promise<void>
   readonly 'WebView.setPort': (id: number, port: MessagePort, origin: string, portType: string) => Promise<void>
   readonly 'WebView.unregisterInterceptor': (id: number) => Promise<void>
+  readonly 'WidgetLifecycle.allocateRendererId': () => Promise<number>
+  readonly 'WidgetLifecycle.attach': (request: WidgetLifecycleAttachRequest) => Promise<boolean>
+  readonly 'WidgetLifecycle.remove': (request: WidgetLifecycleRemoveRequest) => Promise<void>
+  readonly 'WidgetLifecycle.removeMany': (requests: readonly WidgetLifecycleRemoveRequest[]) => Promise<void>
+  readonly 'WidgetLifecycle.update': (request: WidgetLifecycleAttachRequest) => Promise<boolean>
   readonly 'Workspace.getPath': () => Promise<string>
   readonly 'Workspace.setPath': (uri: string) => Promise<void>
 }
