@@ -27,3 +27,14 @@ test('sendMessagePortToFilePermissionProcess', async () => {
     ],
   ])
 })
+
+test('sendMessagePortToDialogWorker', async () => {
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker'() {},
+  })
+  const port = {} as MessagePort
+
+  await Index.RendererWorker.sendMessagePortToDialogWorker(port)
+
+  expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort']])
+})
