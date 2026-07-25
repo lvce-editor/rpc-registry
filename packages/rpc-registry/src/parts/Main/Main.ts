@@ -13,6 +13,7 @@ export * as ChatViewModelWorker from '../ChatViewModelWorker/ChatViewModelWorker
 export * as ClipBoardProcess from '../ClipBoardProcess/ClipBoardProcess.ts'
 export * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 export * as DebugWorker from '../DebugWorker/DebugWorker.ts'
+export * as DialogWorker from '../DialogWorker/DialogWorker.ts'
 export * as DiffWorker from '../DiffWorker/DiffWorker.ts'
 export * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 export * as EmbedsProcess from '../EmbedsProcess/EmbedsProcess.ts'
