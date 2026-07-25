@@ -36,11 +36,5 @@ test('sendMessagePortToDialogWorker', async () => {
 
   await Index.RendererWorker.sendMessagePortToDialogWorker(port)
 
-  expect(mockRendererRpc.invocations).toEqual([
-    [
-      'SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker',
-      port,
-      'HandleMessagePort.handleMessagePort',
-    ],
-  ])
+  expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort']])
 })
