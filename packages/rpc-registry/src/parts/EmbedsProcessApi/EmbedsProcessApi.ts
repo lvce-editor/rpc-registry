@@ -1,7 +1,9 @@
 export interface EmbedsProcessApi {
   readonly 'ElectronWebContents.dispose': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.acceptLogin': (requestId: string, username: string, password: string) => Promise<void>
   readonly 'ElectronWebContentsView.attachEventListeners': (webContentsId: any) => Promise<void>
   readonly 'ElectronWebContentsView.backward': (id: any) => Promise<void>
+  readonly 'ElectronWebContentsView.cancelLogin': (requestId: string) => Promise<void>
   readonly 'ElectronWebContentsView.cancelNavigation': (id: any) => Promise<any>
   readonly 'ElectronWebContentsView.copyImageAt': (id: any, x: number, y: number) => Promise<void>
   readonly 'ElectronWebContentsView.createWebContentsView': (webContentsId: any) => Promise<any>
