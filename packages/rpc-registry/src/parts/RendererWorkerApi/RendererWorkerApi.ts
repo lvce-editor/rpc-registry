@@ -1,3 +1,4 @@
+import type { BasicAuthChallenge } from '../BasicAuthChallenge/BasicAuthChallenge.ts'
 import type { BulkReplacementEdit } from '../BulkReplacementEdit/BulkReplacementEdit.ts'
 import type { ConfirmPromptOptions } from '../ConfirmPromptOptions/ConfirmPromptOptions.ts'
 import type { SearchResult } from '../SearchResult/SearchResult.ts'
@@ -81,6 +82,9 @@ export interface RendererWorkerApi {
   readonly 'EditorCompletion.selectCurrentIndex': () => Promise<void>
   readonly 'EditorCompletion.selectIndex': (index: number) => Promise<void>
   readonly 'EditorSourceActions.selectCurrent': () => Promise<void>
+  readonly 'ElectronBrowserView.acceptLogin': (requestId: string, username: string, password: string) => Promise<void>
+  readonly 'ElectronBrowserView.cancelLogin': (requestId: string) => Promise<void>
+  readonly 'ElectronBrowserView.handleLogin': (webContentsId: string, challenge: BasicAuthChallenge) => Promise<void>
   readonly 'ElectronDialog.showMessageBox': (options: any) => Promise<any>
   readonly 'ElectronWindow.close': () => Promise<void>
   readonly 'ElectronWindow.maximize': () => Promise<void>
