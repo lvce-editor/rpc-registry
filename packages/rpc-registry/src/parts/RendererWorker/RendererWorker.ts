@@ -446,7 +446,11 @@ export const handleDebugPaused = async (params: any): Promise<void> => {
 }
 
 export const openUri = async (uri: string, focus?: boolean, options?: any): Promise<void> => {
-  await invoke('Main.openUri', uri, focus, options)
+  await invoke('Main.openUri', {
+    ...options,
+    focus,
+    uri,
+  })
 }
 
 export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePort): Promise<void> => {

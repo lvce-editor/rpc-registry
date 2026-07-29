@@ -205,7 +205,7 @@ export interface RendererWorkerApi {
   readonly 'Main.focusNext': () => Promise<void>
   readonly 'Main.focusPrevious': () => Promise<void>
   readonly 'Main.openKeyBindings': () => Promise<void>
-  readonly 'Main.openUri': (uri: string, focus?: boolean, props?: any) => Promise<void>
+  readonly 'Main.openUri': (options: any) => Promise<void>
   readonly 'Main.splitRight': () => Promise<void>
   readonly 'Markdown.renderMarkdown': (markdown: string, options: any) => Promise<string>
   readonly 'Menu.selectItem': (text: string) => Promise<void>
