@@ -38,3 +38,26 @@ test('sendMessagePortToDialogWorker', async () => {
 
   expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort']])
 })
+
+test('openUri', async () => {
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'Main.openUri'() {},
+  })
+
+  await Index.RendererWorker.openUri('file:///workspace/App.tsx', true, {
+    startColumnIndex: 9,
+    startRowIndex: 2,
+  })
+
+  expect(mockRendererRpc.invocations).toEqual([
+    [
+      'Main.openUri',
+      {
+        focus: true,
+        startColumnIndex: 9,
+        startRowIndex: 2,
+        uri: 'file:///workspace/App.tsx',
+      },
+    ],
+  ])
+})
