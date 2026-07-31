@@ -247,11 +247,6 @@ export const createViewlet = async (viewletModuleId: string, editorUid: number, 
   return invoke('Layout.createViewlet', viewletModuleId, editorUid, tabId, bounds, uri)
 }
 
-export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort2'
-  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, rpcId)
-}
-
 export const getViewletModuleId = async (uri: string): Promise<string> => {
   return invoke('Layout.getModuleId', uri)
 }
@@ -427,6 +422,13 @@ export const sendMessagePortToIframeWorker = async (port: MessagePort, rpcId: nu
 export const sendMessagePortToExtensionManagementWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'Extensions.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker', port, command, rpcId)
+}
+
+/**
+ * @deprecated Use sendMessagePortToExtensionManagementWorker instead.
+ */
+export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
+  await sendMessagePortToExtensionManagementWorker(port, rpcId)
 }
 
 export const getPreference = async (key: string): Promise<any> => {

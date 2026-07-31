@@ -39,6 +39,32 @@ test('sendMessagePortToDialogWorker', async () => {
   expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort']])
 })
 
+test('deprecated editor worker extension host port forwards to extension management worker', async () => {
+  using mockEditorRpc = Index.EditorWorker.registerMockRpc({
+    'SendMessagePortToExtensionManagementWorker.sendMessagePortToExtensionManagementWorker'() {},
+  })
+  const port = {} as MessagePort
+
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  await Index.EditorWorker.sendMessagePortToExtensionHostWorker(port)
+
+  expect(mockEditorRpc.invocations).toEqual([['SendMessagePortToExtensionManagementWorker.sendMessagePortToExtensionManagementWorker', port, 0]])
+})
+
+test('deprecated renderer worker extension host port forwards to extension management worker', async () => {
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker'() {},
+  })
+  const port = {} as MessagePort
+
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  await Index.RendererWorker.sendMessagePortToExtensionHostWorker(port, Index.RpcId.EditorWorker)
+
+  expect(mockRendererRpc.invocations).toEqual([
+    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker', port, 'Extensions.handleMessagePort', Index.RpcId.EditorWorker],
+  ])
+})
+
 test('openUri', async () => {
   using mockRendererRpc = Index.RendererWorker.registerMockRpc({
     'Main.openUri'() {},
