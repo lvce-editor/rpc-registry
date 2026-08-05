@@ -39,6 +39,32 @@ test('sendMessagePortToDialogWorker', async () => {
   expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort']])
 })
 
+test('sendMessagePortToDragAndDropWorker', async () => {
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker'() {},
+  })
+  const port = {} as MessagePort
+
+  await Index.RendererWorker.sendMessagePortToDragAndDropWorker(port)
+
+  expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker', port, 'DragAndDrop.handleMessagePort']])
+})
+
+test('getDroppedItems', async () => {
+  using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
+    'DragAndDrop.getDroppedItems'() {
+      return { files: [], strings: ['text'], uris: ['file:///test.txt'] }
+    },
+  })
+
+  await expect(Index.DragAndDropWorker.getDroppedItems([1, 2], true)).resolves.toEqual({
+    files: [],
+    strings: ['text'],
+    uris: ['file:///test.txt'],
+  })
+  expect(mockDragAndDropRpc.invocations).toEqual([['DragAndDrop.getDroppedItems', [1, 2], true]])
+})
+
 test('deprecated editor worker extension host port forwards to extension management worker', async () => {
   using mockEditorRpc = Index.EditorWorker.registerMockRpc({
     'SendMessagePortToExtensionManagementWorker.sendMessagePortToExtensionManagementWorker'() {},
