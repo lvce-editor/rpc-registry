@@ -39,6 +39,28 @@ test('sendMessagePortToDialogWorker', async () => {
   expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort']])
 })
 
+test('showMessageBox', async () => {
+  using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
+    'ElectronDialog.showMessageBox'() {
+      return 1
+    },
+  })
+  const options: Index.MainProcess.ElectronMessageBoxOptions = {
+    buttons: ['Cancel', 'Continue'],
+    defaultId: 1,
+    detail: 'Unsaved changes will be lost.',
+    message: 'Continue?',
+    productName: 'Lvce Editor',
+    title: 'Confirm',
+    type: 'question',
+    windowId: 12,
+  }
+
+  await expect(Index.MainProcess.showMessageBox(options)).resolves.toBe(1)
+
+  expect(mockMainProcessRpc.invocations).toEqual([['ElectronDialog.showMessageBox', options]])
+})
+
 test('sendMessagePortToDragAndDropWorker', async () => {
   using mockRendererRpc = Index.RendererWorker.registerMockRpc({
     'SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker'() {},
