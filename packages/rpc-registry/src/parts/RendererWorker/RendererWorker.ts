@@ -142,7 +142,7 @@ export const sendMessagePortToChatMessageParsingWorker = async (port: MessagePor
 }
 
 export const sendMessagePortToMainAreaWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort'
+  const command = 'MainArea.handleTestWorkerMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker', port, command, rpcId)
 }
 
