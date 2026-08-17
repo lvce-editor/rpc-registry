@@ -7,6 +7,7 @@ test('index', () => {
   expect(typeof Index.FindWidgetWorker.createInstance).toBe('function')
   expect(typeof Index.FindWidgetWorker.disposeInstance).toBe('function')
   expect(typeof Index.FindWidgetWorker.reset).toBe('function')
+  expect(typeof Index.MainAreaWorker.registerMockRpc).toBe('function')
   expect(typeof Index.get).toBe('function')
 })
 
@@ -70,6 +71,19 @@ test('sendMessagePortToDragAndDropWorker', async () => {
   await Index.RendererWorker.sendMessagePortToDragAndDropWorker(port)
 
   expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker', port, 'DragAndDrop.handleMessagePort']])
+})
+
+test('sendMessagePortToMainAreaWorker', async () => {
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker'() {},
+  })
+  const port = {} as MessagePort
+
+  await Index.RendererWorker.sendMessagePortToMainAreaWorker(port, Index.RpcId.TestWorker)
+
+  expect(mockRendererRpc.invocations).toEqual([
+    ['SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker', port, 'MainArea.handleTestWorkerMessagePort', Index.RpcId.TestWorker],
+  ])
 })
 
 test('getDroppedItems', async () => {
