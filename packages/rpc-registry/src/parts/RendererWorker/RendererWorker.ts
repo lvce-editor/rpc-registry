@@ -89,6 +89,36 @@ export const getFileHandles = async (fileIds: readonly number[]): Promise<readon
   return files
 }
 
+export type DropDataFormat = 'file' | 'fileSystemHandle' | 'string'
+
+export interface DropDataOptions {
+  readonly formats: readonly DropDataFormat[]
+  readonly includeElectronFilePaths: boolean
+}
+
+export interface DropDataStringItem {
+  readonly index: number
+  readonly kind: 'string'
+  readonly type: string
+  readonly value: string
+}
+
+export interface DropDataFileItem {
+  readonly electronFilePath?: string
+  readonly file?: File
+  readonly fileSystemHandle?: FileSystemHandle
+  readonly index: number
+  readonly kind: 'file'
+  readonly name: string
+  readonly type: string
+}
+
+export type DropDataItem = DropDataFileItem | DropDataStringItem
+
+export const getDropData = async (dropId: number, options: DropDataOptions): Promise<readonly DropDataItem[]> => {
+  return invoke('DropData.get', dropId, options)
+}
+
 export const setWorkspacePath = async (path: string): Promise<void> => {
   await invoke('Workspace.setPath', path)
 }
