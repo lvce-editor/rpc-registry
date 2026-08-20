@@ -1,6 +1,7 @@
 import * as Assert from '@lvce-editor/assert'
 import { InputSource, RpcId } from '@lvce-editor/constants'
 import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
+import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from '../WidgetLifecycleRequest/WidgetLifecycleRequest.ts'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
@@ -10,6 +11,26 @@ import * as ExtensionManagementWorker from '../ExtensionManagementWorker/Extensi
 import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
+
+export const allocateWidgetRendererId = async (): Promise<number> => {
+  return invoke('WidgetLifecycle.allocateRendererId')
+}
+
+export const attachWidget = async (request: WidgetLifecycleAttachRequest): Promise<boolean> => {
+  return invoke('WidgetLifecycle.attach', request)
+}
+
+export const removeWidget = async (request: WidgetLifecycleRemoveRequest): Promise<void> => {
+  await invoke('WidgetLifecycle.remove', request)
+}
+
+export const removeWidgets = async (requests: readonly WidgetLifecycleRemoveRequest[]): Promise<void> => {
+  await invoke('WidgetLifecycle.removeMany', requests)
+}
+
+export const updateWidget = async (request: WidgetLifecycleAttachRequest): Promise<boolean> => {
+  return invoke('WidgetLifecycle.update', request)
+}
 
 export const searchFileHtml = async (uri: string): Promise<readonly string[]> => {
   return invoke('ExtensionHost.searchFileWithHtml', uri)
@@ -70,6 +91,36 @@ export const getFileHandles = async (fileIds: readonly number[]): Promise<readon
   return files
 }
 
+export type DropDataFormat = 'file' | 'fileSystemHandle' | 'string'
+
+export interface DropDataOptions {
+  readonly formats: readonly DropDataFormat[]
+  readonly includeElectronFilePaths: boolean
+}
+
+export interface DropDataStringItem {
+  readonly index: number
+  readonly kind: 'string'
+  readonly type: string
+  readonly value: string
+}
+
+export interface DropDataFileItem {
+  readonly electronFilePath?: string
+  readonly file?: File
+  readonly fileSystemHandle?: FileSystemHandle
+  readonly index: number
+  readonly kind: 'file'
+  readonly name: string
+  readonly type: string
+}
+
+export type DropDataItem = DropDataFileItem | DropDataStringItem
+
+export const getDropData = async (dropId: number, options: DropDataOptions): Promise<readonly DropDataItem[]> => {
+  return invoke('DropData.get', dropId, options)
+}
+
 export const setWorkspacePath = async (path: string): Promise<void> => {
   await invoke('Workspace.setPath', path)
 }
@@ -97,6 +148,11 @@ export const sendMessagePortToClipBoardWorker = async (port: MessagePort, rpcId:
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToClipBoardWorker', port, command, rpcId)
 }
 
+export const sendMessagePortToDragAndDropWorker = async (port: MessagePort): Promise<void> => {
+  const command = 'DragAndDrop.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker', port, command)
+}
+
 export const sendMessagePortToOpenerWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToOpenerWorker', port, command, rpcId)
@@ -118,7 +174,7 @@ export const sendMessagePortToChatMessageParsingWorker = async (port: MessagePor
 }
 
 export const sendMessagePortToMainAreaWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort'
+  const command = 'MainArea.handleTestWorkerMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker', port, command, rpcId)
 }
 
@@ -132,6 +188,11 @@ export const sendMessagePortToTextSearchWorker = async (port: MessagePort, rpcId
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToTextSearchWorker', port, command, rpcId)
 }
 
+export const sendMessagePortToDialogWorker = async (port: MessagePort): Promise<void> => {
+  const command = 'HandleMessagePort.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, command)
+}
+
 export const sendMessagePortToAuthWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToAuthWorker', port, command, rpcId)
@@ -139,6 +200,11 @@ export const sendMessagePortToAuthWorker = async (port: MessagePort, rpcId: numb
 
 export const sendMessagePortToAuthProcess = async (port: MessagePort, rpcId: number): Promise<void> => {
   const command = 'HandleMessagePortForAuthProcess.handleMessagePortForAuthProcess'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, rpcId)
+}
+
+export const sendMessagePortToFilePermissionProcess = async (port: MessagePort, rpcId: number): Promise<void> => {
+  const command = 'HandleMessagePortForFilePermissionProcess.handleMessagePortForFilePermissionProcess'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port, command, rpcId)
 }
 
@@ -216,11 +282,6 @@ export const closeWidget = async (widgetId: string | number): Promise<void> => {
 
 export const createViewlet = async (viewletModuleId: string, editorUid: number, tabId: number, bounds: any, uri: string): Promise<void> => {
   return invoke('Layout.createViewlet', viewletModuleId, editorUid, tabId, bounds, uri)
-}
-
-export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort2'
-  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, rpcId)
 }
 
 export const getViewletModuleId = async (uri: string): Promise<string> => {
@@ -400,6 +461,13 @@ export const sendMessagePortToExtensionManagementWorker = async (port: MessagePo
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker', port, command, rpcId)
 }
 
+/**
+ * @deprecated Use sendMessagePortToExtensionManagementWorker instead.
+ */
+export const sendMessagePortToExtensionHostWorker = async (port: MessagePort, rpcId: number = 0): Promise<void> => {
+  await sendMessagePortToExtensionManagementWorker(port, rpcId)
+}
+
 export const getPreference = async (key: string): Promise<any> => {
   return await invoke('Preferences.get', key)
 }
@@ -417,7 +485,11 @@ export const handleDebugPaused = async (params: any): Promise<void> => {
 }
 
 export const openUri = async (uri: string, focus?: boolean, options?: any): Promise<void> => {
-  await invoke('Main.openUri', uri, focus, options)
+  await invoke('Main.openUri', {
+    ...options,
+    focus,
+    uri,
+  })
 }
 
 export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePort): Promise<void> => {
