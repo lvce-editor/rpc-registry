@@ -101,6 +101,52 @@ test('getDroppedItems', async () => {
   expect(mockDragAndDropRpc.invocations).toEqual([['DragAndDrop.getDroppedItems', [1, 2], true]])
 })
 
+test('getDropData', async () => {
+  const options: Index.RendererWorker.DropDataOptions = {
+    formats: ['string'],
+    includeElectronFilePaths: false,
+  }
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'DropData.get'() {
+      return [{ index: 0, kind: 'string', type: 'text/plain', value: 'hello' }]
+    },
+  })
+
+  await expect(Index.RendererWorker.getDropData(7, options)).resolves.toEqual([{ index: 0, kind: 'string', type: 'text/plain', value: 'hello' }])
+  expect(mockRendererRpc.invocations).toEqual([['DropData.get', 7, options]])
+})
+
+test('new drag and drop session methods', async () => {
+  const fileHandle = { kind: 'file', name: 'notes.txt' }
+  using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
+    'DragAndDrop.discardDrop'() {},
+    'DragAndDrop.getDroppedFileHandlesByDropId'() {
+      return [fileHandle]
+    },
+    'DragAndDrop.getDroppedItemsByDropId'() {
+      return { files: [], strings: [], uris: ['file:///notes.txt'] }
+    },
+    'DragAndDrop.getDroppedUrisByDropId'() {
+      return ['file:///notes.txt']
+    },
+  })
+
+  await expect(Index.DragAndDropWorker.getDroppedItemsByDropId(3, true)).resolves.toEqual({
+    files: [],
+    strings: [],
+    uris: ['file:///notes.txt'],
+  })
+  await expect(Index.DragAndDropWorker.getDroppedUrisByDropId(4, false)).resolves.toEqual(['file:///notes.txt'])
+  await expect(Index.DragAndDropWorker.getDroppedFileHandlesByDropId(5)).resolves.toEqual([fileHandle])
+  await Index.DragAndDropWorker.discardDrop(6)
+  expect(mockDragAndDropRpc.invocations).toEqual([
+    ['DragAndDrop.getDroppedItemsByDropId', 3, true],
+    ['DragAndDrop.getDroppedUrisByDropId', 4, false],
+    ['DragAndDrop.getDroppedFileHandlesByDropId', 5],
+    ['DragAndDrop.discardDrop', 6],
+  ])
+})
+
 test('deprecated editor worker extension host port forwards to extension management worker', async () => {
   using mockEditorRpc = Index.EditorWorker.registerMockRpc({
     'SendMessagePortToExtensionManagementWorker.sendMessagePortToExtensionManagementWorker'() {},
