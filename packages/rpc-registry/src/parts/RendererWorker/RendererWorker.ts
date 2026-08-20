@@ -2,7 +2,9 @@ import * as Assert from '@lvce-editor/assert'
 import { InputSource, RpcId } from '@lvce-editor/constants'
 import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
 import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from '../WidgetLifecycleRequest/WidgetLifecycleRequest.ts'
+import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
+import * as ExtensionManagementWorker from '../ExtensionManagementWorker/ExtensionManagementWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
@@ -619,6 +621,18 @@ export const initializeOpenerWorker = async (): Promise<void> => {
   OpenerWorker.set(rpc)
 }
 
+const send12 = async (port: MessagePort, sourceId = 0): Promise<void> => {
+  await sendMessagePortToClipBoardWorker(port, sourceId)
+}
+
+export const initializeClipBoardWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: send12,
+  })
+  ClipBoardWorker.set(rpc)
+}
+
 const send2 = async (port: MessagePort): Promise<void> => {
   await sendMessagePortToEditorWorker(port, RpcId.TestWorker)
 }
@@ -629,6 +643,18 @@ export const initializeEditorWorker = async (): Promise<void> => {
     send: send2,
   })
   EditorWorker.set(rpc)
+}
+
+const send22 = async (port: MessagePort): Promise<void> => {
+  await sendMessagePortToExtensionManagementWorker(port, RpcId.TestWorker)
+}
+
+export const initializeExtensionManagementWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: send22,
+  })
+  ExtensionManagementWorker.set(rpc)
 }
 
 const send3 = (port: MessagePort): Promise<void> => {
