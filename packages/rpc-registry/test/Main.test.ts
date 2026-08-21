@@ -147,6 +147,48 @@ test('new drag and drop session methods', async () => {
   ])
 })
 
+test('getSettingsItems2', async () => {
+  const expected: readonly Index.SettingsWorker.SettingItem[] = [
+    {
+      category: 'Text Editor',
+      description: 'Controls the font size.',
+      heading: 'Font Size',
+      id: 'editor.fontSize',
+      maximum: 100,
+      minimum: 6,
+      type: 2,
+      validationId: 1,
+      value: 15,
+    },
+  ]
+  using mockSettingsRpc = Index.SettingsWorker.registerMockRpc({
+    'SettingsWorker.getSettingsItems2'() {
+      return expected
+    },
+  })
+
+  await expect(Index.SettingsWorker.getSettingsItems2()).resolves.toBe(expected)
+  expect(mockSettingsRpc.invocations).toEqual([['SettingsWorker.getSettingsItems2']])
+})
+
+test('getTabs', async () => {
+  const expected: readonly Index.SettingsWorker.Tab[] = [
+    {
+      id: 'text-editor',
+      label: 'Text Editor',
+      selected: true,
+    },
+  ]
+  using mockSettingsRpc = Index.SettingsWorker.registerMockRpc({
+    'SettingsWorker.getTabs'() {
+      return expected
+    },
+  })
+
+  await expect(Index.SettingsWorker.getTabs()).resolves.toBe(expected)
+  expect(mockSettingsRpc.invocations).toEqual([['SettingsWorker.getTabs']])
+})
+
 test('deprecated editor worker extension host port forwards to extension management worker', async () => {
   using mockEditorRpc = Index.EditorWorker.registerMockRpc({
     'SendMessagePortToExtensionManagementWorker.sendMessagePortToExtensionManagementWorker'() {},
