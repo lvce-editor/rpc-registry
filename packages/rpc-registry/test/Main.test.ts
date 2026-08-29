@@ -8,6 +8,7 @@ test('index', () => {
   expect(typeof Index.FindWidgetWorker.disposeInstance).toBe('function')
   expect(typeof Index.FindWidgetWorker.reset).toBe('function')
   expect(typeof Index.MainAreaWorker.registerMockRpc).toBe('function')
+  expect(typeof Index.SyntaxHighlightingWorker.registerMockRpc).toBe('function')
   expect(typeof Index.get).toBe('function')
 })
 
