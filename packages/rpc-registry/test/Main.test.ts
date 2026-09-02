@@ -1,6 +1,20 @@
 import { expect, test } from '@jest/globals'
 import * as Index from '../src/parts/Main/Main.ts'
 
+test('text measurement worker has an independent rpc', () => {
+  using iconThemeRpc = Index.IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': () => ['icon'],
+  })
+  using textMeasurementRpc = Index.TextMeasurementWorker.registerMockRpc({
+    'TextMeasurement.measureTextBlockHeight': () => 42,
+  })
+
+  expect(Index.IconThemeWorker.invoke('IconTheme.getIcons')).toEqual(['icon'])
+  expect(Index.TextMeasurementWorker.invoke('TextMeasurement.measureTextBlockHeight', 'hello', 'system-ui', 13, 13, 100)).toBe(42)
+  expect(iconThemeRpc.invocations).toEqual([['IconTheme.getIcons']])
+  expect(textMeasurementRpc.invocations).toEqual([['TextMeasurement.measureTextBlockHeight', 'hello', 'system-ui', 13, 13, 100]])
+})
+
 test('index', () => {
   expect(typeof Index.FilePermissionProcess.invoke).toBe('function')
   expect(typeof Index.FindWidgetWorker.invoke).toBe('function')
