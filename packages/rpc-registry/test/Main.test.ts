@@ -143,6 +143,24 @@ test('getDropData', async () => {
   expect(mockRendererRpc.invocations).toEqual([['DropData.get', 7, options]])
 })
 
+test('getFileHandles', async () => {
+  const expected: readonly Index.RendererWorker.FileHandleTransportItem[] = [
+    {
+      kind: 'file',
+      path: '',
+      value: { kind: 'file', name: 'notes.txt' } as FileSystemFileHandle,
+    },
+  ]
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'FileHandles.get'() {
+      return expected
+    },
+  })
+
+  await expect(Index.RendererWorker.getFileHandles([1])).resolves.toBe(expected)
+  expect(mockRendererRpc.invocations).toEqual([['FileHandles.get', [1]]])
+})
+
 test('new drag and drop session methods', async () => {
   const fileHandle = { kind: 'file', name: 'notes.txt' }
   using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
