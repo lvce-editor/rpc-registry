@@ -116,6 +116,18 @@ test('getDroppedItems', async () => {
   expect(mockDragAndDropRpc.invocations).toEqual([['DragAndDrop.getDroppedItems', [1, 2], true]])
 })
 
+test('getDroppedFilesByDropId', async () => {
+  const file = new File(['content'], 'notes.txt')
+  using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
+    'DragAndDrop.getDroppedFilesByDropId'() {
+      return [file]
+    },
+  })
+
+  await expect(Index.DragAndDropWorker.getDroppedFilesByDropId(7)).resolves.toEqual([file])
+  expect(mockDragAndDropRpc.invocations).toEqual([['DragAndDrop.getDroppedFilesByDropId', 7]])
+})
+
 test('getDropData', async () => {
   const options: Index.RendererWorker.DropDataOptions = {
     formats: ['string'],
