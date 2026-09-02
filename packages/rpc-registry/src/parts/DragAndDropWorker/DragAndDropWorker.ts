@@ -17,20 +17,12 @@ export interface DroppedItems {
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.DragAndDropWorker)
 
-export const getDroppedItems = async (itemIds: readonly number[], isElectron: boolean): Promise<DroppedItems> => {
-  return invoke('DragAndDrop.getDroppedItems', itemIds, isElectron)
-}
-
 export const getDroppedItemsByDropId = async (dropId: number, isElectron: boolean): Promise<DroppedItems> => {
   return invoke('DragAndDrop.getDroppedItemsByDropId', dropId, isElectron)
 }
 
 export const getDroppedUrisByDropId = async (dropId: number, isElectron: boolean): Promise<readonly string[]> => {
   return invoke('DragAndDrop.getDroppedUrisByDropId', dropId, isElectron)
-}
-
-export const getDroppedFileHandlesByDropId = async (dropId: number): Promise<readonly FileSystemFileHandle[]> => {
-  return invoke('DragAndDrop.getDroppedFileHandlesByDropId', dropId)
 }
 
 export const getDroppedFilesByDropId = async (dropId: number): Promise<readonly File[]> => {
