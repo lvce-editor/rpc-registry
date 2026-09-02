@@ -86,9 +86,14 @@ export const getV8Version = async (): Promise<string> => {
   return invoke('Process.getV8Version')
 }
 
-export const getFileHandles = async (fileIds: readonly number[]): Promise<readonly FileSystemHandle[]> => {
-  const files = await invoke('FileSystemHandle.getFileHandles', fileIds)
-  return files
+export interface FileHandleTransportItem {
+  readonly kind: 'file' | 'file-legacy'
+  readonly path?: string
+  readonly value: File | FileSystemHandle
+}
+
+export const getFileHandles = async (fileIds: readonly number[]): Promise<readonly FileHandleTransportItem[]> => {
+  return invoke('FileHandles.get', fileIds)
 }
 
 export type DropDataFormat = 'file' | 'fileSystemHandle' | 'string'
