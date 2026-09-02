@@ -101,21 +101,6 @@ test('sendMessagePortToMainAreaWorker', async () => {
   ])
 })
 
-test('getDroppedItems', async () => {
-  using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
-    'DragAndDrop.getDroppedItems'() {
-      return { files: [], strings: ['text'], uris: ['file:///test.txt'] }
-    },
-  })
-
-  await expect(Index.DragAndDropWorker.getDroppedItems([1, 2], true)).resolves.toEqual({
-    files: [],
-    strings: ['text'],
-    uris: ['file:///test.txt'],
-  })
-  expect(mockDragAndDropRpc.invocations).toEqual([['DragAndDrop.getDroppedItems', [1, 2], true]])
-})
-
 test('getDroppedFilesByDropId', async () => {
   const file = new File(['content'], 'notes.txt')
   using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
@@ -162,12 +147,8 @@ test('getFileHandles', async () => {
 })
 
 test('new drag and drop session methods', async () => {
-  const fileHandle = { kind: 'file', name: 'notes.txt' }
   using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
     'DragAndDrop.discardDrop'() {},
-    'DragAndDrop.getDroppedFileHandlesByDropId'() {
-      return [fileHandle]
-    },
     'DragAndDrop.getDroppedItemsByDropId'() {
       return { files: [], strings: [], uris: ['file:///notes.txt'] }
     },
@@ -182,12 +163,10 @@ test('new drag and drop session methods', async () => {
     uris: ['file:///notes.txt'],
   })
   await expect(Index.DragAndDropWorker.getDroppedUrisByDropId(4, false)).resolves.toEqual(['file:///notes.txt'])
-  await expect(Index.DragAndDropWorker.getDroppedFileHandlesByDropId(5)).resolves.toEqual([fileHandle])
   await Index.DragAndDropWorker.discardDrop(6)
   expect(mockDragAndDropRpc.invocations).toEqual([
     ['DragAndDrop.getDroppedItemsByDropId', 3, true],
     ['DragAndDrop.getDroppedUrisByDropId', 4, false],
-    ['DragAndDrop.getDroppedFileHandlesByDropId', 5],
     ['DragAndDrop.discardDrop', 6],
   ])
 })
