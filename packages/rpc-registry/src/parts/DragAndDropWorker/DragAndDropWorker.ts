@@ -33,6 +33,10 @@ export const getDroppedFileHandlesByDropId = async (dropId: number): Promise<rea
   return invoke('DragAndDrop.getDroppedFileHandlesByDropId', dropId)
 }
 
+export const getDroppedFilesByDropId = async (dropId: number): Promise<readonly File[]> => {
+  return invoke('DragAndDrop.getDroppedFilesByDropId', dropId)
+}
+
 export const discardDrop = async (dropId: number): Promise<void> => {
   await invoke('DragAndDrop.discardDrop', dropId)
 }
