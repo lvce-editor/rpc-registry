@@ -101,6 +101,19 @@ test('sendMessagePortToMainAreaWorker', async () => {
   ])
 })
 
+test('sendMessagePortToRendererProcess', async () => {
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess'() {},
+  })
+  const port = {} as MessagePort
+
+  await Index.RendererWorker.sendMessagePortToRendererProcess(port, 'MenuWorker')
+
+  expect(mockRendererRpc.invocations).toEqual([
+    ['SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, 'HandleMessagePort.handleMessagePort', 'MenuWorker'],
+  ])
+})
+
 test('getDroppedFilesByDropId', async () => {
   const file = new File(['content'], 'notes.txt')
   using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
