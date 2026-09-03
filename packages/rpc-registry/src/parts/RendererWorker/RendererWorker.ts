@@ -426,9 +426,9 @@ export const getWorkspacePath = (): Promise<string> => {
   return invoke('Workspace.getPath')
 }
 
-export const sendMessagePortToRendererProcess = async (port: MessagePort): Promise<void> => {
+export const sendMessagePortToRendererProcess = async (port: MessagePort, rpcId: string | number = RpcId.DebugWorker): Promise<void> => {
   const command = 'HandleMessagePort.handleMessagePort'
-  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, command, RpcId.DebugWorker)
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, command, rpcId)
 }
 
 export const sendMessagePortToTextMeasurementWorker = async (port: MessagePort): Promise<void> => {
