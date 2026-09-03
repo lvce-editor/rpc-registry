@@ -55,6 +55,21 @@ test('sendMessagePortToDialogWorker', async () => {
   expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort']])
 })
 
+test('prompt', async () => {
+  const options: Index.DialogWorker.ConfirmPromptOptions = {
+    confirmMessage: 'Replace',
+    title: 'Replace All',
+  }
+  using mockDialogRpc = Index.DialogWorker.registerMockRpc({
+    'ConfirmPrompt.prompt'() {
+      return true
+    },
+  })
+
+  await expect(Index.DialogWorker.prompt('Replace all?', options)).resolves.toBe(true)
+  expect(mockDialogRpc.invocations).toEqual([['ConfirmPrompt.prompt', 'Replace all?', options]])
+})
+
 test('showMessageBox', async () => {
   using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
     'ElectronDialog.showMessageBox'() {
