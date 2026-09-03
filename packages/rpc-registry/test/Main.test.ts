@@ -174,6 +174,18 @@ test('getFileHandles', async () => {
   expect(mockRendererRpc.invocations).toEqual([['FileHandles.get', [1]]])
 })
 
+test('getComponents', async () => {
+  const expected: readonly Index.RendererWorker.ComponentInfo[] = [{ editable: true, moduleId: 'Explorer', uid: 7 }]
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'ComponentState.getComponents'() {
+      return expected
+    },
+  })
+
+  await expect(Index.RendererWorker.getComponents()).resolves.toBe(expected)
+  expect(mockRendererRpc.invocations).toEqual([['ComponentState.getComponents']])
+})
+
 test('new drag and drop session methods', async () => {
   using mockDragAndDropRpc = Index.DragAndDropWorker.registerMockRpc({
     'DragAndDrop.discardDrop'() {},

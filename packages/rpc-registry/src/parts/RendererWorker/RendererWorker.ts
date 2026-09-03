@@ -86,6 +86,16 @@ export const getV8Version = async (): Promise<string> => {
   return invoke('Process.getV8Version')
 }
 
+export interface ComponentInfo {
+  readonly editable: boolean
+  readonly moduleId: string
+  readonly uid: number
+}
+
+export const getComponents = async (): Promise<readonly ComponentInfo[]> => {
+  return invoke('ComponentState.getComponents')
+}
+
 export interface FileHandleTransportItem {
   readonly kind: 'file' | 'file-legacy'
   readonly path?: string
