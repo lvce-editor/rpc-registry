@@ -497,6 +497,20 @@ export const openUri = async (uri: string, focus?: boolean, options?: any): Prom
   })
 }
 
+export interface OpenUriOptions {
+  readonly focus: boolean
+  readonly selections: Uint32Array
+  readonly uri: string
+}
+
+export const openUri2 = async ({ focus, selections, uri }: OpenUriOptions): Promise<void> => {
+  await invoke('Main.openUri', {
+    focus,
+    selections,
+    uri,
+  })
+}
+
 export const sendMessagePortToSyntaxHighlightingWorker = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer('SendMessagePortToSyntaxHighlightingWorker.sendMessagePortToSyntaxHighlightingWorker', port, 'HandleMessagePort.handleMessagePort2')
 }
