@@ -289,3 +289,27 @@ test('openUri', async () => {
     ],
   ])
 })
+
+test('openUri2', async () => {
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'Main.openUri'() {},
+  })
+  const selections = new Uint32Array([2, 9, 2, 12])
+
+  await Index.RendererWorker.openUri2({
+    focus: true,
+    selections,
+    uri: 'file:///workspace/App.tsx',
+  })
+
+  expect(mockRendererRpc.invocations).toEqual([
+    [
+      'Main.openUri',
+      {
+        focus: true,
+        selections,
+        uri: 'file:///workspace/App.tsx',
+      },
+    ],
+  ])
+})
