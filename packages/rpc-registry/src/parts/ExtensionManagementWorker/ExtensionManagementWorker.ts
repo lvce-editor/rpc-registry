@@ -19,6 +19,10 @@ export const disable2 = (id: string, platform: number): Promise<void> => {
   return invoke(`Extensions.disable2`, id, platform)
 }
 
+export const disableWorkspace = (id: string): Promise<void> => {
+  return invoke('Extensions.disableWorkspace', id)
+}
+
 export const getExtension = (id: string): Promise<any> => {
   return invoke(`Extensions.getExtension`, id)
 }
@@ -37,4 +41,8 @@ export const uninstall = (id: string): Promise<void> => {
 
 export const invalidateExtensionsCache = (): Promise<void> => {
   return invoke(`Extensions.invalidateExtensionsCache`)
+}
+
+export const getRunningExtensions = async (assetDir: string, platform: number): Promise<readonly any[]> => {
+  return invoke('Extensions.getRunningExtensions', assetDir, platform)
 }

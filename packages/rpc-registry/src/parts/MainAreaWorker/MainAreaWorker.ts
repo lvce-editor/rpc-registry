@@ -1,7 +1,6 @@
+import { RpcId } from '@lvce-editor/constants'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
-const rpcId = 123_456
-
-export const { dispose, invoke, invokeAndTransfer, set } = RpcFactory.create(rpcId)
+export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.MainAreaWorker)
 
 // TODO add functions

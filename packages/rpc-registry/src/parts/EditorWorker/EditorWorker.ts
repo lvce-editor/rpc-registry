@@ -5,22 +5,19 @@ import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.EditorWorker)
 
-export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort2'
-  await invokeAndTransfer(
-    // @ts-ignore
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker',
-    port,
-    command,
-    0, // TODO
-  )
-}
 export const sendMessagePortToExtensionManagementWorker = async (port: MessagePort): Promise<void> => {
   await invokeAndTransfer(
     'SendMessagePortToExtensionManagementWorker.sendMessagePortToExtensionManagementWorker',
     port,
     0, // TODO
   )
+}
+
+/**
+ * @deprecated Use sendMessagePortToExtensionManagementWorker instead.
+ */
+export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
+  await sendMessagePortToExtensionManagementWorker(port)
 }
 
 // TODO add tests for this
