@@ -26,6 +26,45 @@ test('index', () => {
   expect(typeof Index.get).toBe('function')
 })
 
+test('applyEdit', async () => {
+  using mockEditorRpc = Index.EditorWorker.registerMockRpc({
+    'Editor.applyEdit2'() {},
+  })
+  const changes = [
+    {
+      deleted: [''],
+      end: { columnIndex: 0, rowIndex: 0 },
+      inserted: ['value'],
+      origin: '',
+      start: { columnIndex: 0, rowIndex: 0 },
+    },
+  ]
+
+  await Index.EditorWorker.applyEdit(1, changes)
+
+  expect(mockEditorRpc.invocations).toEqual([['Editor.applyEdit2', 1, changes]])
+})
+
+test('applyEdit with selection changes', async () => {
+  using mockEditorRpc = Index.EditorWorker.registerMockRpc({
+    'Editor.applyEdit2'() {},
+  })
+  const changes = [
+    {
+      deleted: [''],
+      end: { columnIndex: 0, rowIndex: 0 },
+      inserted: ['value'],
+      origin: '',
+      start: { columnIndex: 0, rowIndex: 0 },
+    },
+  ]
+  const selectionChanges = new Uint32Array([0, 0, 0, 5])
+
+  await Index.EditorWorker.applyEdit(1, changes, selectionChanges)
+
+  expect(mockEditorRpc.invocations).toEqual([['Editor.applyEdit2', 1, changes, selectionChanges]])
+})
+
 test('sendMessagePortToFilePermissionProcess', async () => {
   using mockRendererRpc = Index.RendererWorker.registerMockRpc({
     'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess'() {},

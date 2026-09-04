@@ -26,9 +26,13 @@ export const activateByEvent = async (event: string): Promise<void> => {
   await invoke('ActivateByEvent.activateByEvent', event)
 }
 
-export const applyEdit = async (editorUid: number, changes: readonly Change[]): Promise<void> => {
+export const applyEdit = async (editorUid: number, changes: readonly Change[], selectionChanges?: Uint32Array): Promise<void> => {
   // @ts-ignore
-  await invoke('Editor.applyEdit2', editorUid, changes)
+  if (selectionChanges) {
+    await invoke('Editor.applyEdit2', editorUid, changes, selectionChanges)
+  } else {
+    await invoke('Editor.applyEdit2', editorUid, changes)
+  }
 }
 
 export const applyDocumentEdits = async (editorUid: number, changes: readonly Change[]): Promise<void> => {
