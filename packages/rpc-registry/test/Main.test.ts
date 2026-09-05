@@ -246,7 +246,7 @@ test('getFileHandles', async () => {
 })
 
 test('getComponents', async () => {
-  const expected: readonly Index.RendererWorker.ComponentInfo[] = [{ editable: true, moduleId: 'Explorer', uid: 7 }]
+  const expected: readonly Index.RendererWorker.ComponentInfo[] = [{ displayName: 'Explorer', domAvailable: true, editable: true, moduleId: 'Explorer', uid: 7 }]
   using mockRendererRpc = Index.RendererWorker.registerMockRpc({
     'ComponentState.getComponents'() {
       return expected
