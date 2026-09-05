@@ -16,6 +16,18 @@ export interface ElectronMessageBoxOptions {
   readonly windowId?: number
 }
 
+export const deleteSecret = async (extensionId: string, key: string): Promise<void> => {
+  await invoke('SecretStorage.delete', extensionId, key)
+}
+
+export const getSecret = async (extensionId: string, key: string): Promise<string | undefined> => {
+  return invoke('SecretStorage.get', extensionId, key)
+}
+
 export const showMessageBox = async (options: ElectronMessageBoxOptions): Promise<number | undefined> => {
   return invoke('ElectronDialog.showMessageBox', options)
+}
+
+export const storeSecret = async (extensionId: string, key: string, value: string): Promise<void> => {
+  await invoke('SecretStorage.store', extensionId, key, value)
 }
