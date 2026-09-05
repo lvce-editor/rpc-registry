@@ -131,6 +131,38 @@ test('showMessageBox', async () => {
   expect(mockMainProcessRpc.invocations).toEqual([['ElectronDialog.showMessageBox', options]])
 })
 
+test('deleteSecret', async () => {
+  using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
+    'SecretStorage.delete'() {},
+  })
+
+  await expect(Index.MainProcess.deleteSecret('sample.extension', 'token')).resolves.toBeUndefined()
+
+  expect(mockMainProcessRpc.invocations).toEqual([['SecretStorage.delete', 'sample.extension', 'token']])
+})
+
+test('getSecret', async () => {
+  using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
+    'SecretStorage.get'() {
+      return 'stored-token'
+    },
+  })
+
+  await expect(Index.MainProcess.getSecret('sample.extension', 'token')).resolves.toBe('stored-token')
+
+  expect(mockMainProcessRpc.invocations).toEqual([['SecretStorage.get', 'sample.extension', 'token']])
+})
+
+test('storeSecret', async () => {
+  using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
+    'SecretStorage.store'() {},
+  })
+
+  await expect(Index.MainProcess.storeSecret('sample.extension', 'token', 'plain-text')).resolves.toBeUndefined()
+
+  expect(mockMainProcessRpc.invocations).toEqual([['SecretStorage.store', 'sample.extension', 'token', 'plain-text']])
+})
+
 test('sendMessagePortToDragAndDropWorker', async () => {
   using mockRendererRpc = Index.RendererWorker.registerMockRpc({
     'SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker'() {},
