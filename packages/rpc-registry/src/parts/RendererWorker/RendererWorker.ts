@@ -87,6 +87,8 @@ export const getV8Version = async (): Promise<string> => {
 }
 
 export interface ComponentInfo {
+  readonly displayName: string
+  readonly domAvailable: boolean
   readonly editable: boolean
   readonly moduleId: string
   readonly uid: number
