@@ -8,7 +8,7 @@ const rpc: Rpc = {
   invokeAndTransfer: jest.fn<Rpc['invokeAndTransfer']>(),
   send: jest.fn(),
 }
-const createRenderer = jest.fn<() => Promise<Rpc>>(async () => rpc)
+const createRenderer = jest.fn<(options: { commandMap: object }) => Promise<Rpc>>(async () => rpc)
 const createEditor = jest.fn<(options: { commandMap: object; send: (port: MessagePort) => Promise<void> }) => Promise<Rpc>>(async () => rpc)
 
 jest.unstable_mockModule('@lvce-editor/rpc', () => ({
