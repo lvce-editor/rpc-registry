@@ -11,6 +11,8 @@ const rpc: Rpc = {
 const createRenderer = jest.fn<(options: { commandMap: object }) => Promise<Rpc>>(async () => rpc)
 const createEditor = jest.fn<(options: { commandMap: object; send: (port: MessagePort) => Promise<void> }) => Promise<Rpc>>(async () => rpc)
 
+// This tests transport creation itself, before a registry mock RPC can be registered.
+// eslint-disable-next-line jest/no-restricted-jest-methods
 jest.unstable_mockModule('@lvce-editor/rpc', () => ({
   createMockRpc: jest.fn(),
   LazyTransferMessagePortRpcParent: { create: createEditor },
