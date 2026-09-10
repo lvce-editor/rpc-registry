@@ -1,6 +1,6 @@
 import * as Assert from '@lvce-editor/assert'
 import { InputSource, RpcId } from '@lvce-editor/constants'
-import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
+import { LazyTransferMessagePortRpcParent, WebWorkerRpcClient } from '@lvce-editor/rpc'
 import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from '../WidgetLifecycleRequest/WidgetLifecycleRequest.ts'
 import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
@@ -11,6 +11,11 @@ import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
 import * as TextMeasurementWorker from '../TextMeasurementWorker/TextMeasurementWorker.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
+
+export const initializeRendererWorkerForWorker = async (commandMap: Readonly<Record<string, (...args: any[]) => any>>): Promise<void> => {
+  const rpc = await WebWorkerRpcClient.create({ commandMap })
+  set(rpc)
+}
 
 export const allocateWidgetRendererId = async (): Promise<number> => {
   return invoke('WidgetLifecycle.allocateRendererId')
@@ -664,14 +669,10 @@ export const initializeClipBoardWorker = async (): Promise<void> => {
   ClipBoardWorker.set(rpc)
 }
 
-const send2 = async (port: MessagePort): Promise<void> => {
-  await sendMessagePortToEditorWorker(port, RpcId.TestWorker)
-}
-
-export const initializeEditorWorker = async (): Promise<void> => {
+export const initializeEditorWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
   const rpc = await LazyTransferMessagePortRpcParent.create({
     commandMap: {},
-    send: send2,
+    send: (port: MessagePort) => sendMessagePortToEditorWorker(port, sourceId),
   })
   EditorWorker.set(rpc)
 }
