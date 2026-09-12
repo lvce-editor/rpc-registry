@@ -46,3 +46,11 @@ export const invalidateExtensionsCache = (): Promise<void> => {
 export const getRunningExtensions = async (assetDir: string, platform: number): Promise<readonly any[]> => {
   return invoke('Extensions.getRunningExtensions', assetDir, platform)
 }
+
+export const enableWorkspace = (id: string): Promise<void> => {
+  return invoke('Extensions.enableWorkspace', id)
+}
+
+export const getAllExtensions = (assetDir: string, platform: number): Promise<readonly unknown[]> => {
+  return invoke('Extensions.getAllExtensions', assetDir, platform)
+}
