@@ -396,3 +396,20 @@ test('openUri2', async () => {
     ],
   ])
 })
+
+test('enableWorkspace forwards the extension id', async () => {
+  using rpc = Index.ExtensionManagementWorker.registerMockRpc({
+    'Extensions.enableWorkspace'() {},
+  })
+  await Index.ExtensionManagementWorker.enableWorkspace('test.extension')
+  expect(rpc.invocations).toEqual([['Extensions.enableWorkspace', 'test.extension']])
+})
+
+test('getAllExtensions forwards the environment and returns extensions', async () => {
+  const extensions = [{ id: 'test.extension' }]
+  using rpc = Index.ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': () => extensions,
+  })
+  expect(await Index.ExtensionManagementWorker.getAllExtensions('/assets', 1)).toBe(extensions)
+  expect(rpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', 1]])
+})
