@@ -165,13 +165,13 @@ test('storeSecret', async () => {
 
 test('sendMessagePortToDragAndDropWorker', async () => {
   using mockRendererRpc = Index.RendererWorker.registerMockRpc({
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker'() {},
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess'() {},
   })
   const port = {} as MessagePort
 
   await Index.RendererWorker.sendMessagePortToDragAndDropWorker(port)
 
-  expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker', port, 'DragAndDrop.handleMessagePort']])
+  expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, 'DragAndDrop.handleMessagePort']])
 })
 
 test('sendMessagePortToMainAreaWorker', async () => {

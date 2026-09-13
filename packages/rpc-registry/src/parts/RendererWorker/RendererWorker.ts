@@ -172,7 +172,7 @@ export const sendMessagePortToClipBoardWorker = async (port: MessagePort, rpcId:
 
 export const sendMessagePortToDragAndDropWorker = async (port: MessagePort): Promise<void> => {
   const command = 'DragAndDrop.handleMessagePort'
-  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToDragAndDropWorker', port, command)
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, command)
 }
 
 export const sendMessagePortToOpenerWorker = async (port: MessagePort, rpcId: number): Promise<void> => {
