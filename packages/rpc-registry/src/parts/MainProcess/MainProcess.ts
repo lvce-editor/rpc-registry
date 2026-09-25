@@ -16,12 +16,21 @@ export interface ElectronMessageBoxOptions {
   readonly windowId?: number
 }
 
+export interface WorkerMemoryUsage {
+  readonly totalSize: number
+  readonly usedSize: number
+}
+
 export const deleteSecret = async (extensionId: string, key: string): Promise<void> => {
   await invoke('SecretStorage.delete', extensionId, key)
 }
 
 export const getSecret = async (extensionId: string, key: string): Promise<string | undefined> => {
   return invoke('SecretStorage.get', extensionId, key)
+}
+
+export const getWorkerMemoryUsage = async (windowId: number, runtimeName: string): Promise<WorkerMemoryUsage | null> => {
+  return invoke('ElectronDeveloper.getWorkerMemoryUsage', windowId, runtimeName)
 }
 
 export const showMessageBox = async (options: ElectronMessageBoxOptions): Promise<number | undefined> => {
