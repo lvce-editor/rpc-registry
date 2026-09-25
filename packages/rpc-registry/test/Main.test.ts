@@ -153,6 +153,41 @@ test('getSecret', async () => {
   expect(mockMainProcessRpc.invocations).toEqual([['SecretStorage.get', 'sample.extension', 'token']])
 })
 
+test('getWorkerMemoryUsage', async () => {
+  const expected: Index.MainProcess.WorkerMemoryUsage = { totalSize: 1024, usedSize: 512 }
+  using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
+    'ElectronDeveloper.getWorkerMemoryUsage'() {
+      return expected
+    },
+  })
+
+  await expect(Index.MainProcess.getWorkerMemoryUsage(12, 'workers-view')).resolves.toBe(expected)
+  expect(mockMainProcessRpc.invocations).toEqual([['ElectronDeveloper.getWorkerMemoryUsage', 12, 'workers-view']])
+})
+
+test('getWorkerMemoryUsage returns null', async () => {
+  using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
+    'ElectronDeveloper.getWorkerMemoryUsage'() {
+      return null
+    },
+  })
+
+  await expect(Index.MainProcess.getWorkerMemoryUsage(12, 'workers-view')).resolves.toBeNull()
+  expect(mockMainProcessRpc.invocations).toEqual([['ElectronDeveloper.getWorkerMemoryUsage', 12, 'workers-view']])
+})
+
+test('getWorkerMemoryUsage propagates rejection', async () => {
+  const error = new Error('worker memory unavailable')
+  using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
+    'ElectronDeveloper.getWorkerMemoryUsage'() {
+      return Promise.reject(error)
+    },
+  })
+
+  await expect(Index.MainProcess.getWorkerMemoryUsage(12, 'workers-view')).rejects.toBe(error)
+  expect(mockMainProcessRpc.invocations).toEqual([['ElectronDeveloper.getWorkerMemoryUsage', 12, 'workers-view']])
+})
+
 test('storeSecret', async () => {
   using mockMainProcessRpc = Index.MainProcess.registerMockRpc({
     'SecretStorage.store'() {},
