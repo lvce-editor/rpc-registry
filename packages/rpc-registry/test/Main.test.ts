@@ -448,3 +448,36 @@ test('getAllExtensions forwards the environment and returns extensions', async (
   expect(await Index.ExtensionManagementWorker.getAllExtensions('/assets', 1)).toBe(extensions)
   expect(rpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', 1]])
 })
+
+test('executeCompletionProvider forwards its typed document and offset', async () => {
+  using rpc = Index.ExtensionManagementWorker.registerMockRpc({
+    'Extensions.executeCompletionProvider': () => [{ label: 'test' }],
+  })
+  const textDocument = { documentId: 1, languageId: 'typescript', text: 'const test = 1', uri: 'file:///test.ts' }
+  const completions = await Index.ExtensionManagementWorker.executeCompletionProvider(textDocument, 10)
+  expect(completions).toEqual([{ label: 'test' }])
+  expect(rpc.invocations).toEqual([['Extensions.executeCompletionProvider', textDocument, 10]])
+})
+
+test('executeCompletionProvider preserves application routing', async () => {
+  using rpc = Index.ExtensionManagementWorker.registerMockRpc({
+    'Extensions.invokeForApplication': () => [{ label: 'test' }],
+  })
+  const textDocument = { documentId: 1, languageId: 'typescript', text: 'const test = 1', uri: 'file:///test.ts' }
+  const completions = await Index.ExtensionManagementWorker.executeCompletionProvider(textDocument, 10, 'application-1')
+  expect(completions).toEqual([{ label: 'test' }])
+  expect(rpc.invocations).toEqual([['Extensions.invokeForApplication', 'application-1', 'Extensions.executeCompletionProvider', textDocument, 10]])
+})
+
+test('executeResolveCompletionItemProvider preserves application routing and undefined results', async () => {
+  using rpc = Index.ExtensionManagementWorker.registerMockRpc({
+    'Extensions.invokeForApplication': () => undefined,
+  })
+  const textDocument = { documentId: 1, languageId: 'typescript', text: 'const test = 1', uri: 'file:///test.ts' }
+  const completionItem = { label: 'test' }
+  const result = await Index.ExtensionManagementWorker.executeResolveCompletionItemProvider(textDocument, 10, 'test', completionItem, 'application-1')
+  expect(result).toBeUndefined()
+  expect(rpc.invocations).toEqual([
+    ['Extensions.invokeForApplication', 'application-1', 'Extensions.executeResolveCompletionItemProvider', textDocument, 10, 'test', completionItem],
+  ])
+})
