@@ -10,7 +10,7 @@ export interface TextDocument {
   readonly uri: string
 }
 
-export const executeCompletionProvider = (textDocument: TextDocument, offset: number, applicationId?: string): Promise<readonly unknown[]> => {
+export const executeCompletionProvider = <TCompletionItem = unknown>(textDocument: TextDocument, offset: number, applicationId?: string): Promise<readonly TCompletionItem[]> => {
   if (applicationId !== undefined) {
     return invoke('Extensions.invokeForApplication', applicationId, 'Extensions.executeCompletionProvider', textDocument, offset)
   }
