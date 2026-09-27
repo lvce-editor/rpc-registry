@@ -454,7 +454,7 @@ test('executeCompletionProvider forwards its typed document and offset', async (
     'Extensions.executeCompletionProvider': () => [{ label: 'test' }],
   })
   const textDocument = { documentId: 1, languageId: 'typescript', text: 'const test = 1', uri: 'file:///test.ts' }
-  const completions = await Index.ExtensionManagementWorker.executeCompletionProvider(textDocument, 10)
+  const completions = await Index.ExtensionManagementWorker.executeCompletionProvider<{ readonly label: string }>(textDocument, 10)
   expect(completions).toEqual([{ label: 'test' }])
   expect(rpc.invocations).toEqual([['Extensions.executeCompletionProvider', textDocument, 10]])
 })
