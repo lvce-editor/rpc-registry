@@ -11,7 +11,7 @@ type CacheHeaders = Readonly<Record<string, string>> | Readonly<Headers> | reado
 type CacheRequest = string | Readonly<URL> | Readonly<Request>
 
 export interface CacheStorageItem {
-  readonly body: string
+  readonly body: ArrayBuffer
   readonly headers: Readonly<Record<string, string>>
   readonly status: number
   readonly statusText: string
