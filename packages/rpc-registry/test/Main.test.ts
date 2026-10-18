@@ -15,6 +15,19 @@ test('text measurement worker has an independent rpc', () => {
   expect(textMeasurementRpc.invocations).toEqual([['TextMeasurement.measureTextBlockHeight', 'hello', 'system-ui', 13, 13, 100]])
 })
 
+test('sendMessagePortToCacheWorker transfers a cache message port', async () => {
+  const port = {} as MessagePort
+  using mockRendererRpc = Index.RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToCacheWorker': () => undefined,
+  })
+
+  await Index.RendererWorker.sendMessagePortToCacheWorker(port)
+
+  expect(mockRendererRpc.invocations).toEqual([
+    ['SendMessagePortToExtensionHostWorker.sendMessagePortToCacheWorker', port, 'CacheWorker.handleMessagePort', 0],
+  ])
+})
+
 test('index', () => {
   expect(typeof Index.FilePermissionProcess.invoke).toBe('function')
   expect(typeof Index.FindWidgetWorker.invoke).toBe('function')

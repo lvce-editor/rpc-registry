@@ -2,7 +2,7 @@ import { expect, test } from '@jest/globals'
 import * as Index from '../src/parts/Main/Main.ts'
 
 test('cache worker routes all cache storage commands', async () => {
-  const cacheItem = { body: 'body', headers: { 'content-type': 'text/plain' }, status: 200, statusText: 'OK' }
+  const cacheItem = { body: new ArrayBuffer(0), headers: { 'content-type': 'text/plain' }, status: 200, statusText: 'OK' }
   const bucketOptions = { quota: 1024 }
   const request = new URL('https://example.com/item')
   const headers = [['content-type', 'text/plain']] as const

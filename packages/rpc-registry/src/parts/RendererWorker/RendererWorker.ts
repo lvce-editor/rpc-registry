@@ -453,6 +453,11 @@ export const sendMessagePortToTextMeasurementWorker = async (port: MessagePort):
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker', port, command, 0)
 }
 
+export const sendMessagePortToCacheWorker = async (port: MessagePort): Promise<void> => {
+  const command = 'CacheWorker.handleMessagePort'
+  await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToCacheWorker', port, command, 0)
+}
+
 export const sendMessagePortToProcessExplorer = async (port: MessagePort): Promise<void> => {
   const command = 'ProcessExplorer.handleMessagePort'
   await invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToProcessExplorer', port, command, 0)
