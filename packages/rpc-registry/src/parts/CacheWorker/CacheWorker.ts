@@ -17,6 +17,10 @@ export interface CacheStorageItem {
   readonly statusText: string
 }
 
+export interface CacheStorageJsonItem {
+  readonly value: unknown
+}
+
 export type CacheStorageWriteResult = { readonly success: true } | { readonly success: false; readonly errorCode: 'CACHE_STORAGE_WRITE_FAILED'; readonly errorMessage: string }
 
 type DatabaseKey = string | number | Readonly<Date> | Readonly<ArrayBuffer> | Readonly<ArrayBufferView<ArrayBuffer>> | readonly DatabaseKey[]
@@ -28,6 +32,15 @@ export const getCacheStorageItem = async (
   bucketOptions?: Readonly<StorageBucketOptions>,
 ): Promise<CacheStorageItem | null> => {
   return invoke('Cache.getCacheStorageItem', request, cacheName, bucketName, bucketOptions)
+}
+
+export const getCacheStorageJsonItem = async (
+  request: CacheRequest,
+  cacheName?: string,
+  bucketName?: string,
+  bucketOptions?: Readonly<StorageBucketOptions>,
+): Promise<CacheStorageJsonItem | null> => {
+  return invoke('Cache.getCacheStorageJsonItem', request, cacheName, bucketName, bucketOptions)
 }
 
 export const removeCacheStorageItem = async (request: CacheRequest, cacheName?: string, bucketName?: string, bucketOptions?: Readonly<StorageBucketOptions>): Promise<boolean> => {
@@ -43,6 +56,16 @@ export const setCacheStorageItem = async (
   bucketOptions?: Readonly<StorageBucketOptions>,
 ): Promise<CacheStorageWriteResult> => {
   return invoke('Cache.setCacheStorageItem', request, value, cacheName, headers, bucketName, bucketOptions)
+}
+
+export const setCacheStorageJsonItem = async (
+  request: CacheRequest,
+  value: unknown,
+  cacheName?: string,
+  bucketName?: string,
+  bucketOptions?: Readonly<StorageBucketOptions>,
+): Promise<CacheStorageWriteResult> => {
+  return invoke('Cache.setCacheStorageJsonItem', request, value, cacheName, bucketName, bucketOptions)
 }
 
 export const addIndexedDbFileHandle = async (key: DatabaseKey, handle: unknown, databaseName?: string): Promise<void> => {

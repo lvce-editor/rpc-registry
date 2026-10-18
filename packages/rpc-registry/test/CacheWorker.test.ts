@@ -8,20 +8,28 @@ test('cache worker routes all cache storage commands', async () => {
   const headers = [['content-type', 'text/plain']] as const
   using mockRpc = Index.CacheWorker.registerMockRpc({
     'Cache.getCacheStorageItem': (request: string | URL) => (request === '/missing' ? null : cacheItem),
+    'Cache.getCacheStorageJsonItem': (request: string | URL) => (request === '/missing' ? null : { value: null }),
     'Cache.removeCacheStorageItem': () => true,
     'Cache.setCacheStorageItem': () => ({ success: true }),
+    'Cache.setCacheStorageJsonItem': () => ({ success: true }),
   })
 
   await expect(Index.CacheWorker.getCacheStorageItem(request, 'cache', 'bucket', bucketOptions)).resolves.toBe(cacheItem)
   await expect(Index.CacheWorker.getCacheStorageItem('/missing')).resolves.toBeNull()
+  await expect(Index.CacheWorker.getCacheStorageJsonItem(request)).resolves.toEqual({ value: null })
+  await expect(Index.CacheWorker.getCacheStorageJsonItem('/missing')).resolves.toBeNull()
   await expect(Index.CacheWorker.removeCacheStorageItem(request)).resolves.toBe(true)
   await expect(Index.CacheWorker.setCacheStorageItem(request, 'body', 'cache', headers, 'bucket', bucketOptions)).resolves.toEqual({ success: true })
+  await expect(Index.CacheWorker.setCacheStorageJsonItem(request, { value: 'json' }, 'cache', 'bucket', bucketOptions)).resolves.toEqual({ success: true })
 
   expect(mockRpc.invocations).toEqual([
     ['Cache.getCacheStorageItem', request, 'cache', 'bucket', bucketOptions],
     ['Cache.getCacheStorageItem', '/missing', undefined, undefined, undefined],
+    ['Cache.getCacheStorageJsonItem', request, undefined, undefined, undefined],
+    ['Cache.getCacheStorageJsonItem', '/missing', undefined, undefined, undefined],
     ['Cache.removeCacheStorageItem', request, undefined, undefined, undefined],
     ['Cache.setCacheStorageItem', request, 'body', 'cache', headers, 'bucket', bucketOptions],
+    ['Cache.setCacheStorageJsonItem', request, { value: 'json' }, 'cache', 'bucket', bucketOptions],
   ])
 })
 
