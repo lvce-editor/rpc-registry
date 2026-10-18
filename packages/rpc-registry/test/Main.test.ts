@@ -23,9 +23,7 @@ test('sendMessagePortToCacheWorker transfers a cache message port', async () => 
 
   await Index.RendererWorker.sendMessagePortToCacheWorker(port)
 
-  expect(mockRendererRpc.invocations).toEqual([
-    ['SendMessagePortToExtensionHostWorker.sendMessagePortToCacheWorker', port, 'CacheWorker.handleMessagePort', 0],
-  ])
+  expect(mockRendererRpc.invocations).toEqual([['SendMessagePortToExtensionHostWorker.sendMessagePortToCacheWorker', port, 'CacheWorker.handleMessagePort', 0]])
 })
 
 test('index', () => {
