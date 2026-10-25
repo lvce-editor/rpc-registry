@@ -21,6 +21,8 @@ jest.unstable_mockModule('@lvce-editor/rpc', () => ({
 
 const RendererWorker = await import('../src/parts/RendererWorker/RendererWorker.ts')
 const EditorWorker = await import('../src/parts/EditorWorker/EditorWorker.ts')
+const FileSystemWorker = await import('../src/parts/FileSystemWorker/FileSystemWorker.ts')
+const DialogWorker = await import('../src/parts/DialogWorker/DialogWorker.ts')
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -48,6 +50,36 @@ test.each([undefined, 9113])('initializes editor RPC with source id %s', async (
   )
   await EditorWorker.invoke('test')
   expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
+test('initializes file system RPC with source id 0 and registers it', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeFileSystemWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToFileSystemWorker', port, 'FileSystem.handleMessagePort', 0)
+  await FileSystemWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
+test('initializes dialog RPC and registers it', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeDialogWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort')
+  await DialogWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
+test.each([
+  ['file system', RendererWorker.initializeFileSystemWorker],
+  ['dialog', RendererWorker.initializeDialogWorker],
+])('propagates %s initialization failures', async (_name, initialize) => {
+  createEditor.mockRejectedValueOnce(new Error('connection failed'))
+  await expect(initialize()).rejects.toThrow('connection failed')
 })
 
 test('propagates renderer initialization failures', async () => {
