@@ -8,6 +8,7 @@ import * as ExtensionManagementWorker from '../ExtensionManagementWorker/Extensi
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
+import * as FileSystemWorker from '../FileSystemWorker/FileSystemWorker.ts'
 import * as TextMeasurementWorker from '../TextMeasurementWorker/TextMeasurementWorker.ts'
 
 export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcFactory.create(RpcId.RendererWorker)
@@ -717,3 +718,18 @@ export const initializeProcessExplorer = async (): Promise<void> => {
   })
   ProcessExplorer.set(rpc)
 }
+
+
+
+const sendFs = async (port: MessagePort): Promise<void> => {
+  await sendMessagePortToFileSystemWorker(port, 0)
+}
+
+export const initializeFileSystemWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: sendFs,
+  })
+  FileSystemWorker.set(rpc)
+}
+
