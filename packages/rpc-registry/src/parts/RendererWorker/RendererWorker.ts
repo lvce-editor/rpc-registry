@@ -3,6 +3,7 @@ import { InputSource, RpcId } from '@lvce-editor/constants'
 import { LazyTransferMessagePortRpcParent, WebWorkerRpcClient } from '@lvce-editor/rpc'
 import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from '../WidgetLifecycleRequest/WidgetLifecycleRequest.ts'
 import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
+import * as DialogWorker from '../DialogWorker/DialogWorker.ts'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as ExtensionManagementWorker from '../ExtensionManagementWorker/ExtensionManagementWorker.ts'
 import * as FileSystemWorker from '../FileSystemWorker/FileSystemWorker.ts'
@@ -729,4 +730,12 @@ export const initializeFileSystemWorker = async (): Promise<void> => {
     send: sendFs,
   })
   FileSystemWorker.set(rpc)
+}
+
+export const initializeDialogWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: sendMessagePortToDialogWorker,
+  })
+  DialogWorker.set(rpc)
 }
