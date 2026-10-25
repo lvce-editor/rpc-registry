@@ -5,6 +5,7 @@ import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from 
 import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as ExtensionManagementWorker from '../ExtensionManagementWorker/ExtensionManagementWorker.ts'
+import * as FileSystemWorker from '../FileSystemWorker/FileSystemWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
@@ -716,4 +717,16 @@ export const initializeProcessExplorer = async (): Promise<void> => {
     send: send4,
   })
   ProcessExplorer.set(rpc)
+}
+
+const sendFs = async (port: MessagePort): Promise<void> => {
+  await sendMessagePortToFileSystemWorker(port, 0)
+}
+
+export const initializeFileSystemWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: sendFs,
+  })
+  FileSystemWorker.set(rpc)
 }
