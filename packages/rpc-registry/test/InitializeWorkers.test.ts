@@ -58,12 +58,7 @@ test('initializes file system RPC with source id 0 and registers it', async () =
   expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
   const port = {} as MessagePort
   await createEditor.mock.calls[0][0].send(port)
-  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith(
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToFileSystemWorker',
-    port,
-    'FileSystem.handleMessagePort',
-    0,
-  )
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToFileSystemWorker', port, 'FileSystem.handleMessagePort', 0)
   await FileSystemWorker.invoke('test')
   expect(rpc.invoke).toHaveBeenCalledWith('test')
 })
@@ -74,11 +69,7 @@ test('initializes dialog RPC and registers it', async () => {
   expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
   const port = {} as MessagePort
   await createEditor.mock.calls[0][0].send(port)
-  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith(
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker',
-    port,
-    'HandleMessagePort.handleMessagePort',
-  )
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToDialogWorker', port, 'HandleMessagePort.handleMessagePort')
   await DialogWorker.invoke('test')
   expect(rpc.invoke).toHaveBeenCalledWith('test')
 })
