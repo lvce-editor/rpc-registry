@@ -21,6 +21,7 @@ jest.unstable_mockModule('@lvce-editor/rpc', () => ({
 
 const RendererWorker = await import('../src/parts/RendererWorker/RendererWorker.ts')
 const EditorWorker = await import('../src/parts/EditorWorker/EditorWorker.ts')
+const ErrorWorker = await import('../src/parts/ErrorWorker/ErrorWorker.ts')
 const FileSystemWorker = await import('../src/parts/FileSystemWorker/FileSystemWorker.ts')
 const DialogWorker = await import('../src/parts/DialogWorker/DialogWorker.ts')
 
@@ -74,8 +75,20 @@ test('initializes dialog RPC and registers it', async () => {
   expect(rpc.invoke).toHaveBeenCalledWith('test')
 })
 
+test('initializes error RPC with source id 0 and registers it', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeErrorWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToErrorWorker', port, 'Errors.handleMessagePort', 0)
+  await ErrorWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
 test.each([
   ['file system', RendererWorker.initializeFileSystemWorker],
+  ['error', RendererWorker.initializeErrorWorker],
   ['dialog', RendererWorker.initializeDialogWorker],
 ])('propagates %s initialization failures', async (_name, initialize) => {
   createEditor.mockRejectedValueOnce(new Error('connection failed'))
