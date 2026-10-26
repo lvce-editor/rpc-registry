@@ -5,6 +5,7 @@ import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from 
 import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 import * as DialogWorker from '../DialogWorker/DialogWorker.ts'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
+import * as ErrorWorker from '../ErrorWorker/ErrorWorker.ts'
 import * as ExtensionManagementWorker from '../ExtensionManagementWorker/ExtensionManagementWorker.ts'
 import * as FileSystemWorker from '../FileSystemWorker/FileSystemWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
@@ -730,6 +731,14 @@ export const initializeFileSystemWorker = async (): Promise<void> => {
     send: sendFs,
   })
   FileSystemWorker.set(rpc)
+}
+
+export const initializeErrorWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: (port: MessagePort) => sendMessagePortToErrorWorker(port, 0),
+  })
+  ErrorWorker.set(rpc)
 }
 
 export const initializeDialogWorker = async (): Promise<void> => {
