@@ -3,6 +3,7 @@ import { InputSource, RpcId } from '@lvce-editor/constants'
 import { LazyTransferMessagePortRpcParent, WebWorkerRpcClient } from '@lvce-editor/rpc'
 import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from '../WidgetLifecycleRequest/WidgetLifecycleRequest.ts'
 import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
+import * as DragAndDropWorker from '../DragAndDropWorker/DragAndDropWorker.ts'
 import * as DialogWorker from '../DialogWorker/DialogWorker.ts'
 import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as ErrorWorker from '../ErrorWorker/ErrorWorker.ts'
@@ -18,6 +19,14 @@ export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcF
 export const initializeRendererWorkerForWorker = async (commandMap: Readonly<Record<string, (...args: any[]) => any>>): Promise<void> => {
   const rpc = await WebWorkerRpcClient.create({ commandMap })
   set(rpc)
+}
+
+export const initializeDragAndDropWorker = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: sendMessagePortToDragAndDropWorker,
+  })
+  DragAndDropWorker.set(rpc)
 }
 
 export const allocateWidgetRendererId = async (): Promise<number> => {
