@@ -82,11 +82,7 @@ test('initializes drag and drop RPC and registers it', async () => {
   expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
   const port = {} as MessagePort
   await createEditor.mock.calls[0][0].send(port)
-  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith(
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess',
-    port,
-    'DragAndDrop.handleMessagePort',
-  )
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, 'DragAndDrop.handleMessagePort')
   await DragAndDropWorker.invoke('test')
   expect(rpc.invoke).toHaveBeenCalledWith('test')
 })
