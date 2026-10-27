@@ -24,6 +24,7 @@ const EditorWorker = await import('../src/parts/EditorWorker/EditorWorker.ts')
 const ErrorWorker = await import('../src/parts/ErrorWorker/ErrorWorker.ts')
 const FileSystemWorker = await import('../src/parts/FileSystemWorker/FileSystemWorker.ts')
 const DialogWorker = await import('../src/parts/DialogWorker/DialogWorker.ts')
+const DragAndDropWorker = await import('../src/parts/DragAndDropWorker/DragAndDropWorker.ts')
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -75,6 +76,17 @@ test('initializes dialog RPC and registers it', async () => {
   expect(rpc.invoke).toHaveBeenCalledWith('test')
 })
 
+test('initializes drag and drop RPC and registers it', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeDragAndDropWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToRendererProcess', port, 'DragAndDrop.handleMessagePort')
+  await DragAndDropWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
 test('initializes error RPC with source id 0 and registers it', async () => {
   RendererWorker.set(rpc)
   await RendererWorker.initializeErrorWorker()
@@ -90,6 +102,7 @@ test.each([
   ['file system', RendererWorker.initializeFileSystemWorker],
   ['error', RendererWorker.initializeErrorWorker],
   ['dialog', RendererWorker.initializeDialogWorker],
+  ['drag and drop', RendererWorker.initializeDragAndDropWorker],
 ])('propagates %s initialization failures', async (_name, initialize) => {
   createEditor.mockRejectedValueOnce(new Error('connection failed'))
   await expect(initialize()).rejects.toThrow('connection failed')
