@@ -30,3 +30,7 @@ export const measureTextWidths = async (
 export const ensureFont = async (fontName: string, fontUrl: string): Promise<void> => {
   return invoke('TextMeasurement.ensureFont', fontName, fontUrl)
 }
+
+export const measureTextBlockHeight = async (text: string, fontFamily: string, fontSize: number, lineHeight: number | string, width: number): Promise<number> => {
+  return invoke('TextMeasurement.measureTextBlockHeight', text, fontFamily, fontSize, lineHeight, width)
+}
