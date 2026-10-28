@@ -23,6 +23,9 @@ const RendererWorker = await import('../src/parts/RendererWorker/RendererWorker.
 const EditorWorker = await import('../src/parts/EditorWorker/EditorWorker.ts')
 const ErrorWorker = await import('../src/parts/ErrorWorker/ErrorWorker.ts')
 const FileSystemWorker = await import('../src/parts/FileSystemWorker/FileSystemWorker.ts')
+const MainAreaWorker = await import('../src/parts/MainAreaWorker/MainAreaWorker.ts')
+const ExtensionManagementWorker = await import('../src/parts/ExtensionManagementWorker/ExtensionManagementWorker.ts')
+const OpenerWorker = await import('../src/parts/OpenerWorker/OpenerWorker.ts')
 const DialogWorker = await import('../src/parts/DialogWorker/DialogWorker.ts')
 const DragAndDropWorker = await import('../src/parts/DragAndDropWorker/DragAndDropWorker.ts')
 
@@ -98,11 +101,79 @@ test('initializes error RPC with source id 0 and registers it', async () => {
   expect(rpc.invoke).toHaveBeenCalledWith('test')
 })
 
+test('initializes worker error RPC with the test worker source id', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeErrorWorkerForWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToExtensionHostWorker.sendMessagePortToErrorWorker', port, 'Errors.handleMessagePort', RpcId.TestWorker)
+  await ErrorWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
+test('initializes worker main area RPC with the test worker source id', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeMainAreaWorkerForWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith(
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker',
+    port,
+    'MainArea.handleTestWorkerMessagePort',
+    RpcId.TestWorker,
+  )
+  await MainAreaWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
+test('initializes extension management RPC and registers it', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeExtensionManagementWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith(
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker',
+    port,
+    'Extensions.handleMessagePort',
+    RpcId.TestWorker,
+  )
+  await ExtensionManagementWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
+test('initializes opener RPC and registers it', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeOpenerWorkerForWorker()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith(
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToOpenerWorker',
+    port,
+    'HandleMessagePort.handleMessagePort',
+    RpcId.TestWorker,
+  )
+  await OpenerWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
 test.each([
   ['file system', RendererWorker.initializeFileSystemWorker],
   ['error', RendererWorker.initializeErrorWorker],
   ['dialog', RendererWorker.initializeDialogWorker],
   ['drag and drop', RendererWorker.initializeDragAndDropWorker],
+])('propagates %s initialization failures', async (_name, initialize) => {
+  createEditor.mockRejectedValueOnce(new Error('connection failed'))
+  await expect(initialize()).rejects.toThrow('connection failed')
+})
+
+test.each([
+  ['worker error', RendererWorker.initializeErrorWorkerForWorker],
+  ['worker main area', RendererWorker.initializeMainAreaWorkerForWorker],
+  ['worker opener', RendererWorker.initializeOpenerWorkerForWorker],
 ])('propagates %s initialization failures', async (_name, initialize) => {
   createEditor.mockRejectedValueOnce(new Error('connection failed'))
   await expect(initialize()).rejects.toThrow('connection failed')

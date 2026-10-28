@@ -9,6 +9,7 @@ import * as EditorWorker from '../EditorWorker/EditorWorker.ts'
 import * as ErrorWorker from '../ErrorWorker/ErrorWorker.ts'
 import * as ExtensionManagementWorker from '../ExtensionManagementWorker/ExtensionManagementWorker.ts'
 import * as FileSystemWorker from '../FileSystemWorker/FileSystemWorker.ts'
+import * as MainAreaWorker from '../MainAreaWorker/MainAreaWorker.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
@@ -19,6 +20,22 @@ export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcF
 export const initializeRendererWorkerForWorker = async (commandMap: Readonly<Record<string, (...args: any[]) => any>>): Promise<void> => {
   const rpc = await WebWorkerRpcClient.create({ commandMap })
   set(rpc)
+}
+
+export const initializeErrorWorkerForWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: (port: MessagePort) => sendMessagePortToErrorWorker(port, sourceId),
+  })
+  ErrorWorker.set(rpc)
+}
+
+export const initializeMainAreaWorkerForWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: (port: MessagePort) => invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker', port, 'MainArea.handleTestWorkerMessagePort', sourceId),
+  })
+  MainAreaWorker.set(rpc)
 }
 
 export const initializeDragAndDropWorker = async (): Promise<void> => {
@@ -670,6 +687,14 @@ export const initializeOpenerWorker = async (): Promise<void> => {
   const rpc = await LazyTransferMessagePortRpcParent.create({
     commandMap: {},
     send,
+  })
+  OpenerWorker.set(rpc)
+}
+
+export const initializeOpenerWorkerForWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: (port: MessagePort) => sendMessagePortToOpenerWorker(port, sourceId),
   })
   OpenerWorker.set(rpc)
 }
