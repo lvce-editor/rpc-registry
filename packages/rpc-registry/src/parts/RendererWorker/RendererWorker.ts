@@ -1,7 +1,8 @@
 import * as Assert from '@lvce-editor/assert'
 import { InputSource, RpcId } from '@lvce-editor/constants'
-import { LazyTransferMessagePortRpcParent, WebWorkerRpcClient } from '@lvce-editor/rpc'
+import { LazyTransferMessagePortRpcParent, PlainMessagePortRpc, WebWorkerRpcClient, type Rpc } from '@lvce-editor/rpc'
 import type { WidgetLifecycleAttachRequest, WidgetLifecycleRemoveRequest } from '../WidgetLifecycleRequest/WidgetLifecycleRequest.ts'
+import * as AuthProcess from '../AuthProcess/AuthProcess.ts'
 import * as ClipBoardWorker from '../ClipBoardWorker/ClipBoardWorker.ts'
 import * as DialogWorker from '../DialogWorker/DialogWorker.ts'
 import * as DragAndDropWorker from '../DragAndDropWorker/DragAndDropWorker.ts'
@@ -10,6 +11,7 @@ import * as ErrorWorker from '../ErrorWorker/ErrorWorker.ts'
 import * as ExtensionManagementWorker from '../ExtensionManagementWorker/ExtensionManagementWorker.ts'
 import * as FileSystemWorker from '../FileSystemWorker/FileSystemWorker.ts'
 import * as MainAreaWorker from '../MainAreaWorker/MainAreaWorker.ts'
+import * as MainProcess from '../MainProcess/MainProcess.ts'
 import * as OpenerWorker from '../OpenerWorker/OpenerWorker.ts'
 import * as ProcessExplorer from '../ProcessExplorer/ProcessExplorer.ts'
 import * as RpcFactory from '../RpcFactory/RpcFactory.ts'
@@ -20,6 +22,87 @@ export const { dispose, invoke, invokeAndTransfer, registerMockRpc, set } = RpcF
 export const initializeRendererWorkerForWorker = async (commandMap: Readonly<Record<string, (...args: any[]) => any>>): Promise<void> => {
   const rpc = await WebWorkerRpcClient.create({ commandMap })
   set(rpc)
+}
+
+const createAuthProcessRpc = (create: () => Promise<Rpc>): Rpc => {
+  let pending: Promise<Rpc> | undefined
+  const get = (): Promise<Rpc> => {
+    if (!pending) {
+      pending = create()
+    }
+    return pending
+  }
+  return {
+    async dispose(): Promise<void> {
+      const previous = pending
+      pending = undefined
+      if (previous) {
+        const rpc = await previous
+        await rpc.dispose()
+      }
+    },
+    async invoke(method: string, ...params: readonly unknown[]): Promise<any> {
+      const rpc = await get()
+      return rpc.invoke(method, ...params)
+    },
+    async invokeAndTransfer(method: string, ...params: readonly unknown[]): Promise<any> {
+      const rpc = await get()
+      return rpc.invokeAndTransfer(method, ...params)
+    },
+    send(method: string, ...params: readonly unknown[]): void {
+      void get().then((rpc) => rpc.send(method, ...params))
+    },
+  }
+}
+
+export const initializeAuthProcess = async (): Promise<void> => {
+  const rpc = createAuthProcessRpc(async () => {
+    const { port1, port2 } = new MessageChannel()
+    let resolveClosed!: (error: Error) => void
+    // Promise.withResolvers requires Node 22, while this package supports Node 16.
+    // eslint-disable-next-line unicorn/prefer-promise-with-resolvers
+    const closed = new Promise<Error>((resolve) => {
+      resolveClosed = resolve
+    })
+    const handleClose = (): void => resolveClosed(new Error('Auth process connection closed'))
+    port2.addEventListener('close', handleClose, { once: true })
+    const failOnClose = async (): Promise<never> => {
+      throw await closed
+    }
+    const raceClose = (promise: Readonly<Promise<unknown>>): Promise<any> => Promise.race([promise, failOnClose()])
+    try {
+      await raceClose(
+        invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess', port1, 'HandleMessagePortForAuthProcess.handleMessagePortForAuthProcess'),
+      )
+      const messagePortRpc = await PlainMessagePortRpc.create({ commandMap: {}, messagePort: port2 })
+      return {
+        async dispose(): Promise<void> {
+          handleClose()
+          port2.removeEventListener('close', handleClose)
+          await messagePortRpc.dispose()
+        },
+        invoke: (method: string, ...params: readonly unknown[]): Promise<any> => raceClose(messagePortRpc.invoke(method, ...params)),
+        invokeAndTransfer: (method: string, ...params: readonly unknown[]): Promise<any> => raceClose(messagePortRpc.invokeAndTransfer(method, ...params)),
+        send: messagePortRpc.send,
+      }
+    } catch (error) {
+      port2.removeEventListener('close', handleClose)
+      port1.close()
+      port2.close()
+      throw error
+    }
+  })
+  AuthProcess.set(rpc)
+}
+
+export const initializeMainProcess = async (): Promise<void> => {
+  const rpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    send: async (port: MessagePort): Promise<void> => {
+      await invokeAndTransfer('SendMessagePortToMainProcess.sendMessagePortToMainProcess', port, 'HandleElectronMessagePort.handleElectronMessagePort', 0)
+    },
+  })
+  MainProcess.set(rpc)
 }
 
 export const initializeErrorWorkerForWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
