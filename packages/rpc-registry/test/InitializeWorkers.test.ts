@@ -16,16 +16,24 @@ const createEditor = jest.fn<(options: { commandMap: object; send: (port: Messag
 jest.unstable_mockModule('@lvce-editor/rpc', () => ({
   createMockRpc: jest.fn(),
   LazyTransferMessagePortRpcParent: { create: createEditor },
+  PlainMessagePortRpc: {
+    create: async (): Promise<Rpc> => ({
+      ...rpc,
+      invoke: jest.fn((): Promise<never> => new Promise(() => {})),
+    }),
+  },
   WebWorkerRpcClient: { create: createRenderer },
 }))
 
 const RendererWorker = await import('../src/parts/RendererWorker/RendererWorker.ts')
+const AuthProcess = await import('../src/parts/AuthProcess/AuthProcess.ts')
 const EditorWorker = await import('../src/parts/EditorWorker/EditorWorker.ts')
 const ErrorWorker = await import('../src/parts/ErrorWorker/ErrorWorker.ts')
 const FileSystemWorker = await import('../src/parts/FileSystemWorker/FileSystemWorker.ts')
 const MainAreaWorker = await import('../src/parts/MainAreaWorker/MainAreaWorker.ts')
 const ExtensionManagementWorker = await import('../src/parts/ExtensionManagementWorker/ExtensionManagementWorker.ts')
 const OpenerWorker = await import('../src/parts/OpenerWorker/OpenerWorker.ts')
+const MainProcess = await import('../src/parts/MainProcess/MainProcess.ts')
 const DialogWorker = await import('../src/parts/DialogWorker/DialogWorker.ts')
 const DragAndDropWorker = await import('../src/parts/DragAndDropWorker/DragAndDropWorker.ts')
 
@@ -38,6 +46,43 @@ test('initializes renderer RPC with the worker command map and registers it', as
   await RendererWorker.initializeRendererWorkerForWorker(commandMap)
   expect(createRenderer).toHaveBeenCalledWith({ commandMap })
   await RendererWorker.invoke('test')
+  expect(rpc.invoke).toHaveBeenCalledWith('test')
+})
+
+test('initializes auth process RPC lazily and rejects calls after peer closure', async () => {
+  let resolveReceived!: (port: MessagePort) => void
+  // Promise.withResolvers requires Node 22, while this package supports Node 16.
+  // eslint-disable-next-line unicorn/prefer-promise-with-resolvers
+  const received = new Promise<MessagePort>((resolve) => {
+    resolveReceived = resolve
+  })
+  const invokeAndTransfer = jest.fn(async (_method: string, port: MessagePort, _command: string) => resolveReceived(port))
+  RendererWorker.set({
+    ...rpc,
+    invokeAndTransfer,
+  })
+  await RendererWorker.initializeAuthProcess()
+  expect(invokeAndTransfer).not.toHaveBeenCalled()
+  const pendingCall = AuthProcess.invoke('test')
+  const port = await received
+  expect(invokeAndTransfer).toHaveBeenCalledWith(
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToSharedProcess',
+    expect.anything(),
+    'HandleMessagePortForAuthProcess.handleMessagePortForAuthProcess',
+  )
+  port.close()
+  await expect(pendingCall).rejects.toThrow('Auth process connection closed')
+  await AuthProcess.dispose()
+})
+
+test('initializes main process RPC lazily with source id zero', async () => {
+  RendererWorker.set(rpc)
+  await RendererWorker.initializeMainProcess()
+  expect(createEditor).toHaveBeenCalledWith({ commandMap: {}, send: expect.any(Function) })
+  const port = {} as MessagePort
+  await createEditor.mock.calls[0][0].send(port)
+  expect(rpc.invokeAndTransfer).toHaveBeenCalledWith('SendMessagePortToMainProcess.sendMessagePortToMainProcess', port, 'HandleElectronMessagePort.handleElectronMessagePort', 0)
+  await MainProcess.invoke('test')
   expect(rpc.invoke).toHaveBeenCalledWith('test')
 })
 
