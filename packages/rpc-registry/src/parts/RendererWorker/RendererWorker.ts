@@ -95,38 +95,33 @@ export const initializeAuthProcess = async (): Promise<void> => {
   AuthProcess.set(rpc)
 }
 
-export const initializeMainProcess = async (): Promise<void> => {
+const initializeLazyTransferPortRpc = async (sendPort: (port: MessagePort) => Promise<void>, setRpc: (rpc: Rpc) => void): Promise<void> => {
   const rpc = await LazyTransferMessagePortRpcParent.create({
     commandMap: {},
-    send: async (port: MessagePort): Promise<void> => {
-      await invokeAndTransfer('SendMessagePortToMainProcess.sendMessagePortToMainProcess', port, 'HandleElectronMessagePort.handleElectronMessagePort', 0)
-    },
+    send: sendPort,
   })
-  MainProcess.set(rpc)
+  setRpc(rpc)
+}
+
+export const initializeMainProcess = async (): Promise<void> => {
+  await initializeLazyTransferPortRpc(async (port: MessagePort): Promise<void> => {
+    await invokeAndTransfer('SendMessagePortToMainProcess.sendMessagePortToMainProcess', port, 'HandleElectronMessagePort.handleElectronMessagePort', 0)
+  }, MainProcess.set)
 }
 
 export const initializeErrorWorkerForWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: (port: MessagePort) => sendMessagePortToErrorWorker(port, sourceId),
-  })
-  ErrorWorker.set(rpc)
+  await initializeLazyTransferPortRpc((port: MessagePort) => sendMessagePortToErrorWorker(port, sourceId), ErrorWorker.set)
 }
 
 export const initializeMainAreaWorkerForWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: (port: MessagePort) => invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker', port, 'MainArea.handleTestWorkerMessagePort', sourceId),
-  })
-  MainAreaWorker.set(rpc)
+  await initializeLazyTransferPortRpc(
+    (port: MessagePort) => invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker', port, 'MainArea.handleTestWorkerMessagePort', sourceId),
+    MainAreaWorker.set,
+  )
 }
 
 export const initializeDragAndDropWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: sendMessagePortToDragAndDropWorker,
-  })
-  DragAndDropWorker.set(rpc)
+  await initializeLazyTransferPortRpc(sendMessagePortToDragAndDropWorker, DragAndDropWorker.set)
 }
 
 export const allocateWidgetRendererId = async (): Promise<number> => {
@@ -767,19 +762,11 @@ const send = async (port: MessagePort, sourceId = 0): Promise<void> => {
 }
 
 export const initializeOpenerWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send,
-  })
-  OpenerWorker.set(rpc)
+  await initializeLazyTransferPortRpc(send, OpenerWorker.set)
 }
 
 export const initializeOpenerWorkerForWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: (port: MessagePort) => sendMessagePortToOpenerWorker(port, sourceId),
-  })
-  OpenerWorker.set(rpc)
+  await initializeLazyTransferPortRpc((port: MessagePort) => sendMessagePortToOpenerWorker(port, sourceId), OpenerWorker.set)
 }
 
 const send12 = async (port: MessagePort, sourceId = 0): Promise<void> => {
@@ -787,19 +774,11 @@ const send12 = async (port: MessagePort, sourceId = 0): Promise<void> => {
 }
 
 export const initializeClipBoardWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: send12,
-  })
-  ClipBoardWorker.set(rpc)
+  await initializeLazyTransferPortRpc(send12, ClipBoardWorker.set)
 }
 
 export const initializeEditorWorker = async (sourceId: number = RpcId.TestWorker): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: (port: MessagePort) => sendMessagePortToEditorWorker(port, sourceId),
-  })
-  EditorWorker.set(rpc)
+  await initializeLazyTransferPortRpc((port: MessagePort) => sendMessagePortToEditorWorker(port, sourceId), EditorWorker.set)
 }
 
 const send22 = async (port: MessagePort): Promise<void> => {
@@ -807,11 +786,7 @@ const send22 = async (port: MessagePort): Promise<void> => {
 }
 
 export const initializeExtensionManagementWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: send22,
-  })
-  ExtensionManagementWorker.set(rpc)
+  await initializeLazyTransferPortRpc(send22, ExtensionManagementWorker.set)
 }
 
 const send3 = (port: MessagePort): Promise<void> => {
@@ -819,11 +794,7 @@ const send3 = (port: MessagePort): Promise<void> => {
 }
 
 export const initializeTextMeasurementWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: send3,
-  })
-  TextMeasurementWorker.set(rpc)
+  await initializeLazyTransferPortRpc(send3, TextMeasurementWorker.set)
 }
 
 const send4 = (port: MessagePort): Promise<void> => {
@@ -831,11 +802,7 @@ const send4 = (port: MessagePort): Promise<void> => {
 }
 
 export const initializeProcessExplorer = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: send4,
-  })
-  ProcessExplorer.set(rpc)
+  await initializeLazyTransferPortRpc(send4, ProcessExplorer.set)
 }
 
 const sendFs = async (port: MessagePort): Promise<void> => {
@@ -843,25 +810,13 @@ const sendFs = async (port: MessagePort): Promise<void> => {
 }
 
 export const initializeFileSystemWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: sendFs,
-  })
-  FileSystemWorker.set(rpc)
+  await initializeLazyTransferPortRpc(sendFs, FileSystemWorker.set)
 }
 
 export const initializeErrorWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: (port: MessagePort) => sendMessagePortToErrorWorker(port, 0),
-  })
-  ErrorWorker.set(rpc)
+  await initializeLazyTransferPortRpc((port: MessagePort) => sendMessagePortToErrorWorker(port, 0), ErrorWorker.set)
 }
 
 export const initializeDialogWorker = async (): Promise<void> => {
-  const rpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    send: sendMessagePortToDialogWorker,
-  })
-  DialogWorker.set(rpc)
+  await initializeLazyTransferPortRpc(sendMessagePortToDialogWorker, DialogWorker.set)
 }
